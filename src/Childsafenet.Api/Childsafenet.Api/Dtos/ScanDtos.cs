@@ -1,12 +1,19 @@
-﻿namespace Childsafenet.Api.Dtos;
+﻿using System.Text.Json.Serialization;
 
-public record ScanRequest(string Url, string? Title, string? Text, string Source);
+namespace Childsafenet.Api.Dtos;
+
+public record ScanRequest(
+    [property: JsonPropertyName("url")] string Url,
+    [property: JsonPropertyName("title")] string? Title,
+    [property: JsonPropertyName("text")] string? Text,
+    [property: JsonPropertyName("source")] string Source
+);
 
 public record ScanResult(
-    string RiskLevel,
-    string Label,
-    double Score,
-    string Action,
-    List<string> Explanation,
-    Dictionary<string, object>? Meta
+    [property: JsonPropertyName("risk_level")] string RiskLevel,
+    [property: JsonPropertyName("label")] string Label,
+    [property: JsonPropertyName("score")] double Score,
+    [property: JsonPropertyName("action")] string Action,
+    [property: JsonPropertyName("explanation")] List<string> Explanation,
+    [property: JsonPropertyName("meta")] Dictionary<string, object>? Meta
 );

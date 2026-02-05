@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Blocked - ChildSafeNet</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#0b1220; color:#e6edf7; margin:0; }
+    .wrap { max-width: 720px; margin: 60px auto; padding: 20px; }
+    .card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 18px; }
+    .title { font-size: 26px; font-weight: 800; margin: 0 0 8px; }
+    .muted { opacity: 0.8; }
+    .btn { margin-top: 12px; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.06); color:#e6edf7; cursor:pointer;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="title">🚫 Trang này đã bị chặn</div>
+      <div class="muted">ChildSafeNet phát hiện nội dung/URL có rủi ro với trẻ em.</div>
+
+      <div style="margin-top:12px;">
+        <b>URL:</b> <span id="url" class="muted"></span>
+      </div>
+
+      <button class="btn" id="back">Quay lại</button>
+    </div>
+  </div>
+
+  <script>
+    const url = new URL(location.href).searchParams.get("u") || "";
+    document.getElementById("url").textContent = url || "(unknown)";
+    document.getElementById("back").addEventListener("click", () => history.back());
+  </script>
+</body>
+</html>

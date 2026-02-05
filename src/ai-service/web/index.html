@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ChildSafeNet Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; max-width: 980px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 900px) { .row { grid-template-columns: 1fr; } }
+    label { font-weight: 600; display: block; margin: 12px 0 6px; }
+    input, textarea, select, button { width: 100%; padding: 10px; font-size: 14px; }
+    textarea { min-height: 160px; }
+    button { cursor: pointer; margin-top: 14px; }
+    .card { border: 1px solid #ddd; border-radius: 10px; padding: 14px; }
+    .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 12px; border: 1px solid #aaa; }
+    .ok { border-color: #2e7d32; }
+    .warn { border-color: #f9a825; }
+    .bad { border-color: #c62828; }
+    pre { background: #f6f6f6; padding: 12px; border-radius: 10px; overflow:auto; }
+  </style>
+</head>
+<body>
+  <h1>ChildSafeNet – Web Demo</h1>
+  <p>Nhập URL + tiêu đề + nội dung (optional) để model trả về nhãn + risk score.</p>
+
+  <div class="row">
+    <div class="card">
+      <label>URL</label>
+      <input id="url" placeholder="https://example.com" />
+
+      <label>Title (optional)</label>
+      <input id="title" placeholder="Tiêu đề trang..." />
+
+      <label>Text / HTML text (optional)</label>
+      <textarea id="text" placeholder="Dán nội dung text hoặc mô tả..."></textarea>
+
+      <label>Độ tuổi trẻ (demo)</label>
+      <select id="age">
+        <option value="6">6</option>
+        <option value="10" selected>10</option>
+        <option value="13">13</option>
+        <option value="16">16</option>
+      </select>
+
+      <button id="btn">Phân tích</button>
+    </div>
+
+    <div class="card">
+      <h3>Kết quả</h3>
+      <div id="summary">Chưa chạy...</div>
+
+      <h3>Response JSON</h3>
+      <pre id="raw">{}</pre>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>

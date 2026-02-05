@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Net.Http.Json;
+using System.Security.Claims;
 using System.Text.Json;
 using Childsafenet.Api.Data;
 using Childsafenet.Api.Dtos;
@@ -17,6 +18,8 @@ public class ScanController : ControllerBase
 {
     private readonly AppDbContext _db;
     private readonly AiClient _ai;
+
+    private const bool ENABLE_FALLBACK_WHEN_AI_FAILS = true;
 
     public ScanController(AppDbContext db, AiClient ai)
     {
@@ -51,7 +54,6 @@ public class ScanController : ControllerBase
         try { whitelist = JsonSerializer.Deserialize<List<string>>(settings.WhitelistJson) ?? []; } catch { }
         try { blacklist = JsonSerializer.Deserialize<List<string>>(settings.BlacklistJson) ?? []; } catch { }
 
-        // blacklist/whitelist override
         if (!string.IsNullOrEmpty(host) && blacklist.Any(d => host.EndsWith(d.ToLower())))
         {
             var forced = new ScanResult("HIGH", "blacklist", 1.0, "BLOCK",
@@ -72,10 +74,41 @@ public class ScanController : ControllerBase
             return Ok(forced);
         }
 
-        // call AI
-        var aiRes = await _ai.PredictAsync(req.Url, req.Title, req.Text, settings.ChildAge, ct);
+        ScanResult aiRes;
+        try
+        {
+            aiRes = await _ai.PredictAsync(req.Url, req.Title, req.Text, settings.ChildAge, ct);
+        }
+        catch (Exception ex)
+        {
+            if (!ENABLE_FALLBACK_WHEN_AI_FAILS)
+            {
+                return StatusCode(500, new
+                {
+                    message = "AI service error",
+                    error_type = ex.GetType().Name,
+                    error = ex.Message
+                });
+            }
 
-        // apply toggles (demo-level)
+            aiRes = new ScanResult(
+                RiskLevel: "MEDIUM",
+                Label: "ai_error",
+                Score: 0.0,
+                Action: "WARN",
+                Explanation: new List<string>
+                {
+                    "AI service failed. Fallback to WARN for demo.",
+                    ex.Message
+                },
+                Meta: new Dictionary<string, object>
+                {
+                    ["fallback"] = true,
+                    ["host"] = host
+                }
+            );
+        }
+
         var labelLower = (aiRes.Label ?? "").ToLower();
         var finalAction = aiRes.Action;
 

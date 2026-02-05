@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ChildSafeNet</title>
+  <style>
+    body { font-family: Arial, sans-serif; width: 320px; padding: 12px; }
+    .row { display: flex; gap: 8px; margin-top: 10px; }
+    input, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+    button { padding: 8px 10px; cursor: pointer; }
+    .muted { color: #666; font-size: 12px; }
+    .ok { color: #0a7a28; font-weight: 700; }
+    .bad { color: #b00020; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h3 style="margin:0 0 6px;">ChildSafeNet</h3>
+  <div class="muted">Paste JWT token (lấy từ web login / swagger). Extension sẽ gọi /api/scan.</div>
+
+  <div style="margin-top:10px;">
+    <label class="muted">JWT Token</label>
+    <textarea id="token" rows="4" placeholder="eyJhbGciOi..."></textarea>
+  </div>
+
+  <div class="row">
+    <button id="save">Save</button>
+    <button id="clear">Clear</button>
+  </div>
+
+  <hr style="margin:12px 0;" />
+
+  <div class="muted">Test scan tab hiện tại:</div>
+  <div class="row">
+    <button id="test">Scan current tab</button>
+  </div>
+
+  <div id="status" style="margin-top:10px;"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
