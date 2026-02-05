@@ -416,3 +416,11 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# AI models / artifacts
+src/ai-service/model/*.pkl
+src/ai-service/model/*.joblib
+src/ai-service/model/*.onnx
+src/ai-service/model/*.pt
+src/ai-service/model/*.h5
+src/ai-service/model/*.zip
