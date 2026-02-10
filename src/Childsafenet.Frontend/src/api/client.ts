@@ -3,6 +3,12 @@ import { http } from "./http";
 export type LoginRequest = { email: string; password: string };
 export type AuthResponse = { token: string };
 
+export type RegisterRequest = {
+  email: string;
+  password: string;
+  fullName?: string;
+};
+
 export type ScanRequest = {
   url: string;
   title?: string;
@@ -55,6 +61,11 @@ export type TrainJob = {
 
 export async function loginApi(payload: LoginRequest) {
   const res = await http.post<AuthResponse>("/api/auth/login", payload);
+  return res.data;
+}
+
+export async function registerApi(payload: RegisterRequest) {
+  const res = await http.post<AuthResponse>("/api/auth/register", payload);
   return res.data;
 }
 

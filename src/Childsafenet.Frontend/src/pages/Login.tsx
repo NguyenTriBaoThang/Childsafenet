@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
+import AlreadyLoggedIn from "../components/AlreadyLoggedIn";
 
 export default function Login() {
   const nav = useNavigate();
   const auth = useAuth();
+  const { isAuthed } = useAuth();
 
   const [email, setEmail] = useState("parent1@test.com");
   const [password, setPassword] = useState("123456");
   const [err, setErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  if (isAuthed) {
+    return <AlreadyLoggedIn />;
+  }
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

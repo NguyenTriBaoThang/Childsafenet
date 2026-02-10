@@ -4,6 +4,7 @@ import { AppShell } from "./components/AppShell";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Scan from "./pages/Scan";
 
@@ -36,6 +37,13 @@ export default function App() {
               <Scan />
             </ProtectedRoute>
           }
+        />
+
+        <Route 
+          path="/register" 
+          element={
+            <Register />
+          } 
         />
 
         {/* Admin only */}

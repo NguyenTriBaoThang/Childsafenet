@@ -23,9 +23,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </NavLink>
 
           {!isAuthed ? (
-            <NavLink to="/login" className={linkClass}>
-              Login
-            </NavLink>
+            <>
+              <NavLink to="/login" className={linkClass}>
+                Login
+              </NavLink>
+              <NavLink to="/register" className={linkClass}>
+                Register
+              </NavLink>
+            </>
           ) : (
             <>
               {/* Parent menu */}
