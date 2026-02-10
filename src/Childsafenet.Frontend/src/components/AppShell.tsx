@@ -15,15 +15,48 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </Link>
 
         <nav className="nav">
-          <NavLink to="/" className={({ isActive }) => (isActive ? "navLink active" : "navLink")}>Home</NavLink>
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+          >
+            Home
+          </NavLink>
+
           {isAuthed ? (
             <>
-              <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "navLink active" : "navLink")}>Dashboard</NavLink>
-              <NavLink to="/scan" className={({ isActive }) => (isActive ? "navLink active" : "navLink")}>Scan</NavLink>
-              <Button variant="ghost" onClick={logout}>Logout</Button>
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+              >
+                Dashboard
+              </NavLink>
+
+              <NavLink
+                to="/scan"
+                className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+              >
+                Scan
+              </NavLink>
+
+              {/* ✅ Option B */}
+              <NavLink
+                to="/dataset"
+                className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+              >
+                Dataset
+              </NavLink>
+
+              <Button variant="ghost" onClick={logout}>
+                Logout
+              </Button>
             </>
           ) : (
-            <NavLink to="/login" className={({ isActive }) => (isActive ? "navLink active" : "navLink")}>Login</NavLink>
+            <NavLink
+              to="/login"
+              className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
+            >
+              Login
+            </NavLink>
           )}
         </nav>
       </header>

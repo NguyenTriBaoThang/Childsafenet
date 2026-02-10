@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Scan from "./pages/Scan";
+import Dataset from "./pages/Dataset"; // ✅ thêm file này
 import { ProtectedRoute } from "./auth/ProtectedRoute";
 
 export default function App() {
@@ -28,6 +29,15 @@ export default function App() {
           element={
             <ProtectedRoute>
               <Scan />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/dataset"
+          element={
+            <ProtectedRoute>
+              <Dataset />
             </ProtectedRoute>
           }
         />

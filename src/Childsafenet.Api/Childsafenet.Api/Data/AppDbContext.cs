@@ -10,6 +10,9 @@ public class AppDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<UserSettings> UserSettings => Set<UserSettings>();
     public DbSet<ScanLog> ScanLogs => Set<ScanLog>();
+    public DbSet<UrlDataset> UrlDatasets => Set<UrlDataset>();
+    public DbSet<UrlFeedback> UrlFeedbacks => Set<UrlFeedback>();
+    public DbSet<ModelRegistry> ModelRegistries => Set<ModelRegistry>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

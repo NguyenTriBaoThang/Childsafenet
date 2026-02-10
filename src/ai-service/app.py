@@ -9,34 +9,73 @@ from urllib.parse import urlparse
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 import joblib
 
 
-# =============================
+# ======================================================
 # Utils
-# =============================
+# ======================================================
 def safe_str(x: Optional[str]) -> str:
     return (x or "").strip()
 
+def normalize_url(url: str) -> str:
+    # remove spaces only, keep original characters
+    return re.sub(r"\s+", "", safe_str(url))
+
+def host_of(url: str) -> str:
+    try:
+        u = url if "://" in url else "http://" + url
+        return (urlparse(u).hostname or "").lower()
+    except Exception:
+        return ""
 
 def has_ip(host: str) -> bool:
-    # IPv4 đơn giản
-    return bool(re.fullmatch(r"(\d{1,3}\.){3}\d{1,3}", host))
+    return bool(re.fullmatch(r"(\d{1,3}\.){3}\d{1,3}", host or ""))
 
+def is_private_host(host: str) -> bool:
+    """
+    allow local/private:
+    - localhost, 127.0.0.1
+    - 10.0.0.0/8
+    - 192.168.0.0/16
+    - 172.16.0.0/12 (172.16 -> 172.31)
+    - *.local
+    """
+    if not host:
+        return False
+    h = host.lower()
+
+    if h in {"localhost", "127.0.0.1"}:
+        return True
+    if h.endswith(".local"):
+        return True
+
+    if has_ip(h):
+        parts = h.split(".")
+        try:
+            a, b = int(parts[0]), int(parts[1])
+        except Exception:
+            return False
+
+        if a == 10:
+            return True
+        if a == 192 and b == 168:
+            return True
+        if a == 172 and (16 <= b <= 31):
+            return True
+
+    return False
 
 def count_subdomains(host: str) -> int:
-    # vd: a.b.c.com -> subdomains=3 (a,b,c) + tld part
-    parts = [p for p in host.split(".") if p]
-    return max(0, len(parts) - 2)  # trừ domain + tld
-
+    parts = [p for p in (host or "").split(".") if p]
+    return max(0, len(parts) - 2)
 
 def shannon_entropy(s: str) -> float:
     if not s:
         return 0.0
-    freq = {}
+    freq: Dict[str, int] = {}
     for ch in s:
         freq[ch] = freq.get(ch, 0) + 1
     ent = 0.0
@@ -46,173 +85,144 @@ def shannon_entropy(s: str) -> float:
         ent -= p * math.log2(p)
     return float(ent)
 
+def normalize_label(label: str) -> str:
+    l = (label or "").strip().lower()
+    if l in {"porn", "xxx"}:
+        return "adult"
+    return l
 
-# =============================
-# 58 URL-based features
-# =============================
+def pipeline_input(url: str) -> str:
+    """
+    Input cho pipeline train từ URL string:
+    - lower
+    - remove scheme
+    - remove leading www.
+    """
+    u = normalize_url(url).lower()
+    u = re.sub(r"^https?://", "", u)
+    u = re.sub(r"^www\.", "", u)
+    return u
+
+
+# ======================================================
+# 58 URL FEATURES (RF)
+# ======================================================
 def extract_url_features(url: str) -> np.ndarray:
     """
-    Trả về numpy array shape (1, 58)
-    Feature set theo kiểu phổ biến trong bài toán phishing/malicious URL detection.
-    Quan trọng: số feature = 58 để khớp RF model của bạn.
+    IMPORTANT: phải luôn ra (1,58) để khớp RF.
     """
-    url = safe_str(url)
-
     parsed = urlparse(url if "://" in url else "http://" + url)
 
-    scheme = safe_str(parsed.scheme).lower()
-    host = safe_str(parsed.netloc).lower()
-    path = safe_str(parsed.path)
-    query = safe_str(parsed.query)
-    fragment = safe_str(parsed.fragment)
+    scheme = (parsed.scheme or "").lower()
+    host = (parsed.netloc or "").lower()
+    path = parsed.path or ""
+    query = parsed.query or ""
 
-    # normalize host (loại bỏ port)
-    if ":" in host:
-        host_no_port = host.split(":")[0]
-        port_part = host.split(":")[1]
-    else:
-        host_no_port = host
-        port_part = ""
+    # strip port
+    host_no_port = host.split(":")[0] if ":" in host else host
 
-    # tokens
     full = url
+
     host_tokens = [t for t in re.split(r"[.\-]", host_no_port) if t]
     path_tokens = [t for t in re.split(r"[\/\-_.]", path) if t]
     query_tokens = [t for t in re.split(r"[=&\-_.]", query) if t]
 
-    digits_in_url = sum(ch.isdigit() for ch in full)
-    digits_in_host = sum(ch.isdigit() for ch in host_no_port)
-    letters_in_url = sum(ch.isalpha() for ch in full)
+    digits_in_url = sum(c.isdigit() for c in full)
+    digits_in_host = sum(c.isdigit() for c in host_no_port)
+    letters_in_url = sum(c.isalpha() for c in full)
 
-    special_chars = r"@?=&%#:/\._-\+"
-    special_count = sum(full.count(ch) for ch in special_chars)
+    special_chars = "@?=&%#:/\\._-+"
+    special_count = sum(full.count(c) for c in special_chars)
 
-    # Boolean helpers
-    is_https = 1 if scheme == "https" else 0
-    has_www = 1 if "www" in host_tokens else 0
-    has_at = 1 if "@" in full else 0
-    has_dash = 1 if "-" in full else 0
-    has_underscore = 1 if "_" in full else 0
-    has_tilde = 1 if "~" in full else 0
-    has_percent = 1 if "%" in full else 0
-    has_dot = 1 if "." in full else 0
-    has_hash = 1 if "#" in full else 0
-    has_query = 1 if "?" in full else 0
-    has_equal = 1 if "=" in full else 0
-    has_double_slash = 1 if full.count("//") > 1 else 0  # ngoài scheme
-    has_ip_host = 1 if has_ip(host_no_port) else 0
-    has_port = 1 if port_part else 0
+    suspicious_words = ["login", "verify", "bank", "secure", "account", "signin", "password"]
+    susp_count = sum(1 for w in suspicious_words if w in full.lower())
 
-    # counts
-    dot_count = full.count(".")
-    slash_count = full.count("/")
-    dash_count = full.count("-")
-    at_count = full.count("@")
-    ques_count = full.count("?")
-    amp_count = full.count("&")
-    eq_count = full.count("=")
-    perc_count = full.count("%")
-    hash_count = full.count("#")
-    digit_count = digits_in_url
-
-    # lengths
-    url_len = len(full)
-    host_len = len(host_no_port)
-    path_len = len(path)
-    query_len = len(query)
-
-    # token stats
-    host_token_count = len(host_tokens)
-    path_token_count = len(path_tokens)
-    query_token_count = len(query_tokens)
-
-    avg_host_tok_len = (sum(len(t) for t in host_tokens) / host_token_count) if host_token_count else 0.0
-    avg_path_tok_len = (sum(len(t) for t in path_tokens) / path_token_count) if path_token_count else 0.0
-    avg_query_tok_len = (sum(len(t) for t in query_tokens) / query_token_count) if query_token_count else 0.0
-
-    max_host_tok_len = max([len(t) for t in host_tokens], default=0)
-    max_path_tok_len = max([len(t) for t in path_tokens], default=0)
-    max_query_tok_len = max([len(t) for t in query_tokens], default=0)
-
-    min_host_tok_len = min([len(t) for t in host_tokens], default=0)
-    min_path_tok_len = min([len(t) for t in path_tokens], default=0)
-    min_query_tok_len = min([len(t) for t in query_tokens], default=0)
-
-    # subdomain count
-    subdomain_count = count_subdomains(host_no_port)
-
-    # entropy
-    url_entropy = shannon_entropy(full)
-    host_entropy = shannon_entropy(host_no_port)
-    path_entropy = shannon_entropy(path)
-
-    # ratios (avoid divide by zero)
-    digit_ratio = digits_in_url / url_len if url_len else 0.0
-    letter_ratio = letters_in_url / url_len if url_len else 0.0
-    special_ratio = special_count / url_len if url_len else 0.0
-
-    # suspicious keywords (basic)
-    suspicious_words = [
-        "login", "verify", "update", "free", "bonus", "account",
-        "bank", "secure", "confirm", "signin", "password", "reward"
-    ]
-    lower_full = full.lower()
-    susp_word_count = sum(1 for w in suspicious_words if w in lower_full)
-
-    # Feature vector (58)
     feats = [
-        # 1-10 length basic
-        url_len, host_len, path_len, query_len,
+        # 1-10
+        len(full), len(host_no_port), len(path), len(query),
         letters_in_url, digits_in_url, special_count,
-        dot_count, slash_count, dash_count,
+        full.count("."), full.count("/"), full.count("-"),
 
-        # 11-20 special char counts
-        at_count, ques_count, amp_count, eq_count, perc_count,
-        hash_count, digit_count, subdomain_count,
-        max_host_tok_len, avg_host_tok_len,
+        # 11-20
+        full.count("@"), full.count("?"), full.count("&"),
+        full.count("="), full.count("%"), full.count("#"),
+        digits_in_url, count_subdomains(host_no_port),
+        max([len(t) for t in host_tokens], default=0),
+        (sum([len(t) for t in host_tokens]) / len(host_tokens)) if host_tokens else 0,
 
-        # 21-30 token stats
-        min_host_tok_len, host_token_count,
-        max_path_tok_len, avg_path_tok_len, min_path_tok_len, path_token_count,
-        max_query_tok_len, avg_query_tok_len, min_query_tok_len, query_token_count,
+        # 21-30
+        min([len(t) for t in host_tokens], default=0), len(host_tokens),
+        max([len(t) for t in path_tokens], default=0),
+        (sum([len(t) for t in path_tokens]) / len(path_tokens)) if path_tokens else 0,
+        min([len(t) for t in path_tokens], default=0), len(path_tokens),
+        max([len(t) for t in query_tokens], default=0),
+        (sum([len(t) for t in query_tokens]) / len(query_tokens)) if query_tokens else 0,
+        min([len(t) for t in query_tokens], default=0), len(query_tokens),
 
         # 31-40 booleans
-        is_https, has_www, has_at, has_dash, has_underscore,
-        has_tilde, has_percent, has_dot, has_hash, has_query,
+        1 if scheme == "https" else 0,
+        1 if "www" in host_tokens else 0,
+        1 if "@" in full else 0,
+        1 if "-" in full else 0,
+        1 if "_" in full else 0,
+        1 if "~" in full else 0,
+        1 if "%" in full else 0,
+        1 if "." in full else 0,
+        1 if "#" in full else 0,
+        1 if "?" in full else 0,
 
-        # 41-50 more booleans / patterns
-        has_equal, has_double_slash, has_ip_host, has_port,
-        1 if host_no_port.startswith("xn--") else 0,     # punycode
-        1 if ".." in full else 0,                        # double dots
-        1 if "//" in path else 0,                        # weird path
-        digits_in_host,                                  # digits in host
-        (digits_in_host / host_len) if host_len else 0.0,# digits ratio host
-        susp_word_count,
+        # 41-50 patterns
+        1 if "=" in full else 0,
+        1 if full.count("//") > 1 else 0,
+        1 if has_ip(host_no_port) else 0,
+        1 if ":" in (parsed.netloc or "") else 0,  # has port
+        1 if host_no_port.startswith("xn--") else 0,
+        1 if ".." in full else 0,
+        1 if "//" in path else 0,
+        digits_in_host,
+        (digits_in_host / len(host_no_port)) if host_no_port else 0,
+        susp_count,
 
-        # 51-58 entropy + ratios
-        url_entropy, host_entropy, path_entropy,
-        digit_ratio, letter_ratio, special_ratio,
-        1 if len(host_no_port.split(".")) >= 4 else 0,   # many levels
-        1 if url_len >= 75 else 0                        # very long url
+        # 51-58 entropy + ratios + heuristic
+        shannon_entropy(full), shannon_entropy(host_no_port), shannon_entropy(path),
+        (digits_in_url / len(full)) if full else 0,
+        (letters_in_url / len(full)) if full else 0,
+        (special_count / len(full)) if full else 0,
+        1 if host_no_port.count(".") >= 3 else 0,
+        1 if len(full) >= 75 else 0
     ]
 
     X = np.array(feats, dtype=float).reshape(1, -1)
-
-    # Bảo vệ: nếu không đủ/ dư feature thì fail rõ ràng
     if X.shape[1] != 58:
-        raise ValueError(f"Feature mismatch: extracted {X.shape[1]} features, expected 58.")
+        raise ValueError(f"Feature count mismatch: got {X.shape[1]}, expected 58")
     return X
 
 
-# =============================
-# Request/Response schema
-# =============================
+# ======================================================
+# Policy mapping
+# ======================================================
+def policy(label: str) -> Tuple[str, str]:
+    label = normalize_label(label)
+    mapping = {
+        "benign": ("LOW", "ALLOW"),
+        "phishing": ("HIGH", "BLOCK"),
+        "malware": ("HIGH", "BLOCK"),
+        "adult": ("HIGH", "BLOCK"),
+        "gambling": ("HIGH", "BLOCK"),
+        "defacement": ("MEDIUM", "WARN"),
+        "spam": ("MEDIUM", "WARN"),
+    }
+    return mapping.get(label, ("MEDIUM", "WARN"))
+
+
+# ======================================================
+# API schema
+# ======================================================
 class PredictRequest(BaseModel):
     url: str = Field(..., examples=["https://example.com"])
-    title: Optional[str] = Field("", examples=["Some page title"])
-    text: Optional[str] = Field("", examples=["Body content..."])
+    title: Optional[str] = ""
+    text: Optional[str] = ""
     child_age: Optional[int] = Field(10, ge=1, le=18)
-
 
 class PredictResponse(BaseModel):
     risk_level: str
@@ -223,148 +233,207 @@ class PredictResponse(BaseModel):
     meta: Dict[str, Any]
 
 
-# =============================
-# Load model artifacts
-# =============================
+# ======================================================
+# Load models
+# ======================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_DIR = os.path.join(BASE_DIR, "model")
 
-MODEL_PATH = os.path.join(MODEL_DIR, "childsafenet_rf.pkl")
-LE_PATH = os.path.join(MODEL_DIR, "label_encoder.pkl")
+RF_PATH = os.path.join(MODEL_DIR, "childsafenet_rf.pkl")
+PIPE_PATH = os.path.join(MODEL_DIR, "childsafenet_pipeline.joblib")
 
-if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(f"Missing model file: {MODEL_PATH}")
+rf_model = None
+pipe_model = None
 
-model = joblib.load(MODEL_PATH)
+# ✅ allowlist chống false positive (chỉ dùng cho demo)
+SAFE_DOMAIN_ALLOWLIST = set([
+    "google.com",
+    "wikipedia.org",
+    "github.com",
+    "microsoft.com",
+    "facebook.com",
+    "youtube.com",
+    "hutech.edu.vn",
+])
 
-label_encoder = None
-if os.path.exists(LE_PATH):
-    try:
-        label_encoder = joblib.load(LE_PATH)
-    except Exception:
-        label_encoder = None
+def is_safe_allow(host: str) -> bool:
+    if not host:
+        return False
+    h = host.lower()
+    return any(h == d or h.endswith("." + d) for d in SAFE_DOMAIN_ALLOWLIST)
 
+def load_models():
+    global rf_model, pipe_model
+    if not os.path.exists(RF_PATH):
+        raise FileNotFoundError(f"Missing RF model: {RF_PATH}")
+    if not os.path.exists(PIPE_PATH):
+        raise FileNotFoundError(f"Missing pipeline model: {PIPE_PATH}")
 
-# =============================
-# Risk mapping
-# =============================
-DEFAULT_POLICY: Dict[str, Tuple[str, str]] = {
-    "benign": ("LOW", "ALLOW"),
-    "safe": ("LOW", "ALLOW"),
+    rf_model = joblib.load(RF_PATH)
+    pipe_model = joblib.load(PIPE_PATH)
 
-    "phishing": ("HIGH", "BLOCK"),
-    "malware": ("HIGH", "BLOCK"),
-    "defacement": ("MEDIUM", "WARN"),
-    "spam": ("MEDIUM", "WARN"),
+    # sanity checks
+    if hasattr(rf_model, "n_features_in_") and int(rf_model.n_features_in_) != 58:
+        raise RuntimeError(f"RF model expects {rf_model.n_features_in_} features, but app extracts 58.")
 
-    "adult": ("HIGH", "BLOCK"),
-    "porn": ("HIGH", "BLOCK"),
-    "gambling": ("HIGH", "BLOCK"),
-    "drugs": ("HIGH", "BLOCK"),
-    "violence": ("MEDIUM", "WARN"),
-}
+    if not hasattr(rf_model, "predict_proba"):
+        raise RuntimeError("RF model must support predict_proba().")
 
-
-def policy_for_label(label: str) -> Tuple[str, str]:
-    key = (label or "").strip().lower()
-    if key in DEFAULT_POLICY:
-        return DEFAULT_POLICY[key]
-    return ("MEDIUM", "WARN")
-
-
-def decode_label(pred_class) -> str:
-    # Nếu model trả ra int class thì decode bằng label_encoder
-    if label_encoder is not None and isinstance(pred_class, (int, np.integer)):
-        try:
-            return str(label_encoder.inverse_transform([int(pred_class)])[0])
-        except Exception:
-            return str(pred_class)
-    return str(pred_class)
+    if not hasattr(pipe_model, "predict_proba"):
+        raise RuntimeError("Pipeline model must support predict_proba().")
 
 
-# =============================
-# FastAPI app
-# =============================
-app = FastAPI(title="ChildSafeNet API", version="2.0-url-features")
+# ======================================================
+# FastAPI
+# ======================================================
+app = FastAPI(title="ChildSafeNet AI Service (Hybrid Final)", version="1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # demo
-    allow_credentials=True,
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-WEB_DIR = os.path.join(BASE_DIR, "web")
-os.makedirs(WEB_DIR, exist_ok=True)
-app.mount("/web", StaticFiles(directory=WEB_DIR, html=True), name="web")
-
+@app.on_event("startup")
+def _startup():
+    load_models()
 
 @app.get("/health")
 def health():
     return {
         "status": "ok",
-        "model_loaded": True,
-        "expected_features": int(getattr(model, "n_features_in_", 58))
+        "rf_loaded": rf_model is not None,
+        "pipeline_loaded": pipe_model is not None,
+        "rf_expected_features": int(getattr(rf_model, "n_features_in_", -1)) if rf_model else None,
+        "pipeline_classes": list(getattr(pipe_model, "classes_", [])) if pipe_model else None,
+        "safe_allowlist": sorted(list(SAFE_DOMAIN_ALLOWLIST)),
     }
-
 
 @app.get("/debug")
 def debug():
     return {
-        "model_type": type(model).__name__,
-        "expected_features": int(getattr(model, "n_features_in_", -1)),
-        "has_predict_proba": hasattr(model, "predict_proba"),
-        "label_encoder_loaded": label_encoder is not None,
+        "rf_type": type(rf_model).__name__ if rf_model else None,
+        "rf_has_proba": hasattr(rf_model, "predict_proba") if rf_model else None,
+        "pipe_type": type(pipe_model).__name__ if pipe_model else None,
+        "pipe_has_proba": hasattr(pipe_model, "predict_proba") if pipe_model else None,
+        "safe_allowlist_size": len(SAFE_DOMAIN_ALLOWLIST),
     }
 
 
 @app.post("/predict", response_model=PredictResponse)
 def predict(req: PredictRequest):
     t0 = time.time()
+    url = normalize_url(req.url)
+    host = host_of(url)
+
+    # thresholds (tuning)
+    ADULT_GAMBLING_BLOCK = 0.90   # tăng lên để giảm false-positive
+    PHISHING_BLOCK = 0.85         # tăng lên để tránh block domain tốt
+    WARN_SCORE = 0.70             # tăng warn band
 
     try:
-        # Model của bạn dùng URL features, title/text chỉ để demo UI thôi
-        X = extract_url_features(req.url)
+        # 1) Always allow private/local
+        if is_private_host(host):
+            return PredictResponse(
+                risk_level="LOW",
+                label="benign",
+                score=1.0,
+                action="ALLOW",
+                explanation=["Local/private network allowed"],
+                meta={"host": host, "latency_ms": int((time.time() - t0) * 1000)}
+            )
 
-        if hasattr(model, "predict_proba"):
-            proba = model.predict_proba(X)[0]
-            idx = int(np.argmax(proba))
-            score = float(np.max(proba))
-            pred_class = model.classes_[idx] if hasattr(model, "classes_") else idx
+        # 2) Safe allowlist (demo)
+        if is_safe_allow(host):
+            return PredictResponse(
+                risk_level="LOW",
+                label="benign",
+                score=1.0,
+                action="ALLOW",
+                explanation=["Safe allowlist domain (demo)"],
+                meta={"host": host, "latency_ms": int((time.time() - t0) * 1000)}
+            )
+
+        # 3) RF predict (phishing/malware)
+        X = extract_url_features(url)
+        rf_proba = rf_model.predict_proba(X)[0]
+        rf_idx = int(np.argmax(rf_proba))
+        rf_label = normalize_label(str(rf_model.classes_[rf_idx]))
+        rf_score = float(rf_proba[rf_idx])
+
+        # 4) Pipeline predict (adult/gambling/phishing/benign)
+        pipe_in = pipeline_input(url)
+        pipe_proba = pipe_model.predict_proba([pipe_in])[0]
+        pipe_idx = int(np.argmax(pipe_proba))
+        pipe_label = normalize_label(str(pipe_model.classes_[pipe_idx]))
+        pipe_score = float(pipe_proba[pipe_idx])
+
+        # 5) Combine (ưu tiên an toàn nhưng tránh block bậy)
+        final_label = "benign"
+        final_action = "ALLOW"
+        final_score = max(rf_score, pipe_score)
+
+        # Adult/Gambling: chỉ block khi pipeline cực chắc
+        if pipe_label in {"adult", "gambling"} and pipe_score >= ADULT_GAMBLING_BLOCK:
+            final_label = pipe_label
+            final_action = "BLOCK"
+            final_score = pipe_score
+
+        # Phishing/Malware: block khi đủ chắc (RF hoặc pipeline)
+        elif (rf_label in {"phishing", "malware"} and rf_score >= PHISHING_BLOCK):
+            final_label = rf_label
+            final_action = "BLOCK"
+            final_score = rf_score
+
+        elif (pipe_label in {"phishing", "malware"} and pipe_score >= PHISHING_BLOCK):
+            final_label = pipe_label
+            final_action = "BLOCK"
+            final_score = pipe_score
+
+        # WARN: chỉ warn khi predicted label != benign và đủ score
         else:
-            pred_class = model.predict(X)[0]
-            score = 0.75
+            best_label = None
+            best_score = 0.0
 
-        label = decode_label(pred_class)
-        risk_level, action = policy_for_label(label)
+            if pipe_label != "benign" and pipe_score >= WARN_SCORE:
+                best_label, best_score = pipe_label, pipe_score
+            if rf_label != "benign" and rf_score >= WARN_SCORE and rf_score > best_score:
+                best_label, best_score = rf_label, rf_score
 
-        # Explanation nhẹ dựa trên vài signal chính
-        # (không SHAP để demo gọn)
-        explain = []
-        explain.append(f"url_len={len(req.url)}")
-        explain.append(f"has_https={'https' in req.url.lower()}")
-        explain.append(f"has_at={'@' in req.url}")
-        explain.append(f"has_ip={has_ip(urlparse(req.url if '://' in req.url else 'http://' + req.url).netloc.split(':')[0])}")
-        explain.append("Policy action: " + action)
+            if best_label is not None:
+                final_label = best_label
+                final_score = best_score
+                final_action = "WARN"
+            else:
+                final_label = "benign"
+                final_score = max(rf_score, pipe_score)
+                final_action = "ALLOW"
 
-        latency_ms = int((time.time() - t0) * 1000)
+        risk_level, _ = policy(final_label)
 
         return PredictResponse(
             risk_level=risk_level,
-            label=str(label),
-            score=float(round(score, 4)),
-            action=action,
-            explanation=explain[:6],
+            label=final_label,
+            score=round(final_score, 4),
+            action=final_action,
+            explanation=[
+                f"rf: {rf_label} ({rf_score:.2f})",
+                f"pipe: {pipe_label} ({pipe_score:.2f})",
+            ],
             meta={
-                "latency_ms": latency_ms,
-                "child_age": req.child_age,
-                "features_used": 58
-            },
+                "host": host,
+                "latency_ms": int((time.time() - t0) * 1000),
+                "thresholds": {
+                    "adult_gambling_block": ADULT_GAMBLING_BLOCK,
+                    "phishing_block": PHISHING_BLOCK,
+                    "warn": WARN_SCORE
+                },
+                "pipe_input": pipe_in,
+            }
         )
 
     except Exception as e:
-        print("🔥 /predict error")
         traceback.print_exc()
         raise HTTPException(
             status_code=500,
