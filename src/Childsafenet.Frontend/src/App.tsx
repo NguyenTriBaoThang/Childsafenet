@@ -1,12 +1,17 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AppShell } from "./components/AppShell";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Scan from "./pages/Scan";
-import Dataset from "./pages/Dataset"; // ✅ thêm file này
+
+import AdminDataset from "./pages/admin/AdminDataset";
+import AdminTrainJobs from "./pages/admin/AdminTrainJobs";
+
 import { ProtectedRoute } from "./auth/ProtectedRoute";
+import { AdminRoute } from "./auth/AdminRoute";
 
 export default function App() {
   return (
@@ -33,12 +38,21 @@ export default function App() {
           }
         />
 
+        {/* Admin only */}
         <Route
-          path="/dataset"
+          path="/admin/dataset"
           element={
-            <ProtectedRoute>
-              <Dataset />
-            </ProtectedRoute>
+            <AdminRoute>
+              <AdminDataset />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/train-jobs"
+          element={
+            <AdminRoute>
+              <AdminTrainJobs />
+            </AdminRoute>
           }
         />
 

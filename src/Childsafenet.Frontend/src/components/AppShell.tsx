@@ -4,7 +4,10 @@ import { useAuth } from "../auth/AuthContext";
 import { Button } from "./Button";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const { isAuthed, logout } = useAuth();
+  const { isAuthed, role, logout } = useAuth();
+
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    isActive ? "navLink active" : "navLink";
 
   return (
     <div className="app">
@@ -15,48 +18,44 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </Link>
 
         <nav className="nav">
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
-          >
+          <NavLink to="/" className={linkClass}>
             Home
           </NavLink>
 
-          {isAuthed ? (
+          {!isAuthed ? (
+            <NavLink to="/login" className={linkClass}>
+              Login
+            </NavLink>
+          ) : (
             <>
-              <NavLink
-                to="/dashboard"
-                className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
-              >
-                Dashboard
-              </NavLink>
+              {/* Parent menu */}
+              {role === "parent" && (
+                <>
+                  <NavLink to="/dashboard" className={linkClass}>
+                    Dashboard
+                  </NavLink>
+                  <NavLink to="/scan" className={linkClass}>
+                    Scan
+                  </NavLink>
+                </>
+              )}
 
-              <NavLink
-                to="/scan"
-                className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
-              >
-                Scan
-              </NavLink>
-
-              {/* ✅ Option B */}
-              <NavLink
-                to="/dataset"
-                className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
-              >
-                Dataset
-              </NavLink>
+              {/* Admin menu */}
+              {role === "admin" && (
+                <>
+                  <NavLink to="/admin/dataset" className={linkClass}>
+                    Dataset
+                  </NavLink>
+                  <NavLink to="/admin/train-jobs" className={linkClass}>
+                    Train Jobs
+                  </NavLink>
+                </>
+              )}
 
               <Button variant="ghost" onClick={logout}>
                 Logout
               </Button>
             </>
-          ) : (
-            <NavLink
-              to="/login"
-              className={({ isActive }) => (isActive ? "navLink active" : "navLink")}
-            >
-              Login
-            </NavLink>
           )}
         </nav>
       </header>

@@ -26,6 +26,33 @@ export type LogsResponse = {
   items: any[];
 };
 
+export type DatasetItem = {
+  id?: string;
+  url: string;
+  host?: string;
+  predictedLabel?: string;
+  predictedScore?: number;
+  status?: string;
+  source?: string;
+  firstSeenAt?: string;
+  lastSeenAt?: string;
+  seenCount?: number;
+};
+
+export type PendingDatasetResponse = {
+  items: DatasetItem[];
+};
+
+export type TrainJob = {
+  id?: string;
+  status?: string;
+  createdAt?: string;
+  startedAt?: string;
+  finishedAt?: string;
+  modelVersion?: string;
+  note?: string;
+};
+
 export async function loginApi(payload: LoginRequest) {
   const res = await http.post<AuthResponse>("/api/auth/login", payload);
   return res.data;
@@ -38,5 +65,38 @@ export async function scanApi(payload: ScanRequest) {
 
 export async function getLogsApi(page = 1, pageSize = 10) {
   const res = await http.get<LogsResponse>(`/api/logs?page=${page}&pageSize=${pageSize}`);
+  return res.data;
+}
+
+export async function getDatasetPendingApi() {
+  const res = await http.get<PendingDatasetResponse | DatasetItem[]>("/api/dataset/pending");
+  // support both {items:[]} or []
+  const data: any = res.data;
+  return Array.isArray(data) ? (data as DatasetItem[]) : (data.items ?? []);
+}
+
+export async function approveDatasetApi(ids: string[]) {
+  const res = await http.post("/api/dataset/approve", { ids });
+  return res.data;
+}
+
+export async function rejectDatasetApi(ids: string[]) {
+  const res = await http.post("/api/dataset/reject", { ids });
+  return res.data;
+}
+
+export async function exportDatasetApi() {
+  const res = await http.get("/api/dataset/export", { responseType: "blob" });
+  return res.data as Blob;
+}
+
+export async function getTrainJobsApi() {
+  const res = await http.get<{ items: TrainJob[] } | TrainJob[]>("/api/train/jobs");
+  const data: any = res.data;
+  return Array.isArray(data) ? (data as TrainJob[]) : (data.items ?? []);
+}
+
+export async function triggerTrainApi() {
+  const res = await http.post("/api/train/trigger", {});
   return res.data;
 }

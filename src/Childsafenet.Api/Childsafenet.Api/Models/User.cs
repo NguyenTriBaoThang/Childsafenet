@@ -16,6 +16,9 @@ public class User
     [MaxLength(200)]
     public string FullName { get; set; } = "";
 
+    [Required, MaxLength(32)]
+    public string Role { get; set; } = "parent";
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public UserSettings? Settings { get; set; }

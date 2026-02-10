@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Childsafenet.Api.Controllers;
 
-[Authorize]
+[Authorize(Roles = "admin")]
 [ApiController]
 [Route("api/dataset")]
 public class DatasetController : ControllerBase

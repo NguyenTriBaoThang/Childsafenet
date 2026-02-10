@@ -1,5 +1,4 @@
-﻿using BCrypt.Net;
-using Childsafenet.Api.Data;
+﻿using Childsafenet.Api.Data;
 using Childsafenet.Api.Dtos;
 using Childsafenet.Api.Models;
 using Childsafenet.Api.Services;
@@ -22,39 +21,58 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterRequest req)
+    public async Task<IActionResult> Register(RegisterRequest req)
     {
         var email = req.Email.Trim().ToLower();
 
-        if (await _db.Users.AnyAsync(x => x.Email == email))
-            return BadRequest(new { message = "Email already exists" });
+        var exists = await _db.Users.AnyAsync(u => u.Email.ToLower() == email);
+        if (exists) return BadRequest(new { message = "Email already exists" });
 
         var user = new User
         {
             Email = email,
-            FullName = req.FullName.Trim(),
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(req.Password)
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(req.Password),
+            FullName = req.FullName ?? "",
+            Role = "parent"
         };
 
         _db.Users.Add(user);
-        _db.UserSettings.Add(new UserSettings { UserId = user.Id });
+
+        _db.UserSettings.Add(new UserSettings
+        {
+            UserId = user.Id,
+            ChildAge = 10,
+            BlockAdult = true,
+            BlockGambling = true,
+            BlockPhishing = true,
+            WhitelistJson = "[]",
+            BlacklistJson = "[]"
+        });
+
         await _db.SaveChangesAsync();
 
-        return Ok(new { message = "Registered" });
+        return Ok(new
+        {
+            token = _jwt.CreateToken(user),
+            role = user.Role
+        });
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<AuthResponse>> Login([FromBody] LoginRequest req)
+    public async Task<IActionResult> Login(LoginRequest req)
     {
         var email = req.Email.Trim().ToLower();
-        var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == email);
 
-        if (user is null) return Unauthorized(new { message = "Invalid credentials" });
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email);
+        if (user == null) return Unauthorized(new { message = "Invalid credentials" });
 
         var ok = BCrypt.Net.BCrypt.Verify(req.Password, user.PasswordHash);
         if (!ok) return Unauthorized(new { message = "Invalid credentials" });
 
-        var token = _jwt.Generate(user);
-        return Ok(new AuthResponse(token));
+        return Ok(new
+        {
+            token = _jwt.CreateToken(user),
+            role = user.Role
+        });
     }
 }
