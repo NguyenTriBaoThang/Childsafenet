@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { getTrainJobsApi, triggerTrainApi } from "../../api/client";
 import type { TrainJob } from "../../api/client";

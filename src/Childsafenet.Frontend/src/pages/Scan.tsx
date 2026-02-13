@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card } from "../components/Card";
 import { Input, Textarea } from "../components/Input";
 import { Button } from "../components/Button";

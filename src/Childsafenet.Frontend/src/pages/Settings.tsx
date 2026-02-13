@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getSettingsApi, updateSettingsApi, type SettingsResponse } from "../api/client";
 import { Card } from "../components/Card";
 import { Button } from "../components/Button";

@@ -1,5 +1,17 @@
-import React from "react";
+import type { ReactNode } from "react";
 
-export function Pill({ text, kind = "neutral" }: { text: string; kind?: "ok" | "warn" | "bad" | "neutral" }) {
-  return <span className={`pill ${kind}`}>{text}</span>;
+type PillKind = "ok" | "warn" | "bad" | "neutral";
+
+export function Pill({
+  kind = "neutral",
+  text,
+  children,
+}: {
+  kind?: PillKind;
+  text?: string;
+  children?: ReactNode;
+}) {
+  const content = text ?? children;
+
+  return <span className={`pill ${kind}`}>{content}</span>;
 }

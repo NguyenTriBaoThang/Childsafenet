@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { getLogsApi } from "../api/client";
 import { pairExtension, toggleExtension, listenExtEvents, pingExtension } from "../extension/pair";
