@@ -417,7 +417,7 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
-# AI models / artifacts
+# AI models/artifacts
 src/ai-service/model/*.pkl
 src/ai-service/model/*.joblib
 src/ai-service/model/*.onnx
