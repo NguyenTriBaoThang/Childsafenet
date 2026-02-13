@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Scan from "./pages/Scan";
+import Settings from "./pages/Settings";
 
 import AdminDataset from "./pages/admin/AdminDataset";
 import AdminTrainJobs from "./pages/admin/AdminTrainJobs";
@@ -44,6 +45,15 @@ export default function App() {
           element={
             <Register />
           } 
+        />
+
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
         />
 
         {/* Admin only */}

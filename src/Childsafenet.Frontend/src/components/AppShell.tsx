@@ -42,6 +42,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <NavLink to="/scan" className={linkClass}>
                     Scan
                   </NavLink>
+                  <NavLink to="/settings" className={linkClass}>
+                    Settings
+                  </NavLink>
                 </>
               )}
 
@@ -68,7 +71,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <main className="container">{children}</main>
 
       <footer className="footer">
-        <div>© {new Date().getFullYear()} ChildSafeNet • Demo</div>
+        <div>© {new Date().getFullYear()} CHILDSAFENET • TKT TEAM • HUTECH</div>
       </footer>
     </div>
   );

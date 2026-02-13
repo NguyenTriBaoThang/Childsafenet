@@ -13,6 +13,7 @@ public class UserSettings
     [MaxLength(20)]
     public string Mode { get; set; } = "Balanced"; // Strict/Balanced/Relaxed
 
+    // JSON arrays
     public string WhitelistJson { get; set; } = "[]";
     public string BlacklistJson { get; set; } = "[]";
 

@@ -59,6 +59,19 @@ export type TrainJob = {
   note?: string;
 };
 
+export type SettingsResponse = {
+  childAge: number;
+  mode: "Strict" | "Balanced" | "Relaxed";
+  whitelist: string[];
+  blacklist: string[];
+  blockAdult: boolean;
+  blockGambling: boolean;
+  blockPhishing: boolean;
+  warnSuspicious: boolean;
+};
+
+export type UpdateSettingsRequest = SettingsResponse;
+
 export async function loginApi(payload: LoginRequest) {
   const res = await http.post<AuthResponse>("/api/auth/login", payload);
   return res.data;
@@ -109,5 +122,15 @@ export async function getTrainJobsApi() {
 
 export async function triggerTrainApi() {
   const res = await http.post("/api/train/trigger", {});
+  return res.data;
+}
+
+export async function getSettingsApi() {
+  const res = await http.get<SettingsResponse>("/api/settings");
+  return res.data;
+}
+
+export async function updateSettingsApi(payload: UpdateSettingsRequest) {
+  const res = await http.put<SettingsResponse>("/api/settings", payload);
   return res.data;
 }

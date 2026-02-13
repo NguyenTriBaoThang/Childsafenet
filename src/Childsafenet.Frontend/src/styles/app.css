@@ -206,3 +206,79 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monosp
 .miniNote{ margin-top: 10px; color: var(--muted); font-size: 12px; }
 .statCard{ padding: 14px; }
 .statValue{ font-size: 28px; font-weight: 900; margin-top: 6px; }
+
+/* ===== Settings responsive grid ===== */
+.csnGrid {
+  display: grid;
+  gap: 12px;
+}
+
+.csnGrid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .csnGrid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Segmented buttons */
+.csnSegRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.csnSeg {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.csnSeg.active {
+  border-color: rgba(233, 30, 99, 0.7);
+  box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.18) inset;
+}
+
+/* Checkbox rows */
+.csnCheckRow {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  align-items: flex-start;
+}
+
+.csnCheckRow input {
+  margin-top: 4px;
+  transform: scale(1.1);
+}
+
+.csnCheckTitle {
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+/* Textarea */
+.csnTextarea {
+  width: 100%;
+  border-radius: 14px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  outline: none;
+  resize: vertical;
+}
+
+.csnTextarea:focus {
+  border-color: rgba(233, 30, 99, 0.7);
+  box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.16);
+}
