@@ -1,0 +1,84 @@
+name: AI / Model issue (advanced)
+description: Report model performance, dataset, drift, or training problems
+title: "[AI] "
+labels: ["ai", "needs-triage"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Inference (predict/scan results)
+        - Extension blocking behavior
+        - Dataset collection / labeling
+        - Training job (Option B)
+        - Drift / performance regression
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened? (1-3 sentences)
+      placeholder: "Example: Adult sites are not blocked, while Google is blocked."
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example URLs (safe to share)
+      description: Provide a few example URLs and outcomes.
+      placeholder: |
+        1) https://example.com -> ALLOW (expected BLOCK)
+        2) https://google.com -> BLOCK (expected ALLOW)
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence / logs
+      description: Paste prediction output, scores, labels, and any server logs.
+      render: shell
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Low (minor inconvenience)
+        - Medium (incorrect warning/block)
+        - High (unsafe allow / bypass)
+        - Critical (security or widespread breakage)
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I verified the AI service is running and reachable (e.g., /health).
+          required: false
+        - label: I tested with extension disabled/enabled to compare.
+          required: false
+        - label: I included at least 3 example URLs.
+          required: false
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: OS, browser, versions, and model artifacts
+      placeholder: |
+        OS: Windows 11
+        Browser: Edge 122
+        AI service: 127.0.0.1:8000
+        Model files: childsafenet_rf.pkl, childsafenet_pipeline.joblib
+    validations:
+      required: true
