@@ -1,35 +1,32 @@
 <!doctype html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <title>Blocked - ChildSafeNet</title>
-  <style>
-    body { font-family: Arial, sans-serif; background:#0b1220; color:#e6edf7; margin:0; }
-    .wrap { max-width: 720px; margin: 60px auto; padding: 20px; }
-    .card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 18px; }
-    .title { font-size: 26px; font-weight: 800; margin: 0 0 8px; }
-    .muted { opacity: 0.8; }
-    .btn { margin-top: 12px; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.06); color:#e6edf7; cursor:pointer;}
-  </style>
-</head>
-<body>
-  <div class="wrap">
+  <head>
+    <meta charset="utf-8" />
+    <title>Blocked by ChildSafeNet</title>
+    <style>
+      body { font-family: Arial, sans-serif; padding: 24px; background:#0f172a; color:#fff; }
+      .card { max-width: 760px; margin: 0 auto; background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 18px; }
+      .bad { color:#ff4d4f; font-weight: 800; }
+      .muted { color: rgba(255,255,255,0.7); }
+      .btn { display:inline-block; padding: 10px 14px; background:#334155; color:#fff; text-decoration:none; border-radius: 10px; margin-right: 10px; }
+      code { color:#a7f3d0; }
+    </style>
+  </head>
+  <body>
     <div class="card">
-      <div class="title">🚫 Trang này đã bị chặn</div>
-      <div class="muted">ChildSafeNet phát hiện nội dung/URL có rủi ro với trẻ em.</div>
+      <h2 class="bad">🚫 ChildSafeNet blocked this site</h2>
+      <div class="muted" id="info">Loading...</div>
 
-      <div style="margin-top:12px;">
-        <b>URL:</b> <span id="url" class="muted"></span>
+      <div style="margin-top:14px">
+        <a class="btn" href="javascript:history.back()">Go Back</a>
+        <a class="btn" id="openAnyway" href="#">Open anyway (not recommended)</a>
       </div>
 
-      <button class="btn" id="back">Quay lại</button>
+      <div style="margin-top:14px" class="muted">
+        Nếu bạn thấy block sai, hãy vào Web → Scan page để kiểm tra và gửi feedback.
+      </div>
     </div>
-  </div>
 
-  <script>
-    const url = new URL(location.href).searchParams.get("u") || "";
-    document.getElementById("url").textContent = url || "(unknown)";
-    document.getElementById("back").addEventListener("click", () => history.back());
-  </script>
-</body>
+    <script src="block.js"></script>
+  </body>
 </html>

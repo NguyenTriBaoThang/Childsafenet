@@ -1,50 +1,45 @@
-const statusEl = document.getElementById("status");
-const tokenEl = document.getElementById("token");
-
-function setStatus(html) {
-  statusEl.innerHTML = html || "";
+function setMsg(text, ok) {
+  const el = document.getElementById("msg");
+  el.textContent = text || "";
+  el.className = ok ? "ok" : "bad";
 }
 
-async function loadToken() {
-  const { csn_token } = await chrome.storage.local.get("csn_token");
-  tokenEl.value = csn_token || "";
+function setStatus(enabled, hasToken) {
+  const s = document.getElementById("statusLine");
+  s.innerHTML = `
+    Status: <b>${enabled ? "ON" : "OFF"}</b><br/>
+    Paired token: <b>${hasToken ? "YES" : "NO"}</b>
+  `;
 }
 
-async function saveToken() {
-  const t = tokenEl.value.trim();
-  if (!t) return setStatus(`<div class="bad">Token rỗng.</div>`);
-  await chrome.storage.local.set({ csn_token: t });
-  setStatus(`<div class="ok">Saved token ✅</div>`);
+async function refresh() {
+  chrome.runtime.sendMessage({ type: "CSN_GET_STATE" }, (resp) => {
+    if (!resp?.ok) {
+      setMsg(resp?.message || "Cannot get state", false);
+      return;
+    }
+    setStatus(!!resp.enabled, !!resp.hasToken);
+  });
 }
 
-async function clearToken() {
-  await chrome.storage.local.remove("csn_token");
-  tokenEl.value = "";
-  setStatus(`<div class="ok">Cleared ✅</div>`);
-}
+document.getElementById("btnOn").addEventListener("click", () => {
+  chrome.runtime.sendMessage({ type: "CSN_TOGGLE", enabled: true }, (resp) => {
+    if (!resp?.ok) return setMsg(resp?.message || "Toggle ON failed", false);
+    setMsg("Enabled", true);
+    refresh();
+  });
+});
 
-async function scanCurrentTab() {
-  setStatus(`<div class="muted">Scanning...</div>`);
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  if (!tab?.id || !tab.url) return setStatus(`<div class="bad">No active tab.</div>`);
+document.getElementById("btnOff").addEventListener("click", () => {
+  chrome.runtime.sendMessage({ type: "CSN_TOGGLE", enabled: false }, (resp) => {
+    if (!resp?.ok) return setMsg(resp?.message || "Toggle OFF failed", false);
+    setMsg("Disabled", true);
+    refresh();
+  });
+});
 
-  // gửi message cho background làm scan
-  const res = await chrome.runtime.sendMessage({ type: "CSN_SCAN_TAB", tabId: tab.id });
-  if (!res?.ok) {
-    setStatus(`<div class="bad">${res?.error || "Scan failed"}</div>`);
-    return;
-  }
+document.getElementById("btnOpenWeb").addEventListener("click", () => {
+  chrome.tabs.create({ url: "http://localhost:5173/dashboard" });
+});
 
-  const r = res.result;
-  setStatus(`
-    <div><b>Action:</b> <span class="${r.action === "BLOCK" ? "bad" : "ok"}">${r.action}</span></div>
-    <div><b>Label:</b> ${r.label} | <b>Score:</b> ${r.score}</div>
-    <div class="muted" style="margin-top:6px;">${(r.explanation || []).slice(0,2).join("<br/>")}</div>
-  `);
-}
-
-document.getElementById("save").addEventListener("click", saveToken);
-document.getElementById("clear").addEventListener("click", clearToken);
-document.getElementById("test").addEventListener("click", scanCurrentTab);
-
-loadToken();
+refresh();

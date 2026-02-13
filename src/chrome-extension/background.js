@@ -1,71 +1,135 @@
-const API = "https://localhost:7047/api/scan";
+const API_BASE = "https://localhost:7047";
 
-async function getToken() {
-  const { csn_token } = await chrome.storage.local.get("csn_token");
-  return csn_token || "";
+async function getState() {
+  const st = await chrome.storage.local.get(["csn_token", "csn_enabled"]);
+  return {
+    token: st.csn_token || null,
+    enabled: typeof st.csn_enabled === "boolean" ? st.csn_enabled : true,
+  };
 }
 
-async function scanTab(tabId) {
-  const token = await getToken();
-  if (!token) throw new Error("Missing token. Open extension popup and Save JWT token first.");
+async function setToken(token) {
+  await chrome.storage.local.set({ csn_token: token });
+}
 
-  const tab = await chrome.tabs.get(tabId);
-  const tabUrl = tab.url || "";
-  if (!tabUrl) throw new Error("Tab URL is empty.");
+async function setEnabled(enabled) {
+  await chrome.storage.local.set({ csn_enabled: !!enabled });
+}
 
-  let page = null;
-  try {
-    page = await chrome.tabs.sendMessage(tabId, { type: "CSN_GET_PAGE_TEXT" });
-  } catch (e) {
-    throw new Error("Cannot read page content (blocked page or no permission).");
+async function scanWithApi(url) {
+  const { token } = await getState();
+  if (!token) {
+    return {
+      riskLevel: "LOW",
+      label: "benign",
+      score: 0,
+      action: "ALLOW",
+      explanation: ["No token paired yet"],
+      meta: { reason: "no_token" },
+    };
   }
 
   const payload = {
-    url: page?.url || tabUrl,
-    title: page?.title || "",
-    text: page?.text || "",
-    source: "Extension"
+    url,
+    title: "",
+    text: "",
+    source: "Extension",
   };
 
-  const res = await fetch(API, {
+  const res = await fetch(`${API_BASE}/api/scan`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + token
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
 
   if (!res.ok) {
-    const raw = await res.text();
-    throw new Error(`API ${res.status}: ${raw}`);
+    const t = await res.text().catch(() => "");
+    return {
+      riskLevel: "MEDIUM",
+      label: "api_error",
+      score: 0,
+      action: "WARN",
+      explanation: ["API error when scanning", `${res.status} ${t}`],
+      meta: { status: res.status },
+    };
   }
 
   return await res.json();
 }
 
-chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  if (changeInfo.status !== "complete" || !tab?.url) return;
-
-  if (tab.url.startsWith("chrome://") || tab.url.startsWith("edge://") || tab.url.startsWith("about:")) return;
-
-  try {
-    const result = await scanTab(tabId);
-
-    if (result?.action === "BLOCK") {
-      const blockedUrl = chrome.runtime.getURL("block.html") + "?u=" + encodeURIComponent(tab.url);
-      chrome.tabs.update(tabId, { url: blockedUrl });
-    }
-  } catch (e) {
-    console.log("ChildSafeNet scan error:", e?.message || e);
-  }
-});
-
+// MV3: phải dùng onMessage và trả true nếu async
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-  if (msg?.type === "CSN_SCAN_TAB") {
-    scanTab(msg.tabId)
-      .then((result) => sendResponse({ ok: true, result }))
-      .catch((err) => sendResponse({ ok: false, error: err?.message || String(err) }));
-    return true; 
-  }
+  (async () => {
+    try {
+      // Ping from web via content-script
+      if (msg?.type === "CSN_PING") {
+        const st = await getState();
+        sendResponse({ ok: true, enabled: st.enabled, hasToken: !!st.token });
+        return;
+      }
+
+      // Pair token from web
+      if (msg?.type === "CSN_PAIR") {
+        const token = msg?.token || "";
+        if (!token) {
+          sendResponse({ ok: false, message: "Missing token" });
+          return;
+        }
+        await setToken(token);
+        const st = await getState();
+        sendResponse({ ok: true, enabled: st.enabled, hasToken: true });
+        return;
+      }
+
+      // Toggle enabled
+      if (msg?.type === "CSN_TOGGLE") {
+        await setEnabled(!!msg.enabled);
+        const st = await getState();
+        sendResponse({ ok: true, enabled: st.enabled });
+        return;
+      }
+
+      // Get state (popup)
+      if (msg?.type === "CSN_GET_STATE") {
+        const st = await getState();
+        sendResponse({ ok: true, enabled: st.enabled, hasToken: !!st.token });
+        return;
+      }
+
+      // Scan from content script
+      if (msg?.type === "CSN_SCAN") {
+        const st = await getState();
+
+        // nếu tắt => allow
+        if (!st.enabled) {
+          sendResponse({
+            ok: true,
+            result: {
+              riskLevel: "LOW",
+              label: "disabled",
+              score: 0,
+              action: "ALLOW",
+              explanation: ["Extension disabled"],
+              meta: { reason: "disabled" },
+            },
+          });
+          return;
+        }
+
+        const url = msg?.url || "";
+        const result = await scanWithApi(url);
+        sendResponse({ ok: true, result });
+        return;
+      }
+
+      sendResponse({ ok: false, message: "Unknown message" });
+    } catch (e) {
+      sendResponse({ ok: false, message: String(e?.message || e) });
+    }
+  })();
+
+  return true; // ✅ cực quan trọng để tránh “message port closed…”
 });

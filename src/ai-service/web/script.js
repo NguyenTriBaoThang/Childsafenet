@@ -16,7 +16,6 @@ function escapeHtml(str = "") {
 }
 
 async function safeReadJson(res) {
-  // Đọc text trước, rồi parse JSON nếu được
   const text = await res.text();
   try {
     return { ok: res.ok, status: res.status, data: JSON.parse(text), raw: text };
@@ -53,7 +52,6 @@ document.getElementById("btn").addEventListener("click", async () => {
 
     const result = await safeReadJson(res);
 
-    // Nếu backend trả không phải JSON (HTML/text)
     if (!result.data) {
       summaryEl.innerHTML = `
         <div class="pill bad">ERROR</div>
@@ -66,10 +64,8 @@ document.getElementById("btn").addEventListener("click", async () => {
       return;
     }
 
-    // JSON hợp lệ
     rawEl.textContent = JSON.stringify(result.data, null, 2);
 
-    // Nếu status lỗi, FastAPI thường trả { detail: ... }
     if (!result.ok) {
       const detail = result.data?.detail ?? result.data;
       summaryEl.innerHTML = `
@@ -82,7 +78,6 @@ document.getElementById("btn").addEventListener("click", async () => {
       return;
     }
 
-    // Thành công: hiển thị predict result
     const data = result.data;
     const cls = pillClass(data.action);
 
