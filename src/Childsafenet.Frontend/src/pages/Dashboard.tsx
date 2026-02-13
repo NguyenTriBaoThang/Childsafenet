@@ -1,4 +1,3 @@
-// src/pages/Dashboard.tsx
 import React, { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { getLogsApi } from "../api/client";
@@ -183,9 +182,6 @@ export default function Dashboard() {
       {/* Extension */}
       <Card style={{ marginTop: 16 }}>
         <h3>Chrome Extension</h3>
-        <p className="muted">
-          (C2) Pair token từ web sang Extension. Sau khi Pair, Extension sẽ scan và block theo API.
-        </p>
 
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 12, alignItems: "center" }}>
           <Button onClick={doPair} disabled={busy !== null}>
