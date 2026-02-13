@@ -40,12 +40,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd src/web
+          cd src/Childsafenet.Frontend
           npm install
 
       - name: Build
         run: |
-          cd src/web
+          cd src/Childsafenet.Frontend
           npm run build
 
   ai-service-check:
