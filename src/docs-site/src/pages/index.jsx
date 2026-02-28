@@ -115,7 +115,7 @@ export default function Home() {
               <li>Chrome/Edge Extension (Manifest V3)</li>
             </ul>
 
-            <Link className="btn btn-outline" to="/docs/project">
+            <Link className="btn btn-outline" to="/docs/getting-started">
               Learn More About the Project →
             </Link>
           </div>

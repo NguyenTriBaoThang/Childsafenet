@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-architecture" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.6.1">
+<title data-rh="true">System Architecture | ChildSafeNet Docs</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://NguyenTriBaoThang.github.io/Childsafenet/img/banner.gif"><meta data-rh="true" name="twitter:image" content="https://NguyenTriBaoThang.github.io/Childsafenet/img/banner.gif"><meta data-rh="true" property="og:url" content="https://NguyenTriBaoThang.github.io/Childsafenet/docs/architecture"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="System Architecture | ChildSafeNet Docs"><meta data-rh="true" name="description" content="ChildSafeNet is a hybrid AI-powered internet safety platform composed"><meta data-rh="true" property="og:description" content="ChildSafeNet is a hybrid AI-powered internet safety platform composed"><link data-rh="true" rel="icon" href="/Childsafenet/img/logo.svg"><link data-rh="true" rel="canonical" href="https://NguyenTriBaoThang.github.io/Childsafenet/docs/architecture"><link data-rh="true" rel="alternate" href="https://NguyenTriBaoThang.github.io/Childsafenet/docs/architecture" hreflang="en"><link data-rh="true" rel="alternate" href="https://NguyenTriBaoThang.github.io/Childsafenet/docs/architecture" hreflang="x-default"><link rel="stylesheet" href="/Childsafenet/assets/css/styles.f376f452.css">
+<script src="/Childsafenet/assets/js/runtime~main.9529610f.js" defer="defer"></script>
+<script src="/Childsafenet/assets/js/main.b7af9758.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();null!==e?t(e):window.matchMedia("(prefers-color-scheme: dark)").matches?t("dark"):window.matchMedia("(prefers-color-scheme: light)").matches?t("light"):t("dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/Childsafenet/"><div class="navbar__logo"><img src="/Childsafenet/img/logo.svg" alt="ChildSafeNet Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/Childsafenet/img/logo.svg" alt="ChildSafeNet Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">ChildSafeNet</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/Childsafenet/docs">Docs</a><a class="navbar__item navbar__link" href="/Childsafenet/docs/roadmap">Roadmap</a><a href="https://github.com/NguyenTriBaoThang/Childsafenet/wiki" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Wiki<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><a href="https://t.me/childsafenet" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Telegram<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/NguyenTriBaoThang/Childsafenet" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently dark mode)" aria-label="Switch between dark and light mode (currently dark mode)" aria-live="polite" aria-pressed="true"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/">ChildSafeNet Documentation</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/getting-started">Getting Started</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/Childsafenet/docs/architecture">System Architecture</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/user-guide-parent">Parent Guide</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/user-guide-admin">Admin Guide</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/extension">Browser Extension</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/ai-training-option-b">AI Training Option Periodic</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/ml-evaluation-metrics">ML Evaluation Metrics</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/api-reference">API Reference</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/backlog">Product Backlog</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/contributing">Contributing</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/security">Security</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/faq">FAQ</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/Childsafenet/docs/roadmap">Roadmap</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/Childsafenet/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">System Architecture</span><meta itemprop="position" content="1"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>🏗 System Architecture</h1></header>
+<p>ChildSafeNet is a hybrid AI-powered internet safety platform composed
+of:</p>
+<ul>
+<li>Web Application</li>
+<li>Backend API</li>
+<li>Database Layer</li>
+<li>AI Engine</li>
+<li>Browser Extension (MV3)</li>
+</ul>
+<p>The system is designed for real-time URL evaluation, policy enforcement,
+auditable logging, and periodic model retraining (Option Periodic).</p>
+<hr>
+<h1>🌐 High-Level Architecture</h1>
+<p>ChildSafeNet includes:</p>
+<ul>
+<li><strong>React Web App</strong></li>
+<li><strong>ASP.NET Core API</strong></li>
+<li><strong>SQL Server Database</strong></li>
+<li><strong>AI Engine (Hybrid Model)</strong></li>
+<li><strong>Browser Extension (Manifest V3)</strong></li>
+</ul>
+<p>Each component has a clearly defined responsibility to ensure separation
+of concerns, scalability, and safe deployment.</p>
+<hr>
+<h1>🧩 Components</h1>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="1️⃣-react-web-parentadmin-ui">1️⃣ React Web (Parent/Admin UI)<a href="#1️⃣-react-web-parentadmin-ui" class="hash-link" aria-label="Direct link to 1️⃣ React Web (Parent/Admin UI)" title="Direct link to 1️⃣ React Web (Parent/Admin UI)">​</a></h2>
+<p>Responsibilities:</p>
+<ul>
+<li>Authentication (Parent/Admin)</li>
+<li>Protection mode configuration (Strict / Balanced / Relaxed)</li>
+<li>Whitelist / Blacklist management</li>
+<li>View Scan Logs</li>
+<li>Dataset review (Admin)</li>
+<li>Trigger and monitor training jobs</li>
+<li>View model metrics and registry</li>
+</ul>
+<p>The Web App communicates exclusively with the Backend API via secured
+REST endpoints.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="2️⃣-aspnet-core-api">2️⃣ ASP.NET Core API<a href="#2️⃣-aspnet-core-api" class="hash-link" aria-label="Direct link to 2️⃣ ASP.NET Core API" title="Direct link to 2️⃣ ASP.NET Core API">​</a></h2>
+<p>Core responsibilities:</p>
+<ul>
+<li>Authentication (JWT-based)</li>
+<li>URL scanning endpoint (<code>/api/scan</code>)</li>
+<li>Parent settings management</li>
+<li>Logging scan results</li>
+<li>Dataset collection for retraining</li>
+<li>Admin dataset review</li>
+<li>Training job orchestration</li>
+<li>Model version management</li>
+</ul>
+<p>The API acts as the <strong>central control layer</strong> between Extension, AI
+Engine, and Database.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="3️⃣-sql-server-database">3️⃣ SQL Server Database<a href="#3️⃣-sql-server-database" class="hash-link" aria-label="Direct link to 3️⃣ SQL Server Database" title="Direct link to 3️⃣ SQL Server Database">​</a></h2>
+<p>Main tables:</p>
+<ul>
+<li><code>Users</code></li>
+<li><code>UserSettings</code></li>
+<li><code>ScanLogs</code></li>
+<li><code>UrlDataset</code></li>
+<li><code>TrainJobs</code></li>
+<li><code>ModelRegistry</code></li>
+</ul>
+<p>Purpose:</p>
+<ul>
+<li>Persist all user data and settings</li>
+<li>Store audit logs for every decision</li>
+<li>Maintain dataset lifecycle (Pending / Approved / Rejected)</li>
+<li>Track training history</li>
+<li>Register model versions and metrics</li>
+</ul>
+<p>All decisions are auditable.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="4️⃣-ai-engine-hybrid-model">4️⃣ AI Engine (Hybrid Model)<a href="#4️  ⃣-ai-engine-hybrid-model" class="hash-link" aria-label="Direct link to 4️⃣ AI Engine (Hybrid Model)" title="Direct link to 4️⃣ AI Engine (Hybrid Model)">​</a></h2>
+<p>ChildSafeNet uses a Hybrid AI approach:</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="random-forest-model">Random Forest Model<a href="#random-forest-model" class="hash-link" aria-label="Direct link to Random Forest Model" title="Direct link to Random Forest Model">​</a></h3>
+<ul>
+<li>58 handcrafted URL features</li>
+<li>URL length, entropy, symbols, tokens, TLD signals, etc.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="nlp-pipeline">NLP Pipeline<a href="#nlp-pipeline" class="hash-link" aria-label="Direct link to NLP Pipeline" title="Direct link to NLP Pipeline">​</a></h3>
+<ul>
+<li>TF-IDF or text-based features</li>
+<li>Focused detection for:<!-- -->
+<ul>
+<li>Adult content</li>
+<li>Gambling content</li>
+<li>General suspicious text signals</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="hybrid-policy-layer">Hybrid Policy Layer<a href="#hybrid-policy-layer" class="hash-link" aria-label="Direct link to Hybrid Policy Layer" title="Direct link to Hybrid Policy Layer">​</a></h3>
+<ul>
+<li>Combine RF + NLP scores</li>
+<li>Apply category thresholds</li>
+<li>Return:<!-- -->
+<ul>
+<li>label</li>
+<li>confidence score</li>
+<li>decision (Allow / Block)</li>
+</ul>
+</li>
+</ul>
+<p>The AI Engine is invoked by the API during scan requests.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="5️⃣-browser-extension-manifest-v3">5️⃣ Browser Extension (Manifest V3)<a href="#5️⃣-browser-extension-manifest-v3" class="hash-link" aria-label="Direct link to 5️⃣ Browser Extension (Manifest V3)" title="Direct link to 5️⃣ Browser Extension (Manifest V3)">​</a></h2>
+<p>Responsibilities:</p>
+<ul>
+<li>Detect tab navigation</li>
+<li>Capture URL metadata</li>
+<li>Send scan request to API</li>
+<li>Enforce decision (Allow / Block)</li>
+<li>Display <code>block.html</code> if decision is BLOCK</li>
+<li>Sync with Parent protection mode</li>
+</ul>
+<p>The extension never makes final decisions alone --- enforcement logic
+depends on API response.</p>
+<hr>
+<h1>🔄 Data Flow --- Scan Process</h1>
+<ol>
+<li>
+<p>Extension or Web sends:</p>
+<ul>
+<li><code>url</code></li>
+<li><code>title</code></li>
+<li><code>text</code> (optional)</li>
+<li><code>source</code> to: <code>/api/scan</code></li>
+</ul>
+</li>
+<li>
+<p>API processes request:</p>
+<p>a)  Apply Whitelist / Blacklist overrides<br>
+<!-- -->b)  Call AI prediction service<br>
+<!-- -->c)  Apply Parent Settings policy (mode toggles, thresholds)</p>
+</li>
+<li>
+<p>API stores:</p>
+<ul>
+<li>ScanLog record</li>
+<li>UrlDataset entry (Pending --- for Option Periodic)</li>
+</ul>
+</li>
+<li>
+<p>API returns decision to Extension</p>
+</li>
+<li>
+<p>If decision = BLOCK:</p>
+<ul>
+<li>Extension loads <code>block.html</code></li>
+</ul>
+</li>
+</ol>
+<p>All steps are logged for audit and retraining purposes.</p>
+<hr>
+<h1>🔁 Option Periodic --- Periodic Training Flow</h1>
+<p>ChildSafeNet separates data collection from model retraining.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="step-1-continuous-collection">Step 1: Continuous Collection<a href="#step-1-continuous-collection" class="hash-link" aria-label="Direct link to Step 1: Continuous Collection" title="Direct link to Step 1: Continuous Collection">​</a></h2>
+<ul>
+<li>API stores scanned URLs in <code>UrlDataset</code></li>
+<li>Initial state: <code>Pending</code></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="step-2-admin-review">Step 2: Admin Review<a href="#step-2-admin-review" class="hash-link" aria-label="Direct link to Step 2: Admin Review" title="Direct link to Step 2: Admin Review">​</a></h2>
+<p>Admin can: - Approve dataset entry - Reject noisy/incorrect samples</p>
+<p>Only Approved samples are eligible for training.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="step-3-scheduled-training">Step 3: Scheduled Training<a href="#step-3-scheduled-training" class="hash-link" aria-label="Direct link to Step 3: Scheduled Training" title="Direct link to Step 3: Scheduled Training">​</a></h2>
+<p>On schedule (daily / weekly):</p>
+<ul>
+<li>Merge baseline dataset + approved dataset</li>
+<li>Train Hybrid model (RF + NLP)</li>
+<li>Evaluate metrics:<!-- -->
+<ul>
+<li>Accuracy</li>
+<li>Precision</li>
+<li>Recall</li>
+<li>F1 Score</li>
+</ul>
+</li>
+<li>Save new model artifact</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="step-4-safe-activation">Step 4: Safe Activation<a href="#step-4-safe-activation" class="hash-link" aria-label="Direct link to Step 4: Safe Activation" title="Direct link to Step 4: Safe Activation">​</a></h2>
+<ul>
+<li>Store model in <code>ModelRegistry</code></li>
+<li>Keep previous version as fallback</li>
+<li>Activate only if quality gates pass</li>
+<li>Roll back if regression detected</li>
+</ul>
+<p>This ensures system stability and safe deployment.</p>
+<hr>
+<h1>🛡 Design Principles</h1>
+<ul>
+<li>Separation of concerns</li>
+<li>Role-based access control</li>
+<li>Audit-first logging</li>
+<li>Stable retraining strategy</li>
+<li>Safe rollback capability</li>
+<li>Low-latency inference</li>
+</ul>
+<hr>
+<h1>📌 Summary</h1>
+<p>ChildSafeNet architecture ensures:</p>
+<ul>
+<li>Real-time detection</li>
+<li>Explainable AI decisions</li>
+<li>Controlled retraining</li>
+<li>Full auditability</li>
+<li>Safe deployment lifecycle</li>
+</ul>
+<hr>
+<p>Related Documentation: - Getting Started - API Reference - AI Training
+(Option Periodic) - Security</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/architecture.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/Childsafenet/docs/getting-started"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Getting Started</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/Childsafenet/docs/user-guide-parent"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Parent Guide</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#1️⃣-react-web-parentadmin-ui" class="table-of-contents__link toc-highlight">1️⃣ React Web (Parent/Admin UI)</a></li><li><a href="#2️⃣-aspnet-core-api" class="table-of-contents__link toc-highlight">2️⃣ ASP.NET Core API</a></li><li><a href="#3️⃣-sql-server-database" class="table-of-contents__link toc-highlight">3️⃣ SQL Server Database</a></li><li><a href="#4️⃣-ai-engine-hybrid-model" class="table-of-contents__link toc-highlight">4️⃣ AI Engine (Hybrid Model)</a><ul><li><a href="#random-forest-model" class="table-of-contents__link toc-highlight">Random Forest Model</a></li><li><a href="#nlp-pipeline" class="table-of-contents__link toc-highlight">NLP Pipeline</a></li><li><a href="#hybrid-policy-layer" class="table-of-contents__link toc-highlight">Hybrid Policy Layer</a></li></ul></li><li><a href="#5️⃣-browser-extension-manifest-v3" class="table-of-contents__link toc-highlight">5️⃣ Browser Extension (Manifest V3)</a></li><li><a href="#step-1-continuous-collection" class="table-of-contents__link toc-highlight">Step 1: Continuous Collection</a></li><li><a href="#step-2-admin-review" class="table-of-contents__link toc-highlight">Step 2: Admin Review</a></li><li><a href="#step-3-scheduled-training" class="table-of-contents__link toc-highlight">Step 3: Scheduled Training</a></li><li><a href="#step-4-safe-activation" class="table-of-contents__link toc-highlight">Step 4: Safe Activation</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/Childsafenet/docs/getting-started">Getting Started</a></li><li class="footer__item"><a class="footer__link-item" href="/Childsafenet/docs/architecture">Architecture</a></li><li class="footer__item"><a class="footer__link-item" href="/Childsafenet/docs/extension">Extension</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/NguyenTriBaoThang/Childsafenet/issues" target="_blank" rel="noopener noreferrer" class="footer__link-item">Issues<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://github.com/NguyenTriBaoThang/Childsafenet/wiki" target="_blank" rel="noopener noreferrer" class="footer__link-item">Wiki<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://t.me/childsafenet" target="_blank" rel="noopener noreferrer" class="footer__link-item">Telegram<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/Childsafenet/docs/backlog">Backlog</a></li><li class="footer__item"><a class="footer__link-item" href="/Childsafenet/docs/security">Security</a></li><li class="footer__item"><a class="footer__link-item" href="/Childsafenet/docs/contributing">Contributing</a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 ChildSafeNet ● TKT TEAM ● HUTECH</div></div></div></footer></div>
+</body>
+</html>

@@ -3,41 +3,6 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
-    path: '/Childsafenet/__docusaurus/debug',
-    component: ComponentCreator('/Childsafenet/__docusaurus/debug', '1a7'),
-    exact: true
-  },
-  {
-    path: '/Childsafenet/__docusaurus/debug/config',
-    component: ComponentCreator('/Childsafenet/__docusaurus/debug/config', '9aa'),
-    exact: true
-  },
-  {
-    path: '/Childsafenet/__docusaurus/debug/content',
-    component: ComponentCreator('/Childsafenet/__docusaurus/debug/content', 'a64'),
-    exact: true
-  },
-  {
-    path: '/Childsafenet/__docusaurus/debug/globalData',
-    component: ComponentCreator('/Childsafenet/__docusaurus/debug/globalData', 'd24'),
-    exact: true
-  },
-  {
-    path: '/Childsafenet/__docusaurus/debug/metadata',
-    component: ComponentCreator('/Childsafenet/__docusaurus/debug/metadata', '919'),
-    exact: true
-  },
-  {
-    path: '/Childsafenet/__docusaurus/debug/registry',
-    component: ComponentCreator('/Childsafenet/__docusaurus/debug/registry', 'e05'),
-    exact: true
-  },
-  {
-    path: '/Childsafenet/__docusaurus/debug/routes',
-    component: ComponentCreator('/Childsafenet/__docusaurus/debug/routes', 'd5f'),
-    exact: true
-  },
-  {
     path: '/Childsafenet/docs',
     component: ComponentCreator('/Childsafenet/docs', '2c8'),
     routes: [

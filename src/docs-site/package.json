@@ -6,7 +6,7 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy",
+    "deploy": "cross-env GIT_USER=NguyenTriBaoThang docusaurus deploy",
     "clear": "docusaurus clear"
   },
   "dependencies": {
@@ -16,5 +16,8 @@
     "prism-react-renderer": "^2.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
   }
 }

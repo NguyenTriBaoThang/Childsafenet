@@ -1,0 +1,333 @@
+{
+  "entrypoints": [
+    "main"
+  ],
+  "origins": {
+    "237": [
+      237
+    ],
+    "17896441": [
+      869,
+      401
+    ],
+    "main": [
+      354,
+      869,
+      792
+    ],
+    "runtime~main": [
+      792,
+      869,
+      354
+    ],
+    "0480b142": [
+      70
+    ],
+    "0dffb83e": [
+      821
+    ],
+    "1c09acf7": [
+      239
+    ],
+    "1f3d1811": [
+      546
+    ],
+    "4d54d076": [
+      459
+    ],
+    "4edc808e": [
+      308
+    ],
+    "5278fd2c": [
+      288
+    ],
+    "5281b7a2": [
+      443
+    ],
+    "5e95c892": [
+      647
+    ],
+    "8133c8b3": [
+      360
+    ],
+    "9301438d": [
+      717
+    ],
+    "964ae018": [
+      824
+    ],
+    "99021f2e": [
+      753
+    ],
+    "9dd8a0d2": [
+      869,
+      617
+    ],
+    "a7456010": [
+      235
+    ],
+    "a7bd4aaa": [
+      98
+    ],
+    "a94703ab": [
+      869,
+      48
+    ],
+    "aba21aa0": [
+      742
+    ],
+    "c4e55774": [
+      745
+    ],
+    "d589d3a7": [
+      924
+    ],
+    "db32d859": [
+      884
+    ],
+    "styles": [
+      48,
+      354,
+      401,
+      617,
+      792,
+      869
+    ]
+  },
+  "assets": {
+    "48": {
+      "js": [
+        {
+          "file": "assets/js/a94703ab.ce41bd27.js",
+          "hash": "5b63b1edb733c043",
+          "publicPath": "/Childsafenet/assets/js/a94703ab.ce41bd27.js"
+        }
+      ]
+    },
+    "70": {
+      "js": [
+        {
+          "file": "assets/js/0480b142.b2cdae62.js",
+          "hash": "45b4d7e5124c9f9d",
+          "publicPath": "/Childsafenet/assets/js/0480b142.b2cdae62.js"
+        }
+      ]
+    },
+    "98": {
+      "js": [
+        {
+          "file": "assets/js/a7bd4aaa.6e0ceca7.js",
+          "hash": "dc8e65c19d9db162",
+          "publicPath": "/Childsafenet/assets/js/a7bd4aaa.6e0ceca7.js"
+        }
+      ]
+    },
+    "235": {
+      "js": [
+        {
+          "file": "assets/js/a7456010.3ca29eab.js",
+          "hash": "fc26c368e5258770",
+          "publicPath": "/Childsafenet/assets/js/a7456010.3ca29eab.js"
+        }
+      ]
+    },
+    "237": {
+      "js": [
+        {
+          "file": "assets/js/237.88424496.js",
+          "hash": "1486ed69d04d93c5",
+          "publicPath": "/Childsafenet/assets/js/237.88424496.js"
+        }
+      ]
+    },
+    "239": {
+      "js": [
+        {
+          "file": "assets/js/1c09acf7.e25246a9.js",
+          "hash": "4ed46d74e93ef9ef",
+          "publicPath": "/Childsafenet/assets/js/1c09acf7.e25246a9.js"
+        }
+      ]
+    },
+    "288": {
+      "js": [
+        {
+          "file": "assets/js/5278fd2c.47692982.js",
+          "hash": "1824f3f0a0b2f43a",
+          "publicPath": "/Childsafenet/assets/js/5278fd2c.47692982.js"
+        }
+      ]
+    },
+    "308": {
+      "js": [
+        {
+          "file": "assets/js/4edc808e.5be687a6.js",
+          "hash": "b8d9fb8b4ce064f4",
+          "publicPath": "/Childsafenet/assets/js/4edc808e.5be687a6.js"
+        }
+      ]
+    },
+    "354": {
+      "js": [
+        {
+          "file": "assets/js/runtime~main.9529610f.js",
+          "hash": "ef10a9dd5b9985d9",
+          "publicPath": "/Childsafenet/assets/js/runtime~main.9529610f.js"
+        }
+      ]
+    },
+    "360": {
+      "js": [
+        {
+          "file": "assets/js/8133c8b3.59e322ad.js",
+          "hash": "2d9e371dcad95ce4",
+          "publicPath": "/Childsafenet/assets/js/8133c8b3.59e322ad.js"
+        }
+      ]
+    },
+    "401": {
+      "js": [
+        {
+          "file": "assets/js/17896441.072a40f3.js",
+          "hash": "61433aa8dfb47cbf",
+          "publicPath": "/Childsafenet/assets/js/17896441.072a40f3.js"
+        }
+      ]
+    },
+    "443": {
+      "js": [
+        {
+          "file": "assets/js/5281b7a2.05e558e3.js",
+          "hash": "6724858b6fcc8471",
+          "publicPath": "/Childsafenet/assets/js/5281b7a2.05e558e3.js"
+        }
+      ]
+    },
+    "459": {
+      "js": [
+        {
+          "file": "assets/js/4d54d076.40f674e8.js",
+          "hash": "1fba00fae0cc9be1",
+          "publicPath": "/Childsafenet/assets/js/4d54d076.40f674e8.js"
+        }
+      ]
+    },
+    "546": {
+      "js": [
+        {
+          "file": "assets/js/1f3d1811.0a617c34.js",
+          "hash": "d23b200bd018a7b5",
+          "publicPath": "/Childsafenet/assets/js/1f3d1811.0a617c34.js"
+        }
+      ]
+    },
+    "617": {
+      "js": [
+        {
+          "file": "assets/js/9dd8a0d2.6a346497.js",
+          "hash": "d280b559ee12fa34",
+          "publicPath": "/Childsafenet/assets/js/9dd8a0d2.6a346497.js"
+        }
+      ]
+    },
+    "647": {
+      "js": [
+        {
+          "file": "assets/js/5e95c892.32a832b4.js",
+          "hash": "9e662333ff22c5de",
+          "publicPath": "/Childsafenet/assets/js/5e95c892.32a832b4.js"
+        }
+      ]
+    },
+    "717": {
+      "js": [
+        {
+          "file": "assets/js/9301438d.310a3972.js",
+          "hash": "68b52b15d2874ceb",
+          "publicPath": "/Childsafenet/assets/js/9301438d.310a3972.js"
+        }
+      ]
+    },
+    "742": {
+      "js": [
+        {
+          "file": "assets/js/aba21aa0.845edc27.js",
+          "hash": "7cbc86ea7f2992fc",
+          "publicPath": "/Childsafenet/assets/js/aba21aa0.845edc27.js"
+        }
+      ]
+    },
+    "745": {
+      "js": [
+        {
+          "file": "assets/js/c4e55774.a645a748.js",
+          "hash": "ea5327b07de7fadc",
+          "publicPath": "/Childsafenet/assets/js/c4e55774.a645a748.js"
+        }
+      ]
+    },
+    "753": {
+      "js": [
+        {
+          "file": "assets/js/99021f2e.8b195383.js",
+          "hash": "0df9e5fc8205cfd9",
+          "publicPath": "/Childsafenet/assets/js/99021f2e.8b195383.js"
+        }
+      ]
+    },
+    "792": {
+      "js": [
+        {
+          "file": "assets/js/main.b7af9758.js",
+          "hash": "3f0071280ef6747b",
+          "publicPath": "/Childsafenet/assets/js/main.b7af9758.js"
+        }
+      ]
+    },
+    "821": {
+      "js": [
+        {
+          "file": "assets/js/0dffb83e.eead1616.js",
+          "hash": "848021ecf50e87ee",
+          "publicPath": "/Childsafenet/assets/js/0dffb83e.eead1616.js"
+        }
+      ]
+    },
+    "824": {
+      "js": [
+        {
+          "file": "assets/js/964ae018.e6cf3d8a.js",
+          "hash": "12bfe8df28486d84",
+          "publicPath": "/Childsafenet/assets/js/964ae018.e6cf3d8a.js"
+        }
+      ]
+    },
+    "869": {
+      "css": [
+        {
+          "file": "assets/css/styles.f376f452.css",
+          "hash": "7227b4e55456d9a6",
+          "publicPath": "/Childsafenet/assets/css/styles.f376f452.css"
+        }
+      ]
+    },
+    "884": {
+      "js": [
+        {
+          "file": "assets/js/db32d859.4499991b.js",
+          "hash": "705d0c4d7b442b86",
+          "publicPath": "/Childsafenet/assets/js/db32d859.4499991b.js"
+        }
+      ]
+    },
+    "924": {
+      "js": [
+        {
+          "file": "assets/js/d589d3a7.4722d5c8.js",
+          "hash": "be8e1f80c0607334",
+          "publicPath": "/Childsafenet/assets/js/d589d3a7.4722d5c8.js"
+        }
+      ]
+    }
+  }
+}
