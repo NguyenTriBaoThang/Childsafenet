@@ -23,7 +23,7 @@
 </p>
 
 <p align="center">
-  <a href="#getting-started"><strong>Get Started »</strong></a>
+  <a href="https://nguyentribaothang.github.io/Childsafenet"><strong>Explore the docs »</strong></a>
   <br/><br/>
   <a href="./.github/ISSUE_TEMPLATE/bug_report.md">🐛 Report Bug</a>
   |
