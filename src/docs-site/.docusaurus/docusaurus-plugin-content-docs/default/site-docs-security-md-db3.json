@@ -1,0 +1,26 @@
+{
+  "id": "security",
+  "title": "Security",
+  "description": "Security is a top priority for ChildSafeNet.\\",
+  "source": "@site/docs/security.md",
+  "sourceDirName": ".",
+  "slug": "/security",
+  "permalink": "/Childsafenet/docs/security",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/security.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Security"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Contributing",
+    "permalink": "/Childsafenet/docs/contributing"
+  },
+  "next": {
+    "title": "FAQ",
+    "permalink": "/Childsafenet/docs/faq"
+  }
+}

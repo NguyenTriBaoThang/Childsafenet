@@ -1,0 +1,26 @@
+{
+  "id": "user-guide-admin",
+  "title": "Admin Guide",
+  "description": "This guide explains how administrators manage:",
+  "source": "@site/docs/user-guide-admin.md",
+  "sourceDirName": ".",
+  "slug": "/user-guide-admin",
+  "permalink": "/Childsafenet/docs/user-guide-admin",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/user-guide-admin.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Admin Guide"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Parent Guide",
+    "permalink": "/Childsafenet/docs/user-guide-parent"
+  },
+  "next": {
+    "title": "Browser Extension",
+    "permalink": "/Childsafenet/docs/extension"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "extension",
+  "title": "Browser Extension",
+  "description": "The ChildSafeNet browser extension enforces real-time URL protection by",
+  "source": "@site/docs/extension.md",
+  "sourceDirName": ".",
+  "slug": "/extension",
+  "permalink": "/Childsafenet/docs/extension",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/extension.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Browser Extension"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Admin Guide",
+    "permalink": "/Childsafenet/docs/user-guide-admin"
+  },
+  "next": {
+    "title": "AI Training Option Periodic",
+    "permalink": "/Childsafenet/docs/ai-training-option-b"
+  }
+}

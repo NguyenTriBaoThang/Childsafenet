@@ -1,0 +1,26 @@
+{
+  "id": "contributing",
+  "title": "Contributing",
+  "description": "Thank you for your interest in contributing to ChildSafeNet.",
+  "source": "@site/docs/contributing.md",
+  "sourceDirName": ".",
+  "slug": "/contributing",
+  "permalink": "/Childsafenet/docs/contributing",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/contributing.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Contributing"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Product Backlog",
+    "permalink": "/Childsafenet/docs/backlog"
+  },
+  "next": {
+    "title": "Security",
+    "permalink": "/Childsafenet/docs/security"
+  }
+}

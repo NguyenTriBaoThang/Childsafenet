@@ -1,0 +1,26 @@
+{
+  "id": "ml-evaluation-metrics",
+  "title": "ML Evaluation Metrics",
+  "description": "ChildSafeNet uses multi-class classification to detect:",
+  "source": "@site/docs/ml-evaluation-metrics.md",
+  "sourceDirName": ".",
+  "slug": "/ml-evaluation-metrics",
+  "permalink": "/Childsafenet/docs/ml-evaluation-metrics",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/ml-evaluation-metrics.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "ML Evaluation Metrics"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AI Training Option Periodic",
+    "permalink": "/Childsafenet/docs/ai-training-option-b"
+  },
+  "next": {
+    "title": "API Reference",
+    "permalink": "/Childsafenet/docs/api-reference"
+  }
+}

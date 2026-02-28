@@ -1,0 +1,23 @@
+{
+  "id": "roadmap",
+  "title": "Roadmap",
+  "description": "This roadmap outlines the evolution of ChildSafeNet from core prototype",
+  "source": "@site/docs/roadmap.md",
+  "sourceDirName": ".",
+  "slug": "/roadmap",
+  "permalink": "/Childsafenet/docs/roadmap",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/roadmap.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "slug": "/roadmap",
+    "title": "Roadmap"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "FAQ",
+    "permalink": "/Childsafenet/docs/faq"
+  }
+}

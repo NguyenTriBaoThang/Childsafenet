@@ -1,0 +1,98 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/Childsafenet/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/Childsafenet/docs",
+          "mainDocId": "index",
+          "docs": [
+            {
+              "id": "ai-training-option-b",
+              "path": "/Childsafenet/docs/ai-training-option-b",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "api-reference",
+              "path": "/Childsafenet/docs/api-reference",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "architecture",
+              "path": "/Childsafenet/docs/architecture",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "backlog",
+              "path": "/Childsafenet/docs/backlog",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "contributing",
+              "path": "/Childsafenet/docs/contributing",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "extension",
+              "path": "/Childsafenet/docs/extension",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "faq",
+              "path": "/Childsafenet/docs/faq",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "getting-started",
+              "path": "/Childsafenet/docs/getting-started",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "index",
+              "path": "/Childsafenet/docs/",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "ml-evaluation-metrics",
+              "path": "/Childsafenet/docs/ml-evaluation-metrics",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "roadmap",
+              "path": "/Childsafenet/docs/roadmap",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "security",
+              "path": "/Childsafenet/docs/security",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "user-guide-admin",
+              "path": "/Childsafenet/docs/user-guide-admin",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "user-guide-parent",
+              "path": "/Childsafenet/docs/user-guide-parent",
+              "sidebar": "docsSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "docsSidebar": {
+              "link": {
+                "path": "/Childsafenet/docs/",
+                "label": "index"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

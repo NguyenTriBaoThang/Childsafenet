@@ -1,0 +1,26 @@
+{
+  "id": "api-reference",
+  "title": "API Reference",
+  "description": "RESTful API for authentication, parent settings, URL scanning, logging,",
+  "source": "@site/docs/api-reference.md",
+  "sourceDirName": ".",
+  "slug": "/api-reference",
+  "permalink": "/Childsafenet/docs/api-reference",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/api-reference.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "API Reference"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "ML Evaluation Metrics",
+    "permalink": "/Childsafenet/docs/ml-evaluation-metrics"
+  },
+  "next": {
+    "title": "Product Backlog",
+    "permalink": "/Childsafenet/docs/backlog"
+  }
+}

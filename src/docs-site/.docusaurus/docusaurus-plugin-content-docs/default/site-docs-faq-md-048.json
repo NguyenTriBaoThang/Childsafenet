@@ -1,0 +1,26 @@
+{
+  "id": "faq",
+  "title": "FAQ",
+  "description": "This page covers common issues, deployment questions, and operational concerns related to ChildSafeNet (Web, API, AI, and Extension).",
+  "source": "@site/docs/faq.md",
+  "sourceDirName": ".",
+  "slug": "/faq",
+  "permalink": "/Childsafenet/docs/faq",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/faq.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "FAQ"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Security",
+    "permalink": "/Childsafenet/docs/security"
+  },
+  "next": {
+    "title": "Roadmap",
+    "permalink": "/Childsafenet/docs/roadmap"
+  }
+}
