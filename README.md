@@ -43,7 +43,7 @@
   <img src="https://img.shields.io/badge/License-MIT-green" alt="MIT"/>
 </p>
 
-<img src="./assets/banner.jpg" alt="Preview" width="100%"/>
+<img src="./assets/images/banner.jpg" alt="Preview" width="100%"/>
 
 ---
 
