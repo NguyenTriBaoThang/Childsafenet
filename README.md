@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/images/IMG_LOGO.png" alt="ChildSafeNet" height="140" />
+  <img src="./assets/images/IMG_LOGO.png" alt="ChildSafeNet" height="200" />
 </p>
 
 <h1 align="center">ChildSafeNet</h1>
