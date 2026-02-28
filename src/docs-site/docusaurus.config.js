@@ -90,7 +90,7 @@ export default {
         darkTheme: prismThemes.dracula,
       },
       colorMode: {
-        defaultMode: 'dark',
+        defaultMode: 'light',
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
