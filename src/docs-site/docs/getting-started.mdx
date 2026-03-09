@@ -1,0 +1,377 @@
+---
+description: Professional setup guide for ChildSafeNet AI-powered child
+  cybersecurity platform
+title: Getting Started
+---
+
+import Link from "@docusaurus/Link";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+<div class="csnSection csnGlowLine">
+
+# 🚀 Getting Started
+
+<div class="csnDocHero">
+
+<div class="csnDocHeroDesc">
+  Setup guide for running the **ChildSafeNet AI-powered child internet
+  protection platform** from source.
+</div>
+
+<div class="csnDocChips">
+  <span class="csnDocChip">React</span>
+  <span class="csnDocChip">ASP.NET Core</span>
+  <span class="csnDocChip">SQL Server</span>
+  <span class="csnDocChip">AI Engine</span>
+  <span class="csnDocChip">Browser Extension</span>
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## Platform Overview
+
+ChildSafeNet integrates multiple components into a real-time protection system.
+
+<div class="cardGrid">
+
+<div class="csnCard card4">
+
+### 🌐 React Dashboard
+
+Parent monitoring interface and system management.
+
+</div>
+
+<div class="csnCard card4">
+
+### 🔐 ASP.NET Core API
+
+Authentication, scanning API, and policy enforcement.
+
+</div>
+
+<div class="csnCard card4">
+
+### 🗄 SQL Server
+
+Stores users, logs, policies, and training datasets.
+
+</div>
+
+<div class="csnCard card4">
+
+### 🧠 AI Engine
+
+Hybrid classifier detecting malicious and unsafe URLs.
+
+</div>
+
+<div class="csnCard card4">
+
+### 🧩 Browser Extension
+
+Real-time URL interception and enforcement.
+
+</div>
+
+</div>
+
+</div>
+
+This document guides you from **clone → configure → run → secure →
+validate → production build**.
+
+---
+
+## 1. System Architecture
+
+### High-Level Flow
+
+<div className="csnCard" style={{ margin: "1rem 0" }}>
+  <p
+    style={{
+      textAlign: "center",
+      fontSize: "1.1rem",
+      margin: "0.2rem 0",
+      fontWeight: "500",
+    }}
+  >
+    Browser Extension → <strong>/api/scan</strong> → AI Risk Engine → SQL
+    Database → React Dashboard
+  </p>
+</div>
+
+### Core Modules
+
+<div style={{ margin: "1rem 0" }}>
+  <table>
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Technology</th>
+        <th>Responsibility</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Frontend</td>
+        <td>React + Vite</td>
+        <td>Parent monitoring UI</td>
+      </tr>
+      <tr>
+        <td>Backend</td>
+        <td>ASP.NET Core 8</td>
+        <td>Authentication, Scan API</td>
+      </tr>
+      <tr>
+        <td>Database</td>
+        <td>SQL Server</td>
+        <td>Logs, Users, Tokens</td>
+      </tr>
+      <tr>
+        <td>Extension</td>
+        <td>Chrome/Edge MV3</td>
+        <td>Real-time blocking</td>
+      </tr>
+      <tr>
+        <td>AI Engine</td>
+        <td>Risk Classifier</td>
+        <td>URL classification</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+---
+
+## 2. Prerequisites
+
+Ensure the following tools are installed:
+
+- .NET SDK 8
+- Node.js 18+
+- SQL Server (Express / Developer / LocalDB)
+- Git
+- (Optional) Docker Desktop
+
+Verify:
+
+```bash
+dotnet --version
+node --version
+npm --version
+```
+
+---
+
+## 3. Environment Configuration
+
+Before running the system, configure:
+
+`src/Childsafenet.Api/appsettings.Development.json`
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=ChildSafeNetDb;Trusted_Connection=True;TrustServerCertificate=True;"
+  },
+  "Jwt": {
+    "Key": "YourSuperSecretKey_Minimum32CharactersRequired"
+  }
+}
+```
+
+### Security Best Practices
+
+- Use at least 32-character JWT key
+- Do NOT commit production secrets
+- Enable HTTPS only in production
+- Restrict CORS origins
+
+---
+
+## 4. Clone Repository
+
+```bash
+git clone https://github.com/NguyenTriBaoThang/Childsafenet.git
+cd Childsafenet
+```
+
+---
+
+## 5. Backend Setup (ASP.NET Core API)
+
+```bash
+cd src/Childsafenet.Api
+dotnet restore
+dotnet ef database update
+dotnet run
+```
+
+Default URLs:
+
+    https://localhost:7047 <br />
+    https://localhost:7047/swagger
+
+---
+
+## 6. Frontend Setup (React + Vite)
+
+```bash
+cd src/Childsafenet.Frontend
+npm install
+npm run dev
+```
+
+Access:
+
+    http://localhost:5173
+
+---
+
+## 7. Authentication Flow
+
+1.  Register Parent Account
+2.  Login
+3.  JWT stored in `localStorage` as `csn_token`
+4.  Authorization header automatically attached
+
+---
+
+## 8. Quick Scan Validation
+
+1.  Navigate to Scan Page
+2.  Submit a test URL
+3.  Observe classification: `ALLOW`, `WARN`, `BLOCK`
+4.  Verify database log entry
+
+---
+
+## 9. Extension Installation (Developer Mode)
+
+1.  Open `chrome://extensions` or `edge://extensions`
+2.  Enable Developer Mode
+3.  Click "Load unpacked"
+4.  Select:
+
+```md
+src/Childsafenet.Extension
+```
+
+---
+
+## 10. Extension Pairing
+
+1.  Generate pairing token in Dashboard
+2.  Open extension popup
+3.  Paste token
+4.  Confirm status: **PAIRED**
+
+---
+
+## 11. End-to-End Security Test
+
+Test flow:
+
+- Visit unsafe URL
+- Extension calls `/api/scan`
+- If `BLOCK` → redirect to `block.html`
+- Dashboard logs entry
+
+---
+
+## 12. Health Check Endpoints
+
+Recommended validation:
+
+    - GET /swagger
+    - GET /health
+    - GET /api/scan/test
+
+---
+
+## 13. Docker Deployment (Optional)
+
+```bash
+docker-compose up --build
+```
+
+Verify:
+
+- API container running
+- SQL container healthy
+- Environment variables correct
+
+---
+
+## 14. Production Build
+
+### Backend
+
+```bash
+dotnet publish -c Release
+```
+
+### Frontend
+
+```bash
+npm run build
+```
+
+Deploy to:
+
+- Azure App Service
+- Docker Container
+- Reverse Proxy (Nginx)
+
+---
+
+## 15. Production Security Hardening
+
+- Enforce HTTPS
+- Enable HSTS
+- Rate-limit scan API
+- Rotate pairing tokens periodically
+- Store secrets in environment variables
+- Use secure JWT expiration policies
+
+---
+
+## 16. System Ready Checklist
+
+- [x] API Running
+- [x] Database Migrated
+- [x] Frontend Accessible
+- [x] Extension Installed
+- [x] Extension Paired
+- [x] Logs Recording
+- [x] AI Scan Functional
+
+---
+
+## 17. Recommended Next Reading
+
+- System Architecture Deep Dive
+- API Reference
+- Extension Internals
+- AI Model Training Pipeline
+- Threat Modeling & Security Design
+
+---
+
+## Conclusion
+
+ChildSafeNet is now fully operational in **Professional Development
+Mode**.
+
+You are ready for:
+
+- 🏆 Academic Competition Submission
+- 🌍 Open-Source Contribution
+- 🔐 Secure Production Deployment

@@ -1,0 +1,333 @@
+---
+title: Product Backlog
+---
+
+<div class="csnSection csnGlowLine">
+
+# 📋 Product Backlog
+
+<div class="csnDocHero">
+  <p class="csnDocHeroDesc">
+    The development roadmap for ChildSafeNet.  
+    This backlog organizes system features into structured phases covering
+    core platform, AI detection, browser integration, and deployment readiness.
+  </p>
+
+<div class="csnDocChips">
+  <span class="csnDocChip">Roadmap</span>
+  <span class="csnDocChip">Phased Development</span>
+  <span class="csnDocChip">Release Ready</span>
+</div>
+
+<div class="csnDocHeroActions">
+  <a class="csnBtn csnBtnPrimary" href="/architecture">
+    🏗 Architecture
+  </a>
+  <a class="csnBtn" href="/ai-training-option-periodic">
+    🧠 AI Training
+  </a>
+  <a class="csnBtn" href="/security">
+    🔐 Security
+  </a>
+</div>
+
+</div>
+
+---
+
+## 1. Overview
+
+<div class="csnCard">
+
+The **Product Backlog** defines the main development tasks for the ChildSafeNet platform.
+
+The backlog is structured into **five development phases**, each focusing on a
+specific part of the system:
+
+- Core system functionality
+- AI detection and browser integration
+- Admin tools and training pipelines
+- Documentation and release preparation
+- DevOps and security hardening
+
+This structure ensures **clear milestones, modular development, and stable releases**.
+
+</div>
+
+---
+
+## 2. Development Phases
+
+<div class="csnCard">
+
+| Phase   | Focus                              |
+| ------- | ---------------------------------- |
+| Phase 1 | Core system (auth, settings, logs) |
+| Phase 2 | AI detection and browser extension |
+| Phase 3 | Admin tools and dataset training   |
+| Phase 4 | Documentation and release          |
+| Phase 5 | DevOps and security hardening      |
+
+</div>
+
+---
+
+## 3. Core System (Phase 1)
+
+<div class="csnSteps">
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">1</div>
+  <div class="csnStepTag">Auth</div>
+</div>
+
+<h3 class="csnStepTitle">Authentication & Authorization</h3>
+
+<p class="csnStepDesc">
+
+Core security layer for user access.
+
+Key tasks:
+
+- Implement **JWT authentication**
+- Support **Parent and Admin roles**
+- Secure password hashing
+- Protect API routes
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">2</div>
+  <div class="csnStepTag">Settings</div>
+</div>
+
+<h3 class="csnStepTitle">Parent Settings</h3>
+
+<p class="csnStepDesc">
+
+Allow parents to configure protection policies.
+
+Key tasks:
+
+- Strict / Balanced / Relaxed modes
+- Whitelist and blacklist
+- Protection toggle
+- Settings persistence
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">3</div>
+  <div class="csnStepTag">Logs</div>
+</div>
+
+<h3 class="csnStepTitle">Scan & Activity Logs</h3>
+
+<p class="csnStepDesc">
+
+Record scan activity and provide transparency.
+
+Key tasks:
+
+- `/api/scan` endpoint
+- `ScanLog` database table
+- Paginated logs API
+- Logs dashboard UI
+
+</p>
+
+</div>
+
+</div>
+
+---
+
+## 4. AI & Browser Integration (Phase 2)
+
+<div class="csnSteps">
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">1</div>
+  <div class="csnStepTag">AI</div>
+</div>
+
+<h3 class="csnStepTitle">Hybrid AI Detection Engine</h3>
+
+<p class="csnStepDesc">
+
+Machine learning system for detecting unsafe URLs.
+
+Key tasks:
+
+- Extract **1000+ handcrafted URL features**
+- Build **TF-IDF NLP pipeline**
+- Combine scores via aggregation logic
+- Configure detection thresholds
+- Serialize trained models
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">2</div>
+  <div class="csnStepTag">Extension</div>
+</div>
+
+<h3 class="csnStepTitle">Browser Extension (MV3)</h3>
+
+<p class="csnStepDesc">
+
+Real-time protection within the browser.
+
+Key tasks:
+
+- Navigation listener
+- Scan request to API
+- Pairing token flow
+- Block page (`block.html`)
+- Mode synchronization
+
+</p>
+
+</div>
+
+</div>
+
+---
+
+## 5. Admin & Training (Phase 3)
+
+<div class="csnSteps">
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">1</div>
+  <div class="csnStepTag">Dataset</div>
+</div>
+
+<h3 class="csnStepTitle">Dataset Review</h3>
+
+<p class="csnStepDesc">
+
+Admin interface to manage training samples.
+
+Key tasks:
+
+- `UrlDataset` schema
+- Approve / Reject samples
+- Dataset review UI
+- Dataset export (CSV)
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">2</div>
+  <div class="csnStepTag">Training</div>
+</div>
+
+<h3 class="csnStepTitle">Periodic Model Training</h3>
+
+<p class="csnStepDesc">
+
+Scheduled retraining pipeline.
+
+Key tasks:
+
+- Background training job
+- Merge baseline + approved dataset
+- Compute evaluation metrics
+- Register model versions
+- Safe activation + rollback
+
+</p>
+
+</div>
+
+</div>
+
+---
+
+## 6. Documentation & Release (Phase 4)
+
+<div class="csnCard">
+
+Key tasks:
+
+- Setup **Docusaurus documentation site**
+- Write **architecture documentation**
+- Create **API reference**
+- Provide **Parent/Admin user guides**
+- Prepare **release changelog**
+
+</div>
+
+---
+
+## 7. DevOps & Security (Phase 5)
+
+<div class="csnCard">
+
+Key tasks:
+
+- GitHub Actions **CI/CD pipeline**
+- Dockerfile + Docker Compose
+- Environment configuration
+- HTTPS enforcement
+- Security headers
+- Rate limiting
+- Audit logging
+
+</div>
+
+---
+
+## 8. Definition of Done
+
+<div class="csnCard">
+
+A backlog task is complete when:
+
+- Code implementation finished
+- Tests pass successfully
+- Security checks pass
+- Code reviewed and merged
+- Documentation updated
+- No critical regression introduced
+
+</div>
+
+---
+
+## 9. Long-Term Vision (Post-Release)
+
+<div class="csnCard">
+
+- Model drift detection
+- Online evaluation dashboard
+- Multi-device management
+- Explainability visualization (feature importance UI)
+- Advanced threat intelligence integration
+
+</div>
+
+</div>

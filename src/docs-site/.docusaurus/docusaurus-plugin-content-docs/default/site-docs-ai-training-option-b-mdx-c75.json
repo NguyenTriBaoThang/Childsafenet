@@ -1,0 +1,28 @@
+{
+  "id": "ai-training-option-b",
+  "title": "AI Training Option Periodic",
+  "description": "A stable and auditable retraining strategy: collect continuously, review labels, then train on a fixed schedule with quality gates and rollback.",
+  "source": "@site/docs/ai-training-option-b.mdx",
+  "sourceDirName": ".",
+  "slug": "/ai-training-option-b",
+  "permalink": "/Childsafenet/docs/ai-training-option-b",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/ai-training-option-b.mdx",
+  "tags": [],
+  "version": "current",
+  "lastUpdatedBy": "Author",
+  "lastUpdatedAt": 1539502055000,
+  "frontMatter": {
+    "title": "AI Training Option Periodic"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Browser Extension",
+    "permalink": "/Childsafenet/docs/extension"
+  },
+  "next": {
+    "title": "ML Evaluation Metrics",
+    "permalink": "/Childsafenet/docs/ml-evaluation-metrics"
+  }
+}

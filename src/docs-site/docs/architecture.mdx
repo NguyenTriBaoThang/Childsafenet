@@ -1,0 +1,453 @@
+---
+title: System Architecture
+---
+
+import Link from "@docusaurus/Link";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+<div class="csnSection csnGlowLine">
+# 🏗 System Architecture
+
+<div class="csnDocHero">
+
+<div class="csnDocHeroDesc">
+  ChildSafeNet is a hybrid AI-powered internet safety platform combining
+  real-time URL detection, AI inference, and browser-level enforcement.
+</div>
+
+<div class="csnDocChips">
+  <span class="csnDocChip">React</span>
+  <span class="csnDocChip">ASP.NET Core</span>
+  <span class="csnDocChip">SQL Server</span>
+  <span class="csnDocChip">Hybrid AI</span>
+  <span class="csnDocChip">Browser Extension</span>
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## Platform Overview
+
+ChildSafeNet consists of five main layers:
+
+<div class="cardGrid">
+
+<div class="csnCard card4">
+
+### 🌐 Web Application
+
+Parent/Admin dashboard for configuration and monitoring.
+
+</div>
+
+<div class="csnCard card4">
+
+### ⚙️ Backend API
+
+Central control layer handling authentication, scanning, and logging.
+
+</div>
+
+<div class="csnCard card4">
+
+### 🗄 Database
+
+Stores users, policies, logs, and datasets.
+
+</div>
+
+<div class="csnCard card4">
+
+### 🤖 AI Engine
+
+Hybrid ML model for URL classification.
+
+</div>
+
+<div class="csnCard card4">
+
+### 🧩 Browser Extension
+
+Enforces blocking decisions in real time.
+
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## System Diagram
+
+<div className="heroMedia" style={{ margin: "1rem 0" }}>
+  <img
+    src={useBaseUrl("/diagrams/system_architecture.png")}
+    alt="System Architecture Diagram of ChildSafeNet"
+    loading="lazy"
+  />
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 1. High-Level Architecture
+
+<div class="csnSteps">
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">1</div>
+  <div class="csnStepTag">Frontend</div>
+</div>
+
+### React Web App
+
+Parent and admin interface used for configuration, monitoring, and
+system management.
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">2</div>
+  <div class="csnStepTag">Backend</div>
+</div>
+
+### ASP.NET Core API
+
+Central backend responsible for authentication, scanning endpoints,
+logging, and policy enforcement.
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">3</div>
+  <div class="csnStepTag">AI</div>
+</div>
+
+### Hybrid AI Engine
+
+Machine learning model used to detect malicious, adult, or suspicious
+content.
+
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 2. Core Components
+
+<div class="csnCard">
+
+### 🌐 React Web (Parent/Admin UI)
+
+Responsibilities:
+
+- Authentication (Parent/Admin)
+- Protection mode configuration
+- Whitelist / Blacklist management
+- Scan log visualization
+- Dataset review (Admin)
+- Trigger model training jobs
+- Monitor model metrics
+
+The web application communicates only with the Backend API via secured
+REST endpoints.
+
+</div>
+
+<br />
+
+<div class="csnCard">
+
+### ⚙️ ASP.NET Core API
+
+Responsibilities:
+
+- JWT authentication
+- URL scanning endpoint (`/api/scan`)
+- Parent settings management
+- Scan log persistence
+- Dataset collection
+- Training orchestration
+- Model registry management
+
+The API acts as the **central control layer** connecting Extension,
+AI Engine, and Database.
+
+</div>
+
+<br />
+
+<div class="csnCard">
+
+### 🗄 SQL Server Database
+
+Main tables:
+
+- `Users`
+- `UserSettings`
+- `ScanLogs`
+- `UrlDataset`
+- `TrainJobs`
+- `ModelRegistry`
+
+Purpose:
+
+- Persist all user data
+- Maintain complete scan logs
+- Manage training datasets
+- Track model versions and metrics
+
+All system decisions are **fully auditable**.
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 3. AI Engine (Hybrid Model)
+
+<div class="csnCard">
+
+ChildSafeNet uses a **Hybrid AI detection strategy**.
+
+### Random Forest Model
+
+- 1000+ handcrafted URL features
+- URL entropy
+- Symbol patterns
+- Token structure
+- Suspicious TLD signals
+
+### NLP Pipeline
+
+Text-based analysis using TF-IDF or similar features.
+
+Focus areas:
+
+- Adult content
+- Gambling content
+- Suspicious page language
+
+### Hybrid Policy Layer
+
+Combines AI scores and applies category thresholds.
+
+The engine returns:
+
+- Label
+- Confidence score
+- Decision (Allow / Warn / Block)
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 4. Browser Extension (Manifest V3)
+
+<div class="csnCard">
+
+Responsibilities:
+
+- Detect tab navigation
+- Capture URL metadata
+- Send scan requests to API
+- Enforce blocking decisions
+- Display `block.html` when required
+- Sync with parent protection mode
+
+The extension **never makes the final decision locally**.
+All enforcement depends on the API response.
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 5. Data Flow — Scan Process
+
+<div class="csnSteps">
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">1</div>
+</div>
+
+Extension or Web sends scan request:
+
+- URL
+- Title
+- Text
+- Source
+
+Endpoint: `/api/scan`
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">2</div>
+</div>
+
+API processing:
+
+- Apply whitelist/blacklist
+- Invoke AI prediction
+- Apply parent protection policies
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">3</div>
+</div>
+
+API stores results:
+
+- `ScanLogs`
+- `UrlDataset` entries
+
+Decision returned to extension.
+
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 6. Option Periodic — Model Training
+
+<div class="csnCard">
+
+### Step 1 — Continuous Collection
+
+The API continuously stores scanned URLs inside `UrlDataset`.
+
+Initial state: **Pending**
+
+### Step 2 — Admin Review
+
+Admins review dataset samples.
+
+Options:
+
+- Approve
+- Reject
+
+Only approved samples are used for training.
+
+### Step 3 — Scheduled Training
+
+On scheduled intervals:
+
+- Merge baseline dataset + approved samples
+- Train Hybrid AI model
+- Evaluate metrics:
+  - Accuracy
+  - Precision
+  - Recall
+  - F1 Score
+
+### Step 4 — Safe Deployment
+
+New model versions are stored in `ModelRegistry`.
+
+Deployment rules:
+
+- Previous version kept as fallback
+- Quality gates must pass
+- Rollback possible if regression detected
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 7. Design Principles
+
+<div class="csnStats">
+
+<div class="csnStat">
+  <div class="csnStatValue">Secure</div>
+  <div class="csnStatLabel">Role-based access control</div>
+</div>
+
+<div class="csnStat">
+  <div class="csnStatValue">Auditable</div>
+  <div class="csnStatLabel">Complete scan logging</div>
+</div>
+
+<div class="csnStat">
+  <div class="csnStatValue">Stable</div>
+  <div class="csnStatLabel">Safe model retraining</div>
+</div>
+
+<div class="csnStat">
+  <div class="csnStatValue">Fast</div>
+  <div class="csnStatLabel">Low-latency inference</div>
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## Summary
+
+<div class="csnCard">
+
+ChildSafeNet architecture ensures:
+
+- Real-time threat detection
+- AI-powered classification
+- Full auditability of decisions
+- Safe model lifecycle
+- Controlled retraining strategy
+
+</div>
+
+</div>

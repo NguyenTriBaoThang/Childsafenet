@@ -1,0 +1,26 @@
+{
+  "id": "ml-evaluation-metrics",
+  "title": "ML Evaluation Metrics",
+  "description": "ChildSafeNet evaluates ML models with a safety-first philosophy: prioritize precision for blocking categories while maintaining sufficient recall to prevent dangerous sites from slipping through.",
+  "source": "@site/docs/ml-evaluation-metrics.mdx",
+  "sourceDirName": ".",
+  "slug": "/ml-evaluation-metrics",
+  "permalink": "/Childsafenet/docs/ml-evaluation-metrics",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/ml-evaluation-metrics.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "ML Evaluation Metrics"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AI Training Option Periodic",
+    "permalink": "/Childsafenet/docs/ai-training-option-periodic"
+  },
+  "next": {
+    "title": "API Reference",
+    "permalink": "/Childsafenet/docs/api-reference"
+  }
+}

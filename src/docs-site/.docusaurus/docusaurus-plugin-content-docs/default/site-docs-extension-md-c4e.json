@@ -1,7 +1,7 @@
 {
   "id": "extension",
   "title": "Browser Extension",
-  "description": "The ChildSafeNet browser extension enforces real-time URL protection by",
+  "description": "🧩 Browser Extension (Manifest V3)",
   "source": "@site/docs/extension.md",
   "sourceDirName": ".",
   "slug": "/extension",
@@ -11,6 +11,8 @@
   "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/extension.md",
   "tags": [],
   "version": "current",
+  "lastUpdatedBy": "Author",
+  "lastUpdatedAt": 1539502055000,
   "frontMatter": {
     "title": "Browser Extension"
   },

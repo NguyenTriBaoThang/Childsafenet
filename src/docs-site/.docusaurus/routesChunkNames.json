@@ -1,72 +1,76 @@
 {
-  "/Childsafenet/docs-2c8": {
+  "/Childsafenet/docs-a1a": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/Childsafenet/docs-ea4": {
+  "/Childsafenet/docs-4d5": {
     "__comp": "a7bd4aaa",
     "__props": "99021f2e"
   },
-  "/Childsafenet/docs-5b0": {
+  "/Childsafenet/docs-af2": {
     "__comp": "a94703ab"
   },
-  "/Childsafenet/docs/-a19": {
+  "/Childsafenet/docs/-75e": {
     "__comp": "17896441",
     "content": "4edc808e"
   },
-  "/Childsafenet/docs/ai-training-option-b-9e1": {
+  "/Childsafenet/docs/ai-training-option-periodic-17d": {
     "__comp": "17896441",
-    "content": "8133c8b3"
+    "content": "e139872e"
   },
-  "/Childsafenet/docs/api-reference-95e": {
+  "/Childsafenet/docs/api-reference-832": {
     "__comp": "17896441",
-    "content": "964ae018"
+    "content": "77266aba"
   },
-  "/Childsafenet/docs/architecture-19d": {
+  "/Childsafenet/docs/architecture-108": {
     "__comp": "17896441",
-    "content": "5281b7a2"
+    "content": "fd532226"
   },
-  "/Childsafenet/docs/backlog-72e": {
+  "/Childsafenet/docs/backlog-537": {
     "__comp": "17896441",
-    "content": "5278fd2c"
+    "content": "0236cc39"
   },
-  "/Childsafenet/docs/contributing-225": {
+  "/Childsafenet/docs/contributing-4a9": {
     "__comp": "17896441",
-    "content": "4d54d076"
+    "content": "72a427b3"
   },
-  "/Childsafenet/docs/extension-b2a": {
+  "/Childsafenet/docs/extension-0b6": {
     "__comp": "17896441",
-    "content": "c4e55774"
+    "content": "cd919f6d"
   },
-  "/Childsafenet/docs/faq-93d": {
+  "/Childsafenet/docs/faq-5ba": {
     "__comp": "17896441",
-    "content": "0480b142"
+    "content": "ea313555"
   },
-  "/Childsafenet/docs/getting-started-d10": {
+  "/Childsafenet/docs/getting-started-839": {
     "__comp": "17896441",
-    "content": "d589d3a7"
+    "content": "3021cf83"
   },
-  "/Childsafenet/docs/ml-evaluation-metrics-40a": {
+  "/Childsafenet/docs/ml-evaluation-metrics-e48": {
     "__comp": "17896441",
-    "content": "1c09acf7"
+    "content": "bfc7a7a9"
   },
-  "/Childsafenet/docs/roadmap-d61": {
+  "/Childsafenet/docs/roadmap-3ac": {
     "__comp": "17896441",
-    "content": "0dffb83e"
+    "content": "b5e9cae4"
   },
-  "/Childsafenet/docs/security-68f": {
+  "/Childsafenet/docs/security-891": {
     "__comp": "17896441",
-    "content": "db32d859"
+    "content": "7d0180ef"
   },
-  "/Childsafenet/docs/user-guide-admin-d72": {
+  "/Childsafenet/docs/sponsor-6f9": {
     "__comp": "17896441",
-    "content": "1f3d1811"
+    "content": "8967b5ba"
   },
-  "/Childsafenet/docs/user-guide-parent-d1d": {
+  "/Childsafenet/docs/user-guide-admin-467": {
     "__comp": "17896441",
-    "content": "9301438d"
+    "content": "868a66fc"
+  },
+  "/Childsafenet/docs/user-guide-parent-3d0": {
+    "__comp": "17896441",
+    "content": "3eb32b6e"
   },
   "/Childsafenet/-f48": {
     "__comp": "9dd8a0d2",

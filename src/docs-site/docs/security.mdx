@@ -1,0 +1,283 @@
+---
+title: Security
+---
+
+<div class="csnSection csnGlowLine">
+
+# 🔐 Security Policy
+
+<div class="csnDocHero">
+  <p class="csnDocHeroDesc">
+    Security is a top priority for ChildSafeNet.  
+    This document describes vulnerability reporting, system protections,
+    and recommended secure deployment practices.
+  </p>
+
+<div class="csnDocChips">
+  <span class="csnDocChip">Responsible Disclosure</span>
+  <span class="csnDocChip">Secure Architecture</span>
+  <span class="csnDocChip">Production Hardening</span>
+</div>
+
+<div class="csnDocHeroActions">
+  <a class="csnBtn csnBtnPrimary" href="/architecture">🏗 Architecture</a>
+  <a class="csnBtn" href="/ai-training-option-periodic">🧠 AI Training</a>
+  <a class="csnBtn" href="/ml-evaluation-metrics">📊 Evaluation</a>
+</div>
+
+</div>
+
+---
+
+## 1. Reporting Security Issues
+
+<div class="csnCard">
+
+Please **DO NOT** report security vulnerabilities via public GitHub issues.
+
+Instead, report privately via email:
+
+opensource-security@github.com  
+(or replace with your official security contact email)
+
+</div>
+
+---
+
+### What to Include in Your Report
+
+<div class="csnCard">
+
+To help us investigate quickly, please include:
+
+- Type of issue (e.g., authentication bypass, XSS, privilege escalation)
+- Affected file paths
+- Branch / commit hash
+- Clear reproduction steps
+- Proof of concept (if safe to share)
+- Impact analysis (what could an attacker do?)
+- Suggested mitigation (optional)
+
+</div>
+
+---
+
+## 2. Response Timeline
+
+<div class="csnCard">
+
+We aim to:
+
+- Acknowledge report within **48 hours**
+- Provide initial assessment within **5 business days**
+- Patch critical issues as quickly as possible
+- Coordinate responsible disclosure
+
+</div>
+
+---
+
+## 3. Security Architecture Overview
+
+<div class="csnSteps">
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+<div class="csnStepNum">1</div>
+<div class="csnStepTag">Auth</div>
+</div>
+
+<h3 class="csnStepTitle">Authentication & Authorization</h3>
+
+<p class="csnStepDesc">
+
+- JWT-based authentication
+- Role-based access (Parent / Admin)
+- Protected admin endpoints
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+<div class="csnStepNum">2</div>
+<div class="csnStepTag">API</div>
+</div>
+
+<h3 class="csnStepTitle">API Protection</h3>
+
+<p class="csnStepDesc">
+
+- HTTPS required in production
+- CORS restrictions
+- Input validation
+- Model endpoint protected from direct abuse
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+<div class="csnStepNum">3</div>
+<div class="csnStepTag">Data</div>
+</div>
+
+<h3 class="csnStepTitle">Data Protection</h3>
+
+<p class="csnStepDesc">
+
+- Store minimal browsing metadata
+- Avoid storing full page content
+- Parameterized queries (prevent SQL injection)
+- Password hashing (BCrypt / ASP.NET Identity)
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+<div class="csnStepNum">4</div>
+<div class="csnStepTag">Extension</div>
+</div>
+
+<h3 class="csnStepTitle">Extension Security</h3>
+
+<p class="csnStepDesc">
+
+- Manifest V3 (service worker-based)
+- No secret keys hardcoded in extension
+- Token stored in chrome.storage.local
+- Server-authoritative decisions
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+<div class="csnStepNum">5</div>
+<div class="csnStepTag">Model</div>
+</div>
+
+<h3 class="csnStepTitle">Model Safety</h3>
+
+<p class="csnStepDesc">
+
+- Safe model activation process
+- Fallback model support
+- Quality gate validation before release
+
+</p>
+
+</div>
+
+</div>
+
+---
+
+## 4. Threat Model Considerations
+
+<div class="csnCard">
+
+Possible attack surfaces:
+
+- Unauthorized access to admin endpoints
+- Token theft (JWT misuse)
+- Malicious dataset injection
+- Model poisoning
+- Extension background abuse
+- CORS misconfiguration
+
+Mitigation strategies include:
+
+- Role validation on every endpoint
+- Admin-only dataset approval
+- Rate limiting scan endpoint
+- Logging all admin actions
+- Versioned model registry with rollback
+
+</div>
+
+---
+
+## 5. Production Hardening Checklist
+
+<div class="csnCard">
+
+Before deployment:
+
+- Enforce HTTPS
+- Set secure HTTP headers:
+  - Content-Security-Policy
+  - X-Content-Type-Options
+  - X-Frame-Options
+- Enable rate limiting
+- Validate input size limits
+- Disable debug mode
+- Store secrets in environment variables
+- Restrict database access to API only
+
+</div>
+
+---
+
+## 6. Responsible Disclosure
+
+<div class="csnCard">
+
+We support responsible disclosure practices.
+
+Researchers who responsibly report valid vulnerabilities will be
+acknowledged (if desired).
+
+Do not attempt:
+
+- Denial-of-service attacks
+- Data exfiltration
+- Public disclosure before patch
+
+</div>
+
+---
+
+## 7. AI-Specific Security
+
+<div class="csnCard">
+
+Because ChildSafeNet uses ML models:
+
+- Protect training dataset from tampering
+- Require admin approval before training
+- Monitor drift anomalies
+- Avoid automatic deployment without evaluation
+- Log model version used for each scan
+
+</div>
+
+---
+
+## Summary
+
+<div class="csnCard">
+
+ChildSafeNet security principles:
+
+- Least privilege access
+- Audit-first logging
+- Stable retraining (Option Periodic)
+- Safe model deployment
+- Responsible disclosure
+
+If in doubt, report privately first.
+
+</div>
+
+</div>

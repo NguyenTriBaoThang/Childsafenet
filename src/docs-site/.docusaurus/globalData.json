@@ -11,8 +11,8 @@
           "mainDocId": "index",
           "docs": [
             {
-              "id": "ai-training-option-b",
-              "path": "/Childsafenet/docs/ai-training-option-b",
+              "id": "ai-training-option-periodic",
+              "path": "/Childsafenet/docs/ai-training-option-periodic",
               "sidebar": "docsSidebar"
             },
             {
@@ -68,6 +68,11 @@
             {
               "id": "security",
               "path": "/Childsafenet/docs/security",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "sponsor",
+              "path": "/Childsafenet/docs/sponsor",
               "sidebar": "docsSidebar"
             },
             {

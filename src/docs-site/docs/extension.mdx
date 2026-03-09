@@ -1,0 +1,418 @@
+---
+title: Browser Extension
+---
+
+<div class="csnSection csnGlowLine">
+
+# 🧩 Browser Extension (Manifest V3)
+
+<div class="csnDocHero">
+
+<div class="csnDocHeroDesc">
+  The ChildSafeNet browser extension enforces real-time URL protection by
+  communicating with the backend API and applying blocking decisions based on
+  Parent settings and AI predictions.
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 1. Supported Browsers
+
+<div class="csnCard">
+
+- Google Chrome (Chromium-based)
+- Microsoft Edge (Chromium-based)
+
+The extension uses **Manifest V3 (MV3)** architecture with a background service worker.
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 2. Installation (Developer Mode)
+
+<div class="csnSteps">
+
+<div class="csnStep">
+<div class="csnStepNum">1</div>
+
+### Open Extensions Page
+
+Open:
+
+- Chrome → `chrome://extensions`
+- Edge → `edge://extensions`
+
+</div>
+
+<div class="csnStep">
+<div class="csnStepNum">2</div>
+
+### Enable Developer Mode
+
+Enable **Developer mode** (top-right toggle)
+
+</div>
+
+<div class="csnStep">
+<div class="csnStepNum">3</div>
+
+### Load Extension
+
+Click **Load unpacked**
+
+</div>
+
+<div class="csnStep">
+<div class="csnStepNum">4</div>
+
+### Select Folder
+
+Select the project folder:
+
+`chrome-extension/`
+
+</div>
+
+</div>
+
+<div class="csnCard">
+
+After installation ensure:
+
+- Extension is enabled
+- No errors appear in the extension card
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 3. Pairing Flow
+
+<div class="csnCard">
+
+The extension must be paired with the Web Dashboard before protection becomes active.
+
+</div>
+
+### Flow Overview
+
+<div class="csnSteps">
+
+<div class="csnStep">
+<div class="csnStepNum">1</div>
+
+Web Dashboard generates pairing token
+
+</div>
+
+<div class="csnStep">
+<div class="csnStepNum">2</div>
+
+Dashboard sends token to extension via  
+`window.postMessage`
+
+</div>
+
+<div class="csnStep">
+<div class="csnStepNum">3</div>
+
+Content script listens and forwards token to background service worker
+
+</div>
+
+<div class="csnStep">
+<div class="csnStepNum">4</div>
+
+Background stores token in  
+`chrome.storage.local`
+
+</div>
+
+<div class="csnStep">
+<div class="csnStepNum">5</div>
+
+Extension responds with  
+`CSN_PAIR_RESULT`
+
+</div>
+
+<div class="csnStep">
+<div class="csnStepNum">6</div>
+
+Dashboard updates status (Paired / Failed)
+
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 4. Storage
+
+<div class="csnCard">
+
+The extension stores:
+
+- Pairing token
+- Mode sync state
+- API base URL (if configurable)
+
+</div>
+
+<div class="csnCard">
+
+Stored in:
+
+`chrome.storage.local`
+
+</div>
+
+<div class="csnCard">
+
+No sensitive data should be stored in plaintext beyond necessary tokens.
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 5. Scan Flow (Runtime)
+
+<div style={{margin: "1.0rem"}}>
+
+The following diagram illustrates the real-time decision pipeline used by the browser extension.
+
+```
+                                      User Browser
+                                           ↓
+                                    Browser Extension
+                                           ↓
+                                Background Service Worker
+                                           ↓
+                                      POST /api/scan
+                                           ↓
+                                       Backend API
+                                           ↓
+                                     AI Risk Engine
+                                           ↓
+                                        Decision
+                                       ↙       ↘
+                                     ALLOW     BLOCK
+                                      ↓          ↓
+                                    Page      block.html
+```
+
+</div>
+
+<div class="csnSteps">
+
+<div class="csnStep">
+  <div class="csnStepNum">1</div>
+  User navigates to a new URL
+</div>
+
+<div class="csnStep">
+  <div class="csnStepNum">2</div>
+  Extension captures tab update event
+</div>
+
+<div class="csnStep">
+  <div class="csnStepNum">3</div>
+  Background sends request to `/api/scan`
+</div>
+
+<div class="csnStep">
+  <div class="csnStepNum">4</div>
+  API returns decision
+</div>
+
+<div class="csnStep">
+<div class="csnStepNum">5</div>
+
+If decision = **BLOCK**
+
+- Extension redirects to `block.html`
+
+</div>
+
+<div class="csnStep">
+<div class="csnStepNum">6</div>
+
+If decision = **ALLOW**
+
+- Page loads normally
+
+</div>
+
+<div class="csnStep">
+<div class="csnStepNum">7</div>
+
+Scan result logged on backend
+
+</div>
+
+</div>
+
+<div style={{margin: "1.0rem"}}>
+
+The extension **does not decide independently** — the API is authoritative.
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 6. Enable / Disable Protection
+
+<div class="csnCard">
+
+Protection can be toggled:
+
+- From Web Dashboard (recommended)
+- From Extension popup (if implemented)
+
+</div>
+
+<div class="csnCard">
+
+When disabled:
+
+- Extension may still log URLs (optional)
+- Blocking is skipped
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 7. Common Issues & Troubleshooting
+
+<div class="csnCard">
+
+### NOT READY
+
+Meaning: Content script not injected.
+
+Fix:
+
+- Check `host_permissions` in `manifest.json`
+- Reload extension
+- Reload page
+
+</div>
+
+<div class="csnCard">
+
+### Pair failed / Port closed
+
+Possible causes:
+
+- Background service worker stopped
+- API unreachable
+- Token expired
+- Runtime error
+
+Fix:
+
+1. Open extension details
+2. Click **Service Worker**
+3. Open console and inspect logs
+4. Verify API URL and CORS configuration
+
+</div>
+
+<div class="csnCard">
+
+### No logs appear in dashboard
+
+Check:
+
+- JWT token valid
+- Pairing successful
+- Correct user account
+- API reachable
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 8. Security Notes
+
+<div class="csnCard">
+
+- Use HTTPS in production
+- Do not expose API keys in extension
+- Validate all responses server-side
+- Limit CORS origins
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 9. Manifest V3 Key Components
+
+<div class="csnCard">
+
+- manifest.json
+- background.js (service worker)
+- content.js
+- popup.html / popup.js (optional)
+- block.html
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 10. Best Practices
+
+<div class="csnCard">
+
+- Keep service worker lightweight
+- Avoid long-running blocking tasks
+- Handle network errors gracefully
+- Implement retry logic if needed
+- Provide clear UX for blocked pages
+
+</div>
+
+</div>

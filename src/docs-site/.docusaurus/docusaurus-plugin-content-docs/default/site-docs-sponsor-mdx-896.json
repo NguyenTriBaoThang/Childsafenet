@@ -1,0 +1,22 @@
+{
+  "id": "sponsor",
+  "title": "Sponsor",
+  "description": "This project is supported by organizations and contributors who believe in creating a safer internet environment for children.",
+  "source": "@site/docs/sponsor.mdx",
+  "sourceDirName": ".",
+  "slug": "/sponsor",
+  "permalink": "/Childsafenet/docs/sponsor",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/sponsor.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Sponsor"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Roadmap",
+    "permalink": "/Childsafenet/docs/roadmap"
+  }
+}

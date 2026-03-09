@@ -19,15 +19,16 @@ export default function Home() {
               <span className="highlight">From Online Dangers</span>
             </h1>
             <p className="hero-subtitle">
-              Real-time AI detects phishing, adult content, and malicious sites.  
-              Designed for parents who want safer internet experiences for their children.
+              Real-time AI detects phishing, adult content, and malicious sites.
+              Designed for parents who want safer internet experiences for their
+              children.
             </p>
 
             <div className="hero-cta-group">
               <Link className="btn btn-primary" to="/docs">
                 Get Started Free →
               </Link>
-              <Link className="btn btn-outline" to="/docs">
+              <Link className="btn btn-outline" to="http://180.93.2.24:5173/">
                 Watch Quick Demo
               </Link>
             </div>
@@ -58,26 +59,41 @@ export default function Home() {
 
           <div className="feature-grid">
             <div className="feature-card">
-              <img src="./backdrop/ai-shield.png" alt="AI Detection" className="feature-icon" />
+              <img
+                src="./backdrop/ai-shield.png"
+                alt="AI Detection"
+                className="feature-icon"
+              />
               <h3>Smart AI Detection</h3>
               <p>
-                Hybrid ML model identifies phishing, adult content, violence, and malicious websites with high accuracy.
+                Hybrid ML model identifies phishing, adult content, violence,
+                and malicious websites with high accuracy.
               </p>
             </div>
 
             <div className="feature-card">
-              <img src="./backdrop/parent-control.png" alt="Parental Controls" className="feature-icon" />
+              <img
+                src="./backdrop/parent-control.png"
+                alt="Parental Controls"
+                className="feature-icon"
+              />
               <h3>Age-Appropriate Controls</h3>
               <p>
-                Whitelist/blacklist, age-based filtering, detailed activity logs for parents.
+                Whitelist/blacklist, age-based filtering, detailed activity logs
+                for parents.
               </p>
             </div>
 
             <div className="feature-card">
-              <img src="./backdrop/extension.png" alt="Browser Extension" className="feature-icon" />
+              <img
+                src="./backdrop/extension.png"
+                alt="Browser Extension"
+                className="feature-icon"
+              />
               <h3>Lightweight Browser Extension</h3>
               <p>
-                Manifest V3 – smooth performance on Chrome & Edge without slowing down browsing.
+                Manifest V3 – smooth performance on Chrome & Edge without
+                slowing down browsing.
               </p>
             </div>
           </div>
@@ -89,8 +105,10 @@ export default function Home() {
         <div className="container narrow">
           <h2 className="section-title">What is ChildSafeNet?</h2>
           <p className="about-text">
-            ChildSafeNet is an AI-powered cybersecurity tool built to safeguard children online.  
-            It combines advanced machine learning models with real-time browser monitoring to block threats and give parents peace of mind.
+            ChildSafeNet is an AI-powered cybersecurity tool built to safeguard
+            children online. It combines advanced machine learning models with
+            real-time browser monitoring to block threats and give parents peace
+            of mind.
           </p>
         </div>
       </section>
@@ -99,14 +117,18 @@ export default function Home() {
       <section className="topic section-padding">
         <div className="container topic-grid">
           <div className="topic-visual">
-            <img src="./backdrop/topic-illustration.png" alt="Project overview" />
+            <img
+              src="./backdrop/topic-illustration.png"
+              alt="Project overview"
+            />
           </div>
 
           <div className="topic-content">
             <h3>Project Built for the Community</h3>
             <p>
-              ChildSafeNet is an academic competition project focused on real-world AI applications in child cybersecurity.  
-              The system integrates:
+              ChildSafeNet is an academic competition project focused on
+              real-world AI applications in child cybersecurity. The system
+              integrates:
             </p>
             <ul>
               <li>React + Docusaurus (Dashboard & Landing Page)</li>
@@ -150,7 +172,8 @@ export default function Home() {
           <div className="community-join">
             <h2>Join Our Community</h2>
             <p className="community-desc">
-              Follow the project, share feedback, or collaborate on building better online safety solutions for children.
+              Follow the project, share feedback, or collaborate on building
+              better online safety solutions for children.
             </p>
 
             <div className="community-buttons">
@@ -160,8 +183,13 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="btn btn-outline btn-github"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
                 </svg>
                 Star on GitHub
               </a>
@@ -172,6 +200,14 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="btn btn-outline btn-telegram"
               >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M9.993 15.674l-.396 3.35c.568 0 .815-.244 1.112-.538l2.67-2.55 5.53 4.04c1.013.558 1.732.265 1.985-.94l3.597-16.87c.347-1.61-.583-2.24-1.57-1.86L1.356 9.13c-1.552.6-1.53 1.46-.264 1.85l5.64 1.76L19.97 4.48c.62-.4 1.187-.18.72.22" />
+                </svg>
                 Join Telegram
               </a>
             </div>

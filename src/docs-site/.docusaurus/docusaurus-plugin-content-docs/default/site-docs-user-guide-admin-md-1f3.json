@@ -1,7 +1,7 @@
 {
   "id": "user-guide-admin",
   "title": "Admin Guide",
-  "description": "This guide explains how administrators manage:",
+  "description": "Administrative operations for managing datasets, AI training cycles, and system monitoring.",
   "source": "@site/docs/user-guide-admin.md",
   "sourceDirName": ".",
   "slug": "/user-guide-admin",

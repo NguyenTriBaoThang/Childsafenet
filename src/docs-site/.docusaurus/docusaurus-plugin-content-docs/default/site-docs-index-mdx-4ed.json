@@ -1,7 +1,7 @@
 {
   "id": "index",
   "title": "ChildSafeNet Documentation",
-  "description": "ChildSafeNet Docs",
+  "description": "# ChildSafeNet Documentation",
   "source": "@site/docs/index.mdx",
   "sourceDirName": ".",
   "slug": "/",
@@ -11,6 +11,8 @@
   "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/index.mdx",
   "tags": [],
   "version": "current",
+  "lastUpdatedBy": "NguyenTriBaoThang",
+  "lastUpdatedAt": 1772295951000,
   "frontMatter": {
     "title": "ChildSafeNet Documentation",
     "slug": "/"

@@ -7,27 +7,39 @@ import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
 <div className="heroBanner">
-  <h1 className="heroTitle">ChildSafeNet Docs</h1>
+  <h1 className="heroTitle">
+    # ChildSafeNet Documentation
+  </h1>
   <p className="heroSubtitle">
     AI-powered internet safety system for children — ASP.NET Core API, React + TypeScript, SQL Server,
     and MV3 Extension to detect & block risky websites (Adult, Gambling, Phishing).
   </p>
 
-  <div className="heroActions">
-    <Link className="csnBtn csnBtnPrimary" to="/docs/getting-started">🚀 Start Demo</Link>
-    <Link className="csnBtn" to="/docs/extension">🧩 Install Extension</Link>
-    <Link className="csnBtn" to="/docs/architecture">🏗 Architecture</Link>
-    <Link className="csnBtn" to="/docs/api-reference">🧠 API</Link>
-    <Link className="csnBtn" to="/docs/roadmap">🗺 Roadmap</Link>
-  </div>
+<div className="heroActions">
+  <Link className="csnBtn csnBtnPrimary" to="http://180.93.2.24:5173/">
+    🚀 Start Demo
+  </Link>
+  <Link className="csnBtn" to="/docs/extension">
+    🧩 Install Extension
+  </Link>
+  <Link className="csnBtn" to="/docs/architecture">
+    🏗 Architecture
+  </Link>
+  <Link className="csnBtn" to="/docs/api-reference">
+    🧠 API
+  </Link>
+  <Link className="csnBtn" to="/docs/roadmap">
+    🗺 Roadmap
+  </Link>
+</div>
 
-  <div className="heroMedia">
-    <img 
-      src={useBaseUrl("/img/banner.jpg")} 
-      alt="ChildSafeNet main banner illustrating the AI-powered safety system for children" 
-      loading="lazy" 
-    />
-  </div>
+<div className="heroMedia">
+  <img
+    src={useBaseUrl("/img/banner.jpg")}
+    alt="ChildSafeNet main banner illustrating the AI-powered safety system for children"
+    loading="lazy"
+  />
+</div>
 
   <div className="badgeRow" style={{ marginBottom: "1.2rem" }}>
     <img src="https://img.shields.io/badge/.NET-8.0-purple?logo=dotnet" alt=".NET 8.0" />
@@ -39,10 +51,14 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
   </div>
 </div>
 
-<div className="csnSection csnGlowLine csnSectionTight" style={{ padding: "1.5rem 1rem" }}>
+<div
+  className="csnSection csnGlowLine csnSectionTight"
+  style={{ padding: "1.5rem 1rem" }}
+>
   <div className="csnSectionTitle">Product Snapshot</div>
   <div className="csnSectionSub">
-    A demo-ready safety layer: predictable flows, explainable decisions, and auditable logs.
+    A demo-ready safety layer: predictable flows, explainable decisions, and
+    auditable logs.
   </div>
   <div className="csnStats">
     <div className="csnStat">
@@ -93,7 +109,9 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
         />
         <div className="csnShotCap">
           <b>MV3 Extension</b>
-          <p>Auto scan on navigation and block page, synced with parent mode.</p>
+          <p>
+            Auto scan on navigation and block page, synced with parent mode.
+          </p>
         </div>
       </div>
       <div className="csnShot">
@@ -105,7 +123,10 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
         />
         <div className="csnShotCap">
           <b>Admin Console</b>
-          <p>Dataset review, training jobs (Option Periodic), model registry & metrics.</p>
+          <p>
+            Dataset review, training jobs (Option Periodic), model registry &
+            metrics.
+          </p>
         </div>
       </div>
     </div>
@@ -115,13 +136,16 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 <div className="csnSection">
   <div className="csnSectionTitle">Protection Modes</div>
   <div className="csnSectionSub">
-    A “pricing-table” view for parents: choose strictness, reduce false positives, keep the demo clean.
+    A “pricing-table” view for parents: choose strictness, reduce false
+    positives, keep the demo clean.
   </div>
   <div className="csnPricing">
     <div className="csnPlan">
       <div className="csnPlanBadge">Maximum safety</div>
       <h3 className="csnPlanName">Strict</h3>
-      <p className="csnPlanDesc">Aggressive blocking for high-risk categories.</p>
+      <p className="csnPlanDesc">
+        Aggressive blocking for high-risk categories.
+      </p>
       <div className="csnPlanKey">
         <span className="csnChip">Block Adult</span>
         <span className="csnChip">Block Gambling</span>
@@ -133,8 +157,12 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
         <li>Use whitelist for trusted domains</li>
       </ul>
       <div className="csnPlanCta">
-        <Link className="csnBtn csnBtnPrimary" to="/docs/user-guide-parent">Use Strict →</Link>
-        <Link className="csnBtn" to="/docs/security">Security Notes</Link>
+        <Link className="csnBtn csnBtnPrimary" to="/docs/user-guide-parent">
+          Use Strict →
+        </Link>
+        <Link className="csnBtn" to="/docs/security">
+          Security Notes
+        </Link>
       </div>
     </div>
     <div className="csnPlan csnPlanRecommended">
@@ -152,8 +180,12 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
         <li>Pairs well with Option Periodic training loop</li>
       </ul>
       <div className="csnPlanCta">
-        <Link className="csnBtn csnBtnPrimary" to="/docs/getting-started">Start Demo →</Link>
-        <Link className="csnBtn" to="/docs/ml-evaluation-metrics">Metrics</Link>
+        <Link className="csnBtn csnBtnPrimary" to="/docs/getting-started">
+          Start Demo →
+        </Link>
+        <Link className="csnBtn" to="/docs/ml-evaluation-metrics">
+          Metrics
+        </Link>
       </div>
     </div>
     <div className="csnPlan">
@@ -171,8 +203,12 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
         <li>Keep blacklist for “never allow” domains</li>
       </ul>
       <div className="csnPlanCta">
-        <Link className="csnBtn csnBtnPrimary" to="/docs/user-guide-parent">Parent Settings →</Link>
-        <Link className="csnBtn" to="/docs/faq">FAQ</Link>
+        <Link className="csnBtn csnBtnPrimary" to="/docs/user-guide-parent">
+          Parent Settings →
+        </Link>
+        <Link className="csnBtn" to="/docs/faq">
+          FAQ
+        </Link>
       </div>
     </div>
   </div>
@@ -186,22 +222,32 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
   <div className="cardGrid">
     <div className="csnCard card4">
       <h3>🚀 Getting Started</h3>
-      <p>Run API and Web locally, connect SQL Server, and verify your first scan.</p>
+      <p>
+        Run API and Web locally, connect SQL Server, and verify your first scan.
+      </p>
       <Link to="/docs/getting-started">Open →</Link>
     </div>
     <div className="csnCard card4">
       <h3>🧩 Extension</h3>
-      <p>Install on Edge/Chrome, pairing flow, common issues & troubleshooting.</p>
+      <p>
+        Install on Edge/Chrome, pairing flow, common issues & troubleshooting.
+      </p>
       <Link to="/docs/extension">Open →</Link>
     </div>
     <div className="csnCard card4">
       <h3>🏗 Architecture</h3>
-      <p>High-level components, scan data flow, and Option Periodic training loop.</p>
+      <p>
+        High-level components, scan data flow, and Option Periodic training
+        loop.
+      </p>
       <Link to="/docs/architecture">Open →</Link>
     </div>
     <div className="csnCard card6">
       <h3>📊 ML Metrics</h3>
-      <p>Accuracy, precision/recall, F1, confusion matrix, thresholds & reporting.</p>
+      <p>
+        Accuracy, precision/recall, F1, confusion matrix, thresholds &
+        reporting.
+      </p>
       <Link to="/docs/ml-evaluation-metrics">Open →</Link>
     </div>
     <div className="csnCard card6">
@@ -263,14 +309,14 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
       <g filter="url(#softShadow)">
         <rect x="50" y="60" width="260" height="120" rx="18" fill="var(--csn-surface)" stroke="var(--csn-border)" />
         <rect x="50" y="60" width="260" height="120" rx="18" fill="rgba(233,30,99,0.04)" filter="url(#innerGlow)" />
-        <text x="180" y="105" textAnchor="middle" fill="var(--ifm-color-content)" fontSize="17" fontWeight="800">MV3 Extension</text>
+        <text x="180" y="105" textAnchor="middle" fill="var(--csn-text-dim)" fontSize="17" fontWeight="800">MV3 Extension</text>
         <text x="180" y="130" textAnchor="middle" fill="var(--csn-text-dim)" fontSize="13">Capture navigation</text>
         <text x="180" y="152" textAnchor="middle" fill="var(--csn-text-dim)" fontSize="13">Request risk score</text>
       </g>
       <g filter="url(#softShadow)">
         <rect x="50" y="210" width="260" height="90" rx="18" fill="var(--csn-surface)" stroke="var(--csn-border)" />
         <rect x="50" y="210" width="260" height="90" rx="18" fill="rgba(233,30,99,0.03)" filter="url(#innerGlow)" />
-        <text x="180" y="248" textAnchor="middle" fill="var(--ifm-color-content)" fontSize="17" fontWeight="800">Web Dashboard</text>
+        <text x="180" y="248" textAnchor="middle" fill="var(--csn-text-dim)" fontSize="17" fontWeight="800">Web Dashboard</text>
         <text x="180" y="275" textAnchor="middle" fill="var(--csn-text-dim)" fontSize="13">Modes • Logs • Pairing</text>
       </g>
       <g filter="url(#softShadow)">
@@ -290,14 +336,14 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
       <g filter="url(#softShadow)">
         <rect x="730" y="60" width="260" height="120" rx="18" fill="var(--csn-surface)" stroke="var(--csn-border)" />
         <rect x="730" y="60" width="260" height="120" rx="18" fill="rgba(233,30,99,0.04)" filter="url(#innerGlow)" />
-        <text x="860" y="105" textAnchor="middle" fill="var(--ifm-color-content)" fontSize="17" fontWeight="800">AI Scoring</text>
+        <text x="860" y="105" textAnchor="middle" fill="var(--csn-text-dim)" fontSize="17" fontWeight="800">AI Scoring</text>
         <text x="860" y="130" textAnchor="middle" fill="var(--csn-text-dim)" fontSize="13">Features → Model → Score</text>
         <text x="860" y="152" textAnchor="middle" fill="var(--csn-text-dim)" fontSize="13">Optional XAI explainability</text>
       </g>
       <g filter="url(#softShadow)">
         <rect x="730" y="210" width="260" height="90" rx="18" fill="var(--csn-surface)" stroke="var(--csn-border)" />
         <rect x="730" y="210" width="260" height="90" rx="18" fill="rgba(233,30,99,0.03)" filter="url(#innerGlow)" />
-        <text x="860" y="248" textAnchor="middle" fill="var(--ifm-color-content)" fontSize="17" fontWeight="800">SQL Server</text>
+        <text x="860" y="248" textAnchor="middle" fill="var(--csn-text-dim)" fontSize="17" fontWeight="800">SQL Server</text>
         <text x="860" y="275" textAnchor="middle" fill="var(--csn-text-dim)" fontSize="13">Events • Decisions • Feedback</text>
       </g>
       <g stroke="rgba(233,30,99,0.65)" strokeWidth="2.5" fill="none" strokeLinecap="round">
@@ -331,19 +377,20 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
         Open full architecture →
       </Link>
     </div>
+
   </div>
 </div>
 
 <div className="csnSection">
   :::tip Final Submission Flow
-  Demo in 3 minutes: **Start services → Pair extension → Trigger block → Review logs → Show Option Periodic training**.
+  Demo in 3 minutes: **Start services → Pair extension → Trigger block → Review logs → Show Option Periodic training.**
   :::
 
   <div className="heroActions" style={{ marginTop: ".2rem" }}>
     <Link className="csnBtn csnBtnPrimary" to="/docs/getting-started">🚀 Start Now</Link>
     <Link className="csnBtn" to="/docs/user-guide-parent">👨‍👩‍👧 Parent Guide</Link>
     <Link className="csnBtn" to="/docs/user-guide-admin">👑 Admin Guide</Link>
-    <Link className="csnBtn" to="/docs/ai-training-option-b">🧠 Training Option Periodic</Link>
+    <Link className="csnBtn" to="/docs/ai-training-option-periodic">🧠 Training Option Periodic</Link>
   </div>
 </div>
 
@@ -372,7 +419,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
         <div className="csnFooterTitle">AI & Metrics</div>
         <div className="csnFooterLinks">
           <Link to="/docs/ml-evaluation-metrics">Evaluation Metrics</Link>
-          <Link to="/docs/ai-training-option-b">Training Option Periodic</Link>
+          <Link to="/docs/ai-training-option-periodic">Training Option Periodic</Link>
           <Link to="/docs/backlog">Backlog</Link>
           <Link to="/docs/roadmap">Roadmap</Link>
         </div>
@@ -392,9 +439,10 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
         Final Submission Edition — keep paths portable with <code>useBaseUrl()</code> and internal <code>Link</code>.
       </div>
       <div className="heroActions" style={{ margin: 0 }}>
-        <Link className="csnBtn csnBtnPrimary" to="/docs/getting-started">🚀 Run Demo</Link>
+        <Link className="csnBtn csnBtnPrimary" to="http://180.93.2.24:5173/">🚀 Run Demo</Link>
         <Link className="csnBtn" to="/docs/extension">🧩 Pair Extension</Link>
       </div>
     </div>
+
   </div>
 </div>

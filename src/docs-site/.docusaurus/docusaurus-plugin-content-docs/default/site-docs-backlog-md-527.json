@@ -1,7 +1,7 @@
 {
   "id": "backlog",
   "title": "Product Backlog",
-  "description": "This document outlines the high-level product backlog for ChildSafeNet,",
+  "description": "The development roadmap for ChildSafeNet.",
   "source": "@site/docs/backlog.md",
   "sourceDirName": ".",
   "slug": "/backlog",
@@ -11,6 +11,8 @@
   "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/backlog.md",
   "tags": [],
   "version": "current",
+  "lastUpdatedBy": "Author",
+  "lastUpdatedAt": 1539502055000,
   "frontMatter": {
     "title": "Product Backlog"
   },

@@ -1,0 +1,240 @@
+---
+slug: /roadmap
+title: Roadmap
+---
+
+<div class="csnSection csnGlowLine">
+
+# 🗺 Product Roadmap
+
+<div class="csnDocHero">
+  <p class="csnDocHeroDesc">
+    This roadmap outlines the evolution of ChildSafeNet from early prototype
+    to a stable, competition-ready AI safety platform.
+  </p>
+
+<div class="csnDocChips">
+  <span class="csnDocChip">Product Evolution</span>
+  <span class="csnDocChip">AI Lifecycle</span>
+  <span class="csnDocChip">Deployment Ready</span>
+</div>
+
+<div class="csnDocHeroActions">
+  <a class="csnBtn csnBtnPrimary" href="/architecture">🏗 Architecture</a>
+  <a class="csnBtn" href="/product-backlog">📋 Product Backlog</a>
+  <a class="csnBtn" href="/ai-training-option-periodic">🧠 AI Training</a>
+</div>
+
+</div>
+
+---
+
+## 1. Roadmap Overview
+
+<div class="csnCard">
+
+This roadmap outlines the evolution of ChildSafeNet from core prototype
+to final submission and beyond.
+
+The roadmap is structured by **major versions** to reflect architectural
+growth, AI maturity, and operational stability.
+
+</div>
+
+---
+
+## 2. Product Versions
+
+<div class="csnSteps">
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+<div class="csnStepNum">1</div>
+<div class="csnStepTag">v1.0</div>
+</div>
+
+<h3 class="csnStepTitle">Core Web (No Extension)</h3>
+
+<p class="csnStepDesc">
+
+**Focus:** Foundational backend + web dashboard.
+
+**Goals**
+
+- Establish secure authentication
+- Implement basic scan functionality
+- Store logs in database
+- Provide parent configuration
+
+**Features**
+
+- JWT-based Authentication
+- Parent Settings (Strict / Balanced / Relaxed)
+- Manual URL Scan page
+- Scan Logs dashboard
+- SQL Server schema (Users, Settings, Logs)
+
+**Outcome**
+
+Fully working Web + API system without browser automation.
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+<div class="csnStepNum">2</div>
+<div class="csnStepTag">v2.0</div>
+</div>
+
+<h3 class="csnStepTitle">Extension Integration</h3>
+
+<p class="csnStepDesc">
+
+**Focus:** Real-time browser enforcement.
+
+**Goals**
+
+- Integrate MV3 browser extension
+- Enable Web ↔ Extension pairing
+- Implement automatic blocking
+
+**Features**
+
+- MV3 Extension (Chrome/Edge)
+- Pair token flow (window.postMessage → background)
+- Real-time `/api/scan` calls
+- `block.html` for blocked pages
+- Mode synchronization between Web and Extension
+
+**Outcome**
+
+End-to-end protection: Navigation → API → AI → Decision → Block → Log.
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+<div class="csnStepNum">3</div>
+<div class="csnStepTag">v3.0</div>
+</div>
+
+<h3 class="csnStepTitle">Final Submission Edition</h3>
+
+<p class="csnStepDesc">
+
+**Focus:** AI lifecycle + documentation + operational maturity.
+
+**Goals**
+
+- Introduce controlled retraining
+- Improve model governance
+- Prepare competition-ready documentation
+- Automate CI pipeline
+
+**Features**
+
+- Admin Dataset Review (Pending / Approved / Rejected)
+- Periodic Training (Option Periodic)
+- Model Registry with versioning
+- Safe activation + rollback logic
+- Docs site (Docusaurus)
+- Architecture diagrams
+- Release checklist templates
+- GitHub Actions CI workflow
+
+**Outcome**
+
+Stable, auditable, competition-ready AI safety system.
+
+</p>
+
+</div>
+
+</div>
+
+---
+
+## 3. Post-Submission Vision
+
+<div class="csnCard">
+
+Focus: Scalability and production-readiness.
+
+### Cloud Deployment
+
+- Azure App Service for API
+- Azure SQL Database
+- Blob storage for model artifacts
+- HTTPS + managed identity
+
+### Model Monitoring
+
+- Drift detection metrics
+- False-positive tracking dashboard
+- Auto-switch to fallback model
+- Performance telemetry
+
+### Mobile Parent App
+
+- View logs on mobile
+- Push notifications for blocked sites
+- Real-time mode toggling
+
+### Future AI Enhancements
+
+- Online learning experimentation
+- ROC curve-based threshold tuning
+- Explainability UI (feature importance)
+- Threat intelligence feeds integration
+
+</div>
+
+---
+
+## 4. Versioning Philosophy
+
+<div class="csnCard">
+
+ChildSafeNet follows semantic versioning:
+
+`MAJOR.MINOR.PATCH`
+
+- **MAJOR**: Architectural change or new subsystem
+- **MINOR**: Feature addition
+- **PATCH**: Bug fixes / small improvements
+
+</div>
+
+---
+
+## 5. Long-Term Goal
+
+<div class="csnCard">
+
+Build a trustworthy, explainable, and scalable child internet safety
+platform that prioritizes:
+
+- Stability over rapid change
+- Precision-first safety
+- Auditability
+- Safe AI deployment lifecycle
+
+</div>
+
+---
+
+<div class="csnCard">
+
+This roadmap is iterative and may evolve based on research, feedback,
+and deployment constraints.
+
+</div>
+
+</div>

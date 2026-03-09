@@ -1,0 +1,331 @@
+---
+title: ML Evaluation Metrics
+---
+
+<div class="csnSection csnGlowLine">
+
+# 📊 ML Evaluation Metrics
+
+<div class="csnDocHero">
+  <p class="csnDocHeroDesc">
+    ChildSafeNet evaluates ML models with a safety-first philosophy: prioritize precision for blocking categories while maintaining sufficient recall to prevent dangerous sites from slipping through.
+  </p>
+
+<div class="csnDocChips">
+  <span class="csnDocChip">Precision First</span>
+  <span class="csnDocChip">Safety Critical</span>
+  <span class="csnDocChip">Auditable Metrics</span>
+</div>
+
+  <div class="csnDocHeroActions">
+    <a class="csnBtn csnBtnPrimary" href="/ai-training-option-periodic">🧠 Training Strategy</a>
+    <a class="csnBtn" href="/security">🔐 Security</a>
+  </div>
+</div>
+
+---
+
+## 1. Classification Metrics
+
+<div class="csnCard">
+
+ChildSafeNet uses multi-class classification to detect:
+
+<div class="csnDocChips">
+  <span class="csnDocChip">Benign</span>
+  <span class="csnDocChip">Phishing</span>
+  <span class="csnDocChip">Malware</span>
+  <span class="csnDocChip">Adult</span>
+  <span class="csnDocChip">Gambling</span>
+</div>
+
+Because this is a **safety-critical system**, evaluation is not only about accuracy, but also about **minimizing harmful mistakes**.
+
+</div>
+
+---
+
+<div class="csnSteps">
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">1</div>
+  <div class="csnStepTag">Metric</div>
+</div>
+
+<h3 class="csnStepTitle">Accuracy</h3>
+
+<p class="csnStepDesc">
+
+Accuracy measures overall correctness:
+
+`Accuracy = (TP + TN) / Total`
+
+Limitations:
+
+- Can be misleading when dataset is imbalanced
+- High accuracy does **NOT guarantee good performance** for rare harmful classes
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">2</div>
+  <div class="csnStepTag">Metric</div>
+</div>
+
+<h3 class="csnStepTitle">Precision</h3>
+
+<p class="csnStepDesc">
+
+Precision measures how many predicted positives are actually correct:
+
+`Precision = TP / (TP + FP)`
+
+In child safety systems, **precision for blocking categories is critical**.
+
+High precision means:
+
+- fewer safe websites are blocked incorrectly
+- higher trust for parents
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">3</div>
+  <div class="csnStepTag">Metric</div>
+</div>
+
+<h3 class="csnStepTitle">Recall</h3>
+
+<p class="csnStepDesc">
+
+Recall measures how many real harmful cases were detected:
+
+`Recall = TP / (TP + FN)`
+
+Higher recall means:
+
+- more harmful sites detected
+- fewer dangerous sites slip through
+
+Trade-off:
+
+- increasing recall can reduce precision
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">4</div>
+  <div class="csnStepTag">Metric</div>
+</div>
+
+<h3 class="csnStepTitle">F1 Score</h3>
+
+<p class="csnStepDesc">
+
+`F1 = 2 * (Precision * Recall) / (Precision + Recall)`
+
+Used when:
+
+- balancing **precision and recall**
+- dealing with **imbalanced datasets**
+
+</p>
+
+</div>
+
+</div>
+
+---
+
+## 2. Multi-Class Evaluation
+
+<div class="csnCard">
+
+For multi-class detection:
+
+- calculate metrics **per class**
+- use **Macro F1** (average of class F1)
+- use **Weighted F1** (weighted by support)
+
+Example focus classes:
+
+<div class="csnDocChips">
+  <span class="csnDocChip">Phishing</span>
+  <span class="csnDocChip">Adult</span>
+  <span class="csnDocChip">Gambling</span>
+  <span class="csnDocChip">Malware</span>
+</div>
+
+The **Benign class is important**, but safety categories must be prioritized.
+
+</div>
+
+---
+
+## 3. Confusion Matrix
+
+<div class="csnCard">
+
+Confusion matrix shows:
+
+- True Positive
+- False Positive
+- True Negative
+- False Negative
+
+In multi-class setup:
+
+Rows = Actual class  
+Columns = Predicted class
+
+Used to:
+
+- identify **class confusion patterns**
+- detect **over-blocking behavior**
+- detect **under-detection of harmful categories**
+
+Example issue:
+
+- Benign → Adult = **False Positive (bad UX)**
+- Phishing → Benign = **False Negative (security risk)**
+
+</div>
+
+---
+
+## 4. Safety Priority Strategy
+
+<div class="csnCard">
+
+In child safety systems:
+
+1. Prefer **HIGH precision** for block categories
+
+- avoid blocking educational/safe websites
+
+2. Maintain acceptable **recall** for harmful classes
+
+- do not allow too many dangerous sites through
+
+3. Monitor **false-positive rate** on whitelist domains
+
+4. Track **category-level metrics independently**
+
+</div>
+
+---
+
+## 5. Thresholding Strategy
+
+<div class="csnCard">
+
+For probabilistic models:
+
+Recommended thresholds:
+
+- **BLOCK** if score ≥ 0.85
+- **WARN** if 0.60 ≤ score < 0.85
+- **ALLOW** if score < 0.60
+
+Rules:
+
+- whitelist always overrides to **ALLOW**
+- blacklist always overrides to **BLOCK**
+- thresholds configurable in system settings
+
+</div>
+
+---
+
+## 6. Model Comparison (Before Release)
+
+<div class="csnCard">
+
+Before activating a new model version, compare with the previous one:
+
+- Accuracy
+- Precision (block classes)
+- Recall (block classes)
+- F1 Score
+- False Positive Rate
+- Inference Latency
+
+Reject deployment if:
+
+- precision drops significantly
+- false positives increase sharply
+- recall for harmful categories decreases too much
+
+</div>
+
+---
+
+## 7. Suggested Reporting Template
+
+<div class="csnCard">
+
+When logging a new model version:
+
+- Model Version ID
+- Training Date
+- Dataset Size
+- Accuracy
+- Macro F1
+- Precision (Adult / Gambling / Phishing)
+- Recall (Adult / Gambling / Phishing)
+- False Positive Rate
+- Notes
+
+Stored in: **ModelRegistry table**
+
+</div>
+
+---
+
+## 8. Long-Term Improvements
+
+<div class="csnCard">
+
+Future evaluation improvements:
+
+- ROC curve analysis
+- Precision-Recall curves
+- Drift detection monitoring
+- Per-category threshold tuning
+- Online evaluation dashboard
+
+</div>
+
+---
+
+## Summary
+
+<div class="csnCard">
+
+ChildSafeNet evaluation focuses on:
+
+- **precision-first safety**
+- controlled recall
+- threshold-based decision control
+- safe model versioning
+- auditable metrics tracking
+
+Goal: **maximum safe and trustworthy behavior**, not maximum accuracy.
+
+</div>
+
+</div>

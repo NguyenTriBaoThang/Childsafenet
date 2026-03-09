@@ -1,7 +1,7 @@
 {
   "id": "user-guide-parent",
   "title": "Parent Guide",
-  "description": "This guide explains how parents use ChildSafeNet to protect children",
+  "description": "Learn how parents can configure ChildSafeNet to protect children online,",
   "source": "@site/docs/user-guide-parent.md",
   "sourceDirName": ".",
   "slug": "/user-guide-parent",

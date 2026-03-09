@@ -1,0 +1,347 @@
+---
+title: Parent Guide
+---
+
+<div class="csnSection csnGlowLine">
+
+# 👨‍👩‍👧 Parent Guide
+
+<div class="csnDocHero">
+
+<div class="csnDocHeroDesc">
+  Learn how parents can configure ChildSafeNet to protect children online,
+  monitor activity, and customize safety policies.
+</div>
+
+<div class="csnDocChips">
+  <span class="csnDocChip">Dashboard</span>
+  <span class="csnDocChip">Protection Rules</span>
+  <span class="csnDocChip">Logs</span>
+  <span class="csnDocChip">Extension Pairing</span>
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## Parent Responsibilities
+
+Parents use ChildSafeNet to manage family protection.
+
+<div class="cardGrid">
+
+<div class="csnCard card4">
+
+### ⚙ Configure Rules
+
+Control which categories are blocked or allowed.
+
+</div>
+
+<div class="csnCard card4">
+
+### 📊 Monitor Logs
+
+Review browsing activity and protection decisions.
+
+</div>
+
+<div class="csnCard card4">
+
+### 🔗 Manage Extension
+
+Pair and control the browser extension.
+
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 1. Main Pages Overview
+
+<div class="csnSteps">
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">1</div>
+  <div class="csnStepTag">Core</div>
+</div>
+
+### Dashboard
+
+The **Dashboard** is the control center.
+
+Features:
+
+- Extension pairing status
+- Enable / Disable protection
+- Current protection mode
+- Latest scan logs
+- Quick access to settings
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">2</div>
+  <div class="csnStepTag">Testing</div>
+</div>
+
+### Scan Page
+
+Manual scanning for suspicious URLs.
+
+Inputs:
+
+- URL (required)
+- Title (optional)
+- Page text (optional)
+
+Output:
+
+- Label (Benign / Phishing / Adult / Gambling / Malware)
+- Score
+- Decision (ALLOW / WARN / BLOCK)
+
+Useful for:
+
+- Testing suspicious links
+- Demonstrating system behavior
+- Debugging false positives
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">3</div>
+  <div class="csnStepTag">Policy</div>
+</div>
+
+### Settings Page
+
+Customize family protection rules.
+
+Options include:
+
+- Child age configuration
+- Mode selection
+- Protection toggles
+- Whitelist / Blacklist
+
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 2. Protection Modes
+
+<div class="csnPricing">
+
+<div class="csnPlan">
+
+<div class="csnPlanName">Strict</div>
+
+<div class="csnPlanDesc">Maximum protection with aggressive blocking.</div>
+
+<ul class="csnPlanList">
+  <li>High sensitivity</li>
+  <li>Blocks more suspicious pages</li>
+  <li>Recommended for young children</li>
+</ul>
+
+</div>
+
+<div class="csnPlan csnPlanRecommended">
+
+<div class="csnPlanBadge">Recommended</div>
+
+<div class="csnPlanName">Balanced</div>
+
+<div class="csnPlanDesc">Best balance between safety and usability.</div>
+
+<ul class="csnPlanList">
+  <li>Lower false positives</li>
+  <li>Good for demos</li>
+  <li>Default recommended mode</li>
+</ul>
+
+</div>
+
+<div class="csnPlan">
+
+<div class="csnPlanName">Relaxed</div>
+
+<div class="csnPlanDesc">Warning-first behavior with fewer blocks.</div>
+
+<ul class="csnPlanList">
+  <li>More browsing freedom</li>
+  <li>Shows warnings instead of blocking</li>
+  <li>Best for teenagers</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 3. Extension Pairing
+
+<div class="csnCard">
+
+Pairing connects the browser extension with the parent dashboard.
+
+Steps:
+
+1. Login to the dashboard
+2. Click **"Kết nối Extension"**
+3. Web sends pairing token via `window.postMessage`
+4. Extension stores token automatically
+5. Status becomes **PAIRED**
+
+No manual token input required.
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 4. Enable / Disable Protection
+
+<div class="csnCard">
+
+Parents can toggle protection directly from the dashboard.
+
+When protection is **disabled**:
+
+- Pages are not blocked
+- Logging may still occur
+
+Protection can be re-enabled instantly.
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 5. Tips to Reduce False Positives
+
+<div class="csnCard">
+
+Recommended practices:
+
+1. Use **Balanced mode**
+2. Add trusted domains to **Whitelist**
+3. Keep thresholds conservative
+4. Review logs regularly
+5. Avoid enabling all strict toggles immediately
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 6. Understanding Logs
+
+<div class="csnCard">
+
+Each log entry includes:
+
+- URL
+- Predicted label
+- Decision
+- Score
+- Timestamp
+
+If a safe site was blocked:
+
+- Add the domain to **Whitelist**
+- Adjust the protection mode
+- Report the issue if repeated
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## 7. Recommended Parent Routine
+
+<div class="csnStats">
+
+<div class="csnStat">
+  <div class="csnStatValue">Weekly</div>
+  <div class="csnStatLabel">Check logs</div>
+</div>
+
+<div class="csnStat">
+  <div class="csnStatValue">Review</div>
+  <div class="csnStatLabel">Blocked sites</div>
+</div>
+
+<div class="csnStat">
+  <div class="csnStatValue">Update</div>
+  <div class="csnStatLabel">Whitelist</div>
+</div>
+
+<div class="csnStat">
+  <div class="csnStatValue">Verify</div>
+  <div class="csnStatLabel">Extension pairing</div>
+</div>
+
+</div>
+
+</div>
+
+---
+
+<div class="csnSection">
+
+## Summary
+
+<div class="csnCard">
+
+Parents focus on:
+
+- Policy control
+- Monitoring activity
+- Customizing safety rules
+- Reducing unnecessary blocks
+
+ChildSafeNet provides **AI-driven protection** while keeping parents in full control.
+
+</div>
+
+</div>

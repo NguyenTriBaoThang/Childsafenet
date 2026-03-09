@@ -11,9 +11,61 @@
   --gray-100: #f1f5f9;
 }
 
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  --bg-light: #0f172a;
+  --text: #e2e8f0;
+  --text-light: #94a3b8;
+  --gray-100: #1e293b;
+}
+
+[data-theme="dark"] .hero {
+  background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+}
+
+[data-theme="dark"] .feature-card {
+  background: #1e293b;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .feature-card:hover {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .bg-light {
+  background: #020617;
+}
+
+[data-theme="dark"] .topic-visual img {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .btn-outline {
+  border-color: #fb923c;
+  color: #fb923c;
+}
+
+[data-theme="dark"] .btn-outline:hover {
+  background: #fb923c;
+  color: #020617 !important;
+}
+
+[data-theme="dark"] .site-footer {
+  background: #020617;
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .tech-community-section {
+  background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e3a8a 100%);
+}
+
 /* Base */
 body {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--text);
   margin: 0;
 }
@@ -86,39 +138,46 @@ body {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.9rem 1.8rem;
+  padding: 1rem 2rem;
   border-radius: 999px;
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: none !important;
   transition: all 0.3s ease;
   font-size: 1.05rem;
+  color: inherit;
 }
 
 .btn-primary {
-  background: var(--primary);
+  background: linear-gradient(135deg, #d46b4e, #f97316);
   color: white;
+  border: none;
+  box-shadow: 0 8px 20px rgba(212, 107, 78, 0.35);
 }
 
 .btn-primary:hover {
-  background: var(--primary-dark);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(212, 107, 78, 0.45);
 }
 
 .btn-outline {
   border: 2px solid var(--primary);
   color: var(--primary);
   background: transparent;
+  text-decoration: none !important;
 }
 
 .btn-outline:hover {
   background: var(--primary);
-  color: white;
+  color: #ffffff !important;
+  border-color: var(--primary);
+  text-decoration: none !important;
 }
 
 .hero-trust {
@@ -128,14 +187,14 @@ body {
   font-size: 0.95rem;
   color: var(--text-light);
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .hero-mockup {
   width: 100%;
   max-width: 580px;
   border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 /* Features */
@@ -149,14 +208,14 @@ body {
   background: white;
   padding: 2.5rem 1.8rem;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
   text-align: center;
 }
 
 .feature-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
 }
 
 .feature-icon {
@@ -186,7 +245,7 @@ body {
 .topic-visual img {
   width: 100%;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .topic-content ul {
@@ -222,7 +281,11 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 60%);
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(59, 130, 246, 0.12) 0%,
+    transparent 60%
+  );
   pointer-events: none;
 }
 
@@ -252,7 +315,7 @@ body {
 .tech-item img {
   height: 70px;
   margin-bottom: 0.8rem;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .tech-item span {
@@ -277,9 +340,31 @@ body {
   flex-wrap: wrap;
 }
 
+.btn-github {
+  border: 1.8px solid #e5e7eb;
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .btn-github svg {
   width: 22px;
   height: 22px;
+}
+
+.btn-github:hover {
+  background: #111827;
+  border-color: #111827;
+  color: white;
+}
+
+.btn-telegram {
+  border: 1.8px solid #38bdf8;
+  color: #38bdf8;
+}
+
+.btn-telegram:hover {
+  background: #38bdf8;
+  color: white;
 }
 
 /* Footer */

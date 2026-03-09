@@ -1,0 +1,238 @@
+---
+title: AI Training Option Periodic
+---
+
+<div class="csnSection csnGlowLine">
+
+# 🧠 AI Training Option Periodic
+
+<div class="csnDocHero">
+  <p class="csnDocHeroDesc">
+    A stable and auditable retraining strategy: collect continuously, review labels, then train on a fixed schedule with quality gates and rollback.
+  </p>
+
+<div class="csnDocChips">
+  <span class="csnDocChip">Stable</span>
+  <span class="csnDocChip">Reviewed Labels</span>
+  <span class="csnDocChip">Rollback-ready</span>
+</div>
+
+  <div class="csnDocHeroActions">
+    <a class="csnBtn csnBtnPrimary" href="/user-guide-admin">👑 Admin Guide</a>
+    <a class="csnBtn" href="/ml-evaluation-metrics">📊 Evaluation Metrics</a>
+    <a class="csnBtn" href="/security">🔐 Security</a>
+  </div>
+</div>
+
+---
+
+<div class="csnCard">
+
+## 1. Overview
+
+**Periodic Training (Option Periodic)** is designed to keep the model **stable** and the system **fast** while still learning from new data.  
+Instead of retraining immediately after each new URL, the system:
+
+- **collects** URL samples continuously,
+- requires **admin review** before samples affect training,
+- retrains on a **fixed schedule** (daily/weekly),
+- releases new models only if they pass **quality gates**,
+- keeps a **fallback model** to roll back safely.
+
+</div>
+
+---
+
+## 2. Why Periodic?
+
+<div class="csnCard">
+
+Training immediately after every new URL can:
+
+- **make models unstable** (drift from noisy updates),
+- **introduce noisy labels** (wrong/uncertain ground truth),
+- **slow down the system** (training is expensive and can block operations).
+
+Periodic training solves this by separating **data collection** from **model updates**, with a controlled release process.
+
+</div>
+
+---
+
+## 3. Data States
+
+<div class="csnCard">
+
+During collection and review, each sample belongs to a simple state machine:
+
+<div class="csnPlanKey">
+  <span class="csnChip">Pending</span>
+  <span class="csnChip">Approved</span>
+  <span class="csnChip">Rejected</span>
+</div>
+
+- **Pending**: collected but not reviewed yet
+- **Approved**: trusted sample that can be used for training
+- **Rejected**: not used for training (invalid / duplicate / low confidence)
+
+:::tip Recommended rule
+Only **Approved** samples are eligible for training.
+:::
+
+</div>
+
+---
+
+## 4. Pipeline
+
+<div class="csnSteps">
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">1</div>
+  <div class="csnStepTag">Collect</div>
+</div>
+
+<h3 class="csnStepTitle">Collect URL dataset (Pending)</h3>
+
+<p class="csnStepDesc">
+
+- Extension/API records normalized URL
+- predicted label (Adult/Gambling/Phishing/Benign)
+- score/confidence
+- timestamp + source metadata
+
+Saved as: `Pending`
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">2</div>
+  <div class="csnStepTag">Review</div>
+</div>
+
+<h3 class="csnStepTitle">Admin Review</h3>
+
+<p class="csnStepDesc">
+
+Admin reviews samples and decides:
+
+- **Approve** if label is correct
+- **Reject** if sample is noise, duplicate, or unclear
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">3</div>
+  <div class="csnStepTag">Training</div>
+</div>
+
+<h3 class="csnStepTitle">Periodic Training Job</h3>
+
+<p class="csnStepDesc">
+
+Training pipeline:
+
+- merge **baseline dataset + approved dataset**
+- run feature extraction
+- train **Random Forest + NLP pipeline**
+- evaluate metrics
+- register model version
+
+</p>
+
+</div>
+
+<div class="csnStep">
+
+<div class="csnStepTop">
+  <div class="csnStepNum">4</div>
+  <div class="csnStepTag">Deploy</div>
+</div>
+
+<h3 class="csnStepTitle">Safe Deployment</h3>
+
+<p class="csnStepDesc">
+
+- keep previous model as **fallback**
+- deploy only if **quality gates pass**
+- rollback if drift detected
+
+</p>
+
+</div>
+
+</div>
+
+---
+
+## 5. Suggested Schedule
+
+<div class="csnCard">
+
+Pick schedule depending on environment:
+
+- **Daily**: best for **demo / rapid iteration**
+- **Weekly**: best for **stable production**
+
+:::note Practical suggestion
+During competitions/demos: train **daily**, but only when you have enough Approved samples (avoid training on tiny batches).
+:::
+
+</div>
+
+---
+
+## 6. Quality Gates (Release Checklist)
+
+<div class="csnCard">
+
+A new model version is released only if it satisfies:
+
+1. **High precision for block labels**
+
+- Adult / Gambling / Phishing must have **high precision**
+- goal: avoid blocking safe websites (trust is critical)
+
+2. **Low false-positive on allowlisted domains**
+
+- allowlisted/trusted domains should rarely be blocked
+- monitor allowlist incidents as a priority
+
+3. **No major regression vs previous model**
+
+- compare key metrics to last released version
+- if regression exceeds threshold → do not deploy
+
+4. **Operational sanity**
+
+- inference latency stays acceptable
+- model size and loading time stable
+
+</div>
+
+---
+
+## 7. Minimal Admin Workflow (Fast Demo)
+
+<div class="csnCard">
+
+1. Open Admin → Review `Pending`
+2. Approve a small set of correct samples
+3. Run training job (Periodic)
+4. Check metrics summary
+5. Publish model version
+6. Test: scan a few URLs again and verify decisions/logs
+
+</div>
+
+</div>

@@ -1,7 +1,7 @@
 {
   "id": "security",
   "title": "Security",
-  "description": "Security is a top priority for ChildSafeNet.\\",
+  "description": "Security is a top priority for ChildSafeNet.",
   "source": "@site/docs/security.md",
   "sourceDirName": ".",
   "slug": "/security",
@@ -11,6 +11,8 @@
   "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/security.md",
   "tags": [],
   "version": "current",
+  "lastUpdatedBy": "Author",
+  "lastUpdatedAt": 1539502055000,
   "frontMatter": {
     "title": "Security"
   },

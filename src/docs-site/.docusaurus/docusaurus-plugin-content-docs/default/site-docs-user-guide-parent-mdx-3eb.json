@@ -1,0 +1,26 @@
+{
+  "id": "user-guide-parent",
+  "title": "Parent Guide",
+  "description": "Learn how parents can configure ChildSafeNet to protect children online,",
+  "source": "@site/docs/user-guide-parent.mdx",
+  "sourceDirName": ".",
+  "slug": "/user-guide-parent",
+  "permalink": "/Childsafenet/docs/user-guide-parent",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/docs/user-guide-parent.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Parent Guide"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "System Architecture",
+    "permalink": "/Childsafenet/docs/architecture"
+  },
+  "next": {
+    "title": "Admin Guide",
+    "permalink": "/Childsafenet/docs/user-guide-admin"
+  }
+}

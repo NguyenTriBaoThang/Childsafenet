@@ -1,7 +1,7 @@
 {
   "id": "architecture",
   "title": "System Architecture",
-  "description": "ChildSafeNet is a hybrid AI-powered internet safety platform composed",
+  "description": "🏗 System Architecture",
   "source": "@site/docs/architecture.md",
   "sourceDirName": ".",
   "slug": "/architecture",

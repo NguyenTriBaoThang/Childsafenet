@@ -1,7 +1,7 @@
 {
   "id": "getting-started",
   "title": "Getting Started",
-  "description": "Run the full ChildSafeNet system locally: API + Web Dashboard + Database + Extension.",
+  "description": "Professional setup guide for ChildSafeNet AI-powered child cybersecurity platform",
   "source": "@site/docs/getting-started.md",
   "sourceDirName": ".",
   "slug": "/getting-started",
@@ -12,6 +12,7 @@
   "tags": [],
   "version": "current",
   "frontMatter": {
+    "description": "Professional setup guide for ChildSafeNet AI-powered child cybersecurity platform",
     "title": "Getting Started"
   },
   "sidebar": "docsSidebar",

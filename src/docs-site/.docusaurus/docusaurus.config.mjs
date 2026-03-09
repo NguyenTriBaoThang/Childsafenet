@@ -28,7 +28,9 @@ export default {
         "docs": {
           "sidebarPath": "./sidebars.js",
           "routeBasePath": "/docs",
-          "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/"
+          "editUrl": "https://github.com/NguyenTriBaoThang/Childsafenet/edit/main/docs-site/",
+          "showLastUpdateAuthor": true,
+          "showLastUpdateTime": true
         },
         "blog": false,
         "theme": {
@@ -48,7 +50,7 @@ export default {
       "items": [
         {
           "to": "/docs",
-          "label": "Docs",
+          "label": "Documentation",
           "position": "left"
         },
         {
@@ -78,7 +80,7 @@ export default {
       "style": "light",
       "links": [
         {
-          "title": "Docs",
+          "title": "Documentation",
           "items": [
             {
               "label": "Getting Started",
