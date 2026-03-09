@@ -9,6 +9,9 @@
 </p>
 
 <p align="center">
+  <a href="https://nguyentribaothang.github.io/Childsafenet">
+    <img src="https://img.shields.io/badge/docs-online-blue?logo=readthedocs" alt="Docs"/>
+  </a>
   <a href="https://github.com/NguyenTriBaoThang/ChildSafeNet/actions/workflows/ci.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/NguyenTriBaoThang/ChildSafeNet/ci.yml?branch=main&label=CI&logo=github" alt="CI Status"/>
   </a>
@@ -19,11 +22,11 @@
 
 <p align="center">
   <b>AI-powered Internet Safety for Kids</b><br/>
-  Chrome Extension + Web Dashboard + .NET API + FastAPI AI Service (Option Periodic: Periodic Training)
+  Chrome Extension + Web Dashboard + .NET API + FastAPI AI Service (Option: Periodic Training)
 </p>
 
 <p align="center">
-  <a href="https://nguyentribaothang.github.io/Childsafenet"><strong>Explore the docs »</strong></a>
+  <a href="http://180.93.2.24:5173/"><strong>Explore the Websites »</strong></a>
   <br/><br/>
   <a href="./.github/ISSUE_TEMPLATE/bug_report.md">🐛 Report Bug</a>
   |
@@ -56,6 +59,7 @@
 **Objective:** Protect children under 18 while browsing the Internet by **detecting & warning/blocking** dangerous websites such as **Adult (18+) / Gambling / Phishing / Malware**.
 
 **Highlight Feature (Option Periodic — Periodic Training):**
+
 - ✅ Collect URLs from Web/Extension into **Dataset (Pending)**
 - ✅ **Admin review** (Approve/Reject) to prevent “dirty data”
 - ✅ **Periodic training** (Background job) → generate new model (versioning)
@@ -66,39 +70,59 @@
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src="./assets/screenshots/dashboard.jpg" width="31%" />
+  <img src="./assets/screenshots/admin.jpg" width="31%" />
+  <img src="./assets/screenshots/extension.jpg" width="31%" />
+</p>
+
+<p align="center">
+  <b>Web Dashboard</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Admin Dataset Review</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Chrome Extension</b>
+</p>
+
+---
+
 ## Why ChildSafeNet?
 
-Children are increasingly exposed to harmful online content. 
+Children are increasingly exposed to harmful online content.
 Traditional blacklist systems are static and easily bypassed.
 
 ChildSafeNet introduces:
+
 - AI-driven URL classification
 - Policy personalization by age & mode
 - Periodic retraining pipeline
 - Admin-controlled dataset validation
 
-This creates a semi-automated moderation loop instead of a fixed rule system.
+This creates a semi-automated moderation loop instead of static blacklists.
 
 ---
 
 ## Features
 
 ### 👪 Parent (Phụ huynh)
+
 - **Scan URL** (Web) + view **Scan Logs**
-- **Settings (/settings)**  
-  - Child age (1–18)  
-  - Mode: Strict / Balanced / Relaxed  
-  - Rule toggles: Block Adult / Block Gambling / Block Phishing / Warn Suspicious  
-  - Whitelist domains (always allow)  
-  - Blacklist domains (always block)  
+- **Settings (/settings)**
+  - Child age (1–18)
+  - Mode: Strict / Balanced / Relaxed
+  - Rule toggles: Block Adult / Block Gambling / Block Phishing / Warn Suspicious
+  - Whitelist domains (always allow)
+  - Blacklist domains (always block)
 - **Pair Chrome Extension**: Web sends token to extension → extension scans using API
 
 ### 🛡️ Admin
+
 - **Admin Dataset**: view collected URLs (Pending/Approved/Rejected), Export CSV
 - **Admin Train Jobs**: trigger training job, monitor status/version
 - (Optional) Drift monitoring / model health (future extension)
 
 ### 🧩 Chrome Extension
+
 - Enable/disable Extension
 - Auto-scan current tab, call `/api/scan` endpoint
 - BLOCK/WARN based on policy (shows block page when needed)
@@ -110,11 +134,12 @@ This creates a semi-automated moderation loop instead of a fixed rule system.
 <img src="./assets/diagrams/system_architecture.png" alt="System Architecture" width="100%"/>
 
 **Luồng tổng quát:**
-1) Extension/Web sends URL → **ASP.NET Core API** (`/api/scan`)  
-2) API calls **AI Service (FastAPI)** (`/predict`)  
-3) API applies **User Settings + allow/block list** → returns action ALLOW/WARN/BLOCK
-4) API logs **ScanLogs** + upserts **UrlDataset (Pending)**  
-5) Background job periodically trains → exports new model version → AI service reloads
+
+1. Extension/Web sends URL → **ASP.NET Core API** (`/api/scan`)
+2. API calls **AI Service (FastAPI)** (`/predict`)
+3. API applies **User Settings + allow/block list** → returns action ALLOW/WARN/BLOCK
+4. API logs **ScanLogs** + upserts **UrlDataset (Pending)**
+5. Background job periodically trains → exports new model version → AI service reloads
 
 ---
 
@@ -141,55 +166,68 @@ This creates a semi-automated moderation loop instead of a fixed rule system.
 ```txt
 ChildSafeNet/
 │
-├── src/                          # Main source code
+├── src/                          # Main application source code
 │   │
-│   ├── api/                      # ASP.NET Core 8 Web API
+│   ├── api/                      # ASP.NET Core 8 Web API (Backend)
 │   │   ├── Controllers/          # REST API endpoints
 │   │   ├── Services/             # Business logic & background jobs
-│   │   ├── Data/                 # EF Core DbContext & Migrations
-│   │   ├── Models/               # Entities & DTOs
+│   │   ├── Data/                 # EF Core DbContext & migrations
+│   │   ├── Models/               # Entities, DTOs, request/response models
 │   │   ├── Middlewares/          # Custom middleware (Auth, Logging...)
-│   │   └── Program.cs            # Entry point
+│   │   ├── Background/           # Periodic training & scheduled tasks
+│   │   └── Program.cs            # Application entry point
 │   │
-│   ├── web/                      # React + TypeScript (Vite) Dashboard
+│   ├── web/                      # React + TypeScript Dashboard (Vite)
 │   │   ├── src/
-│   │   │   ├── pages/            # Scan, Dashboard, Settings, Admin...
+│   │   │   ├── pages/            # Main pages (Scan, Dashboard, Settings, Admin)
 │   │   │   ├── components/       # Reusable UI components
-│   │   │   ├── api/              # Axios client & API wrappers
-│   │   │   └── hooks/            # Custom React hooks
+│   │   │   ├── api/              # Axios API client & request wrappers
+│   │   │   ├── hooks/            # Custom React hooks
+│   │   │   ├── context/          # Global state / auth context
+│   │   │   └── utils/            # Helper utilities
+│   │   ├── public/
 │   │   └── vite.config.ts
 │   │
 │   ├── ai-service/               # FastAPI AI Inference Service
 │   │   ├── app.py                # FastAPI entry point
-│   │   ├── model/                # Trained model files (.pkl, .joblib)
+│   │   ├── model/                # Trained models (.pkl, .joblib)
 │   │   ├── training/             # Training pipeline scripts
+│   │   ├── dataset/              # Optional datasets used for training
 │   │   └── requirements.txt
 │   │
-│   └── chrome-extension/         # Chrome/Edge Extension (Manifest v3)
-│       ├── manifest.json
-│       ├── service-worker.js
-│       ├── content-script.js
-│       ├── popup.html / popup.js
-│       └── block.html            # Block warning page
+│   └── chrome-extension/         # Chrome / Edge Extension (Manifest V3)
+│       ├── manifest.json         # Extension configuration
+│       ├── service-worker.js     # Background service worker
+│       ├── content-script.js     # Page interaction script
+│       ├── popup.html
+│       ├── popup.js              # Extension popup UI logic
+│       └── block.html            # Page displayed when a site is blocked
 │
-├── assets/                       # Banners, screenshots, diagrams
+├── docs-site/                    # Docusaurus documentation website
+│   ├── docs/                     # Technical documentation pages
+│   ├── src/                      # Custom UI components & styles
+│   ├── static/                   # Static assets
+│   └── docusaurus.config.js
+│
+├── assets/                       # Visual assets for README/docs
 │   ├── banner.jpg
-│   ├── images/
-│   └── diagrams/
+│   ├── screenshots/              # UI screenshots
+│   ├── diagrams/                 # Architecture / CI-CD diagrams
+│   └── images/                   # Logos and other images
 │
-├── .github/                      # GitHub workflows & templates
-│   ├── workflows/                # CI/CD pipelines
-│   ├── ISSUE_TEMPLATE/
-│   └── PULL_REQUEST_TEMPLATE.md
+├── .github/                      # GitHub configuration
+│   ├── workflows/                # GitHub Actions CI/CD pipelines
+│   ├── ISSUE_TEMPLATE/           # Issue templates
+│   └── PULL_REQUEST_TEMPLATE.md  # Pull request template
 │
-├── docs/                         # (Optional) Technical documentation
+├── docker-compose.yml            # Local development environment (API + AI + Web)
 │
-├── CONTRIBUTING.md
-├── CODE_OF_CONDUCT.md
-├── SECURITY.md
-├── SUPPORT.md
-├── LICENSE
-└── README.md
+├── CONTRIBUTING.md               # Contribution guidelines
+├── CODE_OF_CONDUCT.md            # Community rules
+├── SECURITY.md                   # Security policy
+├── SUPPORT.md                    # Support information
+├── LICENSE                       # MIT license
+└── README.md                     # Project overview
 ```
 
 ---
@@ -207,6 +245,7 @@ ChildSafeNet/
 ## Getting Started
 
 ### 🧰 Prerequisites
+
 - .NET SDK **8.0**
 - Node.js **18+**
 - Python **3.10–3.12**
@@ -223,27 +262,34 @@ cd ChildSafeNet
 # Start all services (API + AI Service + Web Dashboard)
 docker-compose up -d --build
 ```
+
 Once everything is up (may take a few minutes for the first build):
+
 - **Web Dashboard**: http://localhost:5173
 - **API Swagger**: http://localhost:7047/swagger
 - **FastAPI Docs/Health**: http://localhost:8000/docs or http://localhost:8000/health
 - **Database**: SQL Server will be initialized automatically via migrations
-**To stop:**
+  **To stop:**
+
 ```bash
 docker-compose down
 ```
 
 ### Manual Setup (Without Docker)
+
 ### 1) Backend (.NET API)
+
 ```bash
 cd src/api
 dotnet restore
 dotnet ef database update
 dotnet run
 ```
+
 - Swagger UI: `https://localhost:7047/swagger` (or your actual port)
 
 ### 2) AI Service (FastAPI)
+
 ```bash
 cd src/ai-service
 python -m venv .venv
@@ -255,22 +301,27 @@ python -m venv .venv
 pip install -r requirements.txt
 python -m uvicorn app:app --host 0.0.0.0 --port 8000
 ```
+
 - Health check: `http://localhost:8000/health`
 
-> **Model files** should be placed in `src/ai-service/model/`  
-> - `childsafenet_rf.pkl`  
-> - `childsafenet_pipeline.joblib`  
+> **Model files** should be placed in `src/ai-service/model/`
+>
+> - `childsafenet_rf.pkl`
+> - `childsafenet_pipeline.joblib`
 > - `label_encoder.pkl` (if used)
 
 ### 3) Frontend (React)
+
 ```bash
 cd src/web
 npm install
 npm run dev
 ```
+
 - Web app: `http://localhost:5173`
 
 ### 4) Chrome Extension (unpacked)
+
 1. Open `chrome://extensions` (or `edge://extensions` for Edge)
 2. Enable **Developer mode**
 3. Click **Load unpacked** → select folder `src/chrome-extension`
@@ -281,17 +332,20 @@ npm run dev
 ## Demo Flow
 
 ### A) Web Scan
+
 1. Login as Parent
 2. Go to **Scan** page, enter URL → receive ALLOW/WARN/BLOCK result
 3. View history in **Dashboard** → Scan Logs
 
 ### B) Extension Pair + Auto Scan
+
 1. Login as Parent on web
 2. Dashboard → “Connect Extension” (pair token)
 3. Open any tab → extension automatically calls `/api/scan`
 4. If BLOCK → redirects to custom `block.html` page
 
 ### C) Option Periodic Training
+
 1. New URLs → added to **UrlDataset (Pending)**
 2. Admin → **AdminDataset** → approve/reject
 3. Admin → **AdminTrainJobs** → trigger train job (background)
@@ -302,16 +356,19 @@ npm run dev
 ## Environment Variables
 
 ### API (`src/api/appsettings.json`)
+
 - `ConnectionStrings:Default`
 - `Jwt:Key`, `Jwt:Issuer`, `Jwt:Audience`
 - `AiService:BaseUrl` (vd: `http://localhost:8000`)
 
 ### Web (`src/web/.env`)
+
 ```env
 VITE_API_BASE=https://localhost:7047
 ```
 
 ### Extension
+
 - Receives pairing token from web via message, saves to chrome.storage
 
 ---
@@ -324,6 +381,7 @@ VITE_API_BASE=https://localhost:7047
 - **CD (optional):** build images + publish artifacts
 
 ### CI/CD Pipeline
+
 1. Developer pushes code to GitHub
 2. GitHub Actions triggers CI pipeline
 3. Build & Test (API + Web)
@@ -342,6 +400,7 @@ VITE_API_BASE=https://localhost:7047
 ---
 
 ## Future Improvements
+
 - Real-time model drift detection
 - Federated learning approach
 - Multi-language URL content analysis
@@ -351,6 +410,7 @@ VITE_API_BASE=https://localhost:7047
 ---
 
 ## Contributing
+
 - Please see: **[CONTRIBUTING.md](./CONTRIBUTING.md)**
 - Code of Conduct: **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)**
 - Report bugs / suggest features: `.github/ISSUE_TEMPLATE/*`
@@ -358,20 +418,23 @@ VITE_API_BASE=https://localhost:7047
 ---
 
 ## Security
+
 Please read **[SECURITY.md](./SECURITY.md)** and **do not** report security vulnerabilities publicly in issues.
 
 ---
 
 ## License
+
 MIT License — see the **[LICENSE](./LICENSE)** file for details.
 
 ---
 
 ### Credits
 
-**Team:** TKT Team  
+**Team:** TKT Team
 
 **Contributors:**
+
 - Nguyen Tri Bao Thang
 - Le Trung Kien
 - Vo Thanh Trung
