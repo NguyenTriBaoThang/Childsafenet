@@ -72,17 +72,33 @@
 
 ## Screenshots
 
-<p align="center">
-  <img src="./assets/screenshots/dashboard.jpg" width="31%" />
-  <img src="./assets/screenshots/admin.jpg" width="31%" />
-  <img src="./assets/screenshots/extension.jpg" width="31%" />
-</p>
+<table align="center">
+<tr>
+<td align="center" width="33%">
 
-<p align="center">
-  <b>Web Dashboard</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <b>Admin Dataset Review</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <b>Chrome Extension</b>
-</p>
+<img src="./assets/screenshots/dashboard.jpg" width="100%"/>
+
+<b>Web Dashboard</b>
+
+</td>
+
+<td align="center" width="33%">
+
+<img src="./assets/screenshots/admin.jpg" width="100%"/>
+
+<b>Admin Dataset Review</b>
+
+</td>
+
+<td align="center" width="33%">
+
+<img src="./assets/screenshots/extension.jpg" width="100%"/>
+
+<b>Chrome Extension</b>
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -104,7 +120,7 @@ This creates a semi-automated moderation loop instead of static blacklists.
 
 ## Features
 
-### 👪 Parent (Phụ huynh)
+### 👪 Parents
 
 - **Scan URL** (Web) + view **Scan Logs**
 - **Settings (/settings)**
