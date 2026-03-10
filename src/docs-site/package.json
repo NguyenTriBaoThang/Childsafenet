@@ -7,7 +7,8 @@
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "cross-env GIT_USER=NguyenTriBaoThang docusaurus deploy",
-    "clear": "docusaurus clear"
+    "clear": "docusaurus clear",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
