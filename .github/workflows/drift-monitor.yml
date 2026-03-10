@@ -1,8 +1,11 @@
 name: drift-monitor
 
+permissions:
+  contents: read
+
 on:
   schedule:
-    - cron: "0 2 * * 1"   # 02:00 UTC every Monday
+    - cron: "0 2 * * 1"
   workflow_dispatch:
 
 jobs:
@@ -10,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v4
         with:
           python-version: "3.11"
 
