@@ -11,7 +11,7 @@ type AuthState = {
   role: Role | null;
   isAuthed: boolean;
 
-  login: (payload: LoginRequest) => Promise<void>;
+  login: (payload: LoginRequest) => Promise<Role | null>;
 
   setToken: (t: string | null) => void;
   logout: () => void;
