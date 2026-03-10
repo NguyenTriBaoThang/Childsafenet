@@ -1,73 +1,206 @@
-# React + TypeScript + Vite
+# ChildSafeNet Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This directory contains the **web dashboard interface** for the ChildSafeNet platform.
 
-Currently, two official plugins are available:
+The frontend provides a **parent control panel** where users can scan URLs, view browsing activity, configure protection rules, and connect the browser extension.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The application is built with **React + TypeScript + Vite** and communicates with the **ChildSafeNet ASP.NET Core API**.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Tech Stack
 
-## Expanding the ESLint configuration
+- **React 18**
+- **TypeScript**
+- **Vite**
+- **Axios**
+- **React Router**
+- **Modern CSS**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+The ChildSafeNet dashboard provides several key features.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### URL Scan
+
+Parents can manually scan a website to check whether it is safe.
+
+The system sends the URL to the backend API which uses the AI model to classify the site.
+
+Possible results include:
+
+- **Allow**
+- **Warn**
+- **Block**
+
+---
+
+### Scan History
+
+The dashboard stores scan logs so parents can review browsing activity.
+
+This helps monitor which sites have been checked or flagged.
+
+---
+
+### Parental Settings
+
+Parents can configure protection policies.
+
+Settings include:
+
+- **Child Age (1–18)**
+
+- **Protection Mode**
+  - Strict
+  - Balanced
+  - Relaxed
+
+- **Protection Toggles**
+  - Block Adult content
+  - Block Gambling
+  - Block Phishing
+  - Warn suspicious websites
+
+---
+
+### Domain Rules
+
+Parents can override the AI decision by defining domain rules.
+
+**Allowlist**
+
+- Always allow selected domains
+
+**Blocklist**
+
+- Always block selected domains
+
+---
+
+### Browser Extension Integration
+
+The dashboard can pair with the **ChildSafeNet Chrome Extension**.
+
+Once connected:
+
+- The extension automatically scans visited websites
+- Protection rules from the dashboard are applied
+- Unsafe sites can be blocked or warned in real time
+
+---
+
+# Project Structure
+
+```
+Childsafenet.Frontend/
+│
+├── dist/                # Production build output
+├── image/               # UI images and assets
+├── public/              # Static public files
+│
+├── src/
+│   │
+│   ├── api/             # Axios API client & backend requests
+│   ├── assets/          # Frontend assets
+│   ├── auth/            # Authentication logic
+│   ├── components/      # Reusable UI components
+│   ├── extension/       # Extension communication logic
+│   ├── pages/           # Main application pages
+│   ├── styles/          # Global styles and CSS
+│   ├── utils/           # Helper utilities
+│   │
+│   ├── App.tsx          # Main React application component
+│   └── main.tsx         # Application entry point
+│
+├── Dockerfile           # Docker container configuration
+├── eslint.config.js     # ESLint configuration
+├── index.html           # Root HTML file
+├── package.json         # Project dependencies
+├── tsconfig.json        # TypeScript configuration
+└── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# Running the Frontend Locally
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Install dependencies:
+
+```bash
+npm install
 ```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+The application will run at:
+
+```
+http://localhost:5173
+```
+
+The frontend communicates with the **ChildSafeNet API backend**.
+
+---
+
+# Environment Configuration
+
+Create a `.env` file in the project root:
+
+```
+VITE_API_BASE=https://localhost:7047
+```
+
+This variable defines the API base URL used for backend requests.
+
+---
+
+# Production Build
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+The optimized build will be generated in:
+
+```
+/dist
+```
+
+---
+
+# Docker (Optional)
+
+The frontend can also be built and served using Docker.
+
+Example:
+
+```bash
+docker build -t childsafenet-frontend .
+docker run -p 5173:80 childsafenet-frontend
+```
+
+---
+
+# Integration with ChildSafeNet Platform
+
+This frontend is one component of the full ChildSafeNet system.
+
+The platform includes:
+
+- **ASP.NET Core API** — backend service
+- **FastAPI AI Service** — machine learning inference
+- **Chrome Extension** — real-time browsing protection
+- **Docusaurus Docs** — technical documentation
+
+---
+
+Built with ❤️ to create a safer internet experience for children.
