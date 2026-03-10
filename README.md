@@ -26,7 +26,7 @@
 </p>
 
 <p align="center">
-  <a href="http://180.93.2.24:5173/"><strong>Explore the Websites »</strong></a>
+  <a href="http://180.93.2.24:5173/"><strong>Explore the Website »</strong></a>
   <br/><br/>
   <a href="./.github/ISSUE_TEMPLATE/bug_report.md">🐛 Report Bug</a>
   |
