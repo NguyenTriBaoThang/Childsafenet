@@ -19,6 +19,7 @@ If you need help, please follow the steps below.
 Please use the **Bug Report** issue template.
 
 Include:
+
 - Steps to reproduce
 - Expected behavior
 - Logs (if available)
@@ -40,6 +41,7 @@ Instead, email:
 security@yourdomain.com
 
 Include:
+
 - Description
 - Reproduction steps
 - Impact assessment
@@ -49,6 +51,7 @@ Include:
 ## 🤝 Community Support
 
 You may:
+
 - Open a GitHub Discussion
 - Open a draft issue for technical questions
 
