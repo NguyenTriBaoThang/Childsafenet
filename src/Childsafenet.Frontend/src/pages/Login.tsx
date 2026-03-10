@@ -23,7 +23,7 @@ export default function Login() {
     setLoading(true);
     try {
       await auth.login({ email, password });
-      const role = auth.role;
+      const role = await auth.login({ email, password });
       if (role === "admin") nav("/admin/dataset");
       else nav("/dashboard");
     } catch (ex: any) {
@@ -37,11 +37,17 @@ export default function Login() {
     <div className="page">
       <div className="card" style={{ maxWidth: 520, margin: "0 auto" }}>
         <h1>Đăng nhập</h1>
-        <p className="muted">Dùng tài khoản phụ huynh để xem dashboard & lịch sử quét.</p>
+        <p className="muted">
+          Dùng tài khoản phụ huynh để xem dashboard & lịch sử quét.
+        </p>
 
         <form onSubmit={onSubmit}>
           <label className="muted">Email</label>
-          <input className="input" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            className="input"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
           <label className="muted" style={{ marginTop: 12 }}>
             Password
@@ -53,7 +59,12 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button className="btn" type="submit" disabled={loading} style={{ marginTop: 14, width: "100%" }}>
+          <button
+            className="btn"
+            type="submit"
+            disabled={loading}
+            style={{ marginTop: 14, width: "100%" }}
+          >
             {loading ? "Đang đăng nhập..." : "Đăng nhập"}
           </button>
 

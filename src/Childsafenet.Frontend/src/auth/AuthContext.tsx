@@ -20,7 +20,9 @@ type AuthState = {
 const AuthContext = createContext<AuthState | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [token, setTokenState] = useState<string | null>(() => localStorage.getItem("csn_token"));
+  const [token, setTokenState] = useState<string | null>(() =>
+    localStorage.getItem("csn_token"),
+  );
   const [role, setRole] = useState<Role | null>(() => {
     const t = localStorage.getItem("csn_token");
     return t ? (getRoleFromToken(t) as Role | null) : null;
@@ -41,9 +43,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => setToken(null);
 
   const login = async (payload: LoginRequest) => {
-    const res = await loginApi(payload); // { token, role? }
+    const res = await loginApi(payload);
     if (!res?.token) throw new Error("Missing token from server");
+
     setToken(res.token);
+
+    const role = getRoleFromToken(res.token) as Role | null;
+    return role;
   };
 
   useEffect(() => {
@@ -60,7 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setToken,
       logout,
     }),
-    [token, role]
+    [token, role],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
