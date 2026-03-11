@@ -35,31 +35,40 @@ public class DatasetController : ControllerBase
         return Ok(items);
     }
 
+    public record BulkDatasetRequest(List<Guid> Ids);
+
     [HttpPost("approve")]
-    public async Task<IActionResult> Approve([FromBody] ApproveDatasetRequest req, CancellationToken ct)
+    public async Task<IActionResult> Approve([FromBody] BulkDatasetRequest req, CancellationToken ct)
     {
         var uid = UserId();
-        var item = await _db.UrlDatasets.FirstOrDefaultAsync(x => x.Id == req.Id, ct);
-        if (item is null) return NotFound();
+        var items = await _db.UrlDatasets.Where(x => req.Ids.Contains(x.Id)).ToListAsync(ct);
+        if (!items.Any()) return NotFound();
 
-        item.FinalLabel = req.FinalLabel.Trim().ToLower();
-        item.Status = "Verified";
-        item.VerifiedByUserId = uid;
-        item.VerifiedAt = DateTime.UtcNow;
+        foreach (var item in items)
+        {
+            item.FinalLabel = item.PredictedLabel?.ToLower() ?? "benign";
+            item.Status = "Verified";
+            item.VerifiedByUserId = uid;
+            item.VerifiedAt = DateTime.UtcNow;
+        }
 
         await _db.SaveChangesAsync(ct);
-        return Ok(new { ok = true });
+        return Ok(new { ok = true, count = items.Count });
     }
 
     [HttpPost("reject")]
-    public async Task<IActionResult> Reject([FromBody] RejectDatasetRequest req, CancellationToken ct)
+    public async Task<IActionResult> Reject([FromBody] BulkDatasetRequest req, CancellationToken ct)
     {
-        var item = await _db.UrlDatasets.FirstOrDefaultAsync(x => x.Id == req.Id, ct);
-        if (item is null) return NotFound();
+        var items = await _db.UrlDatasets.Where(x => req.Ids.Contains(x.Id)).ToListAsync(ct);
+        if (!items.Any()) return NotFound();
 
-        item.Status = "Rejected";
+        foreach (var item in items)
+        {
+            item.Status = "Rejected";
+        }
+
         await _db.SaveChangesAsync(ct);
-        return Ok(new { ok = true });
+        return Ok(new { ok = true, count = items.Count });
     }
 
     [HttpGet("export")]
