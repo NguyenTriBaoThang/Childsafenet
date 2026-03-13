@@ -579,3 +579,100 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monosp
   background: rgba(245, 158, 11, 0.12);
   border-color: rgba(245, 158, 11, 0.28);
 }
+
+/* ===== Parent-friendly Scan page ===== */
+
+.csnScanHero {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.csnScanTitle {
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.csnScanDomain {
+  color: #a5b4fc;
+  margin-top: 6px;
+  word-break: break-word;
+}
+
+.csnScanInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.csnScanInfoItem {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.csnScanInfoLabel {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.csnScanInfoValue {
+  color: var(--text);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.csnScanExplain {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.csnScanExplainTitle {
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.csnScanExplainText {
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.csnScanBullets {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.csnScanMiniDetails {
+  border-top: 1px dashed rgba(255, 255, 255, 0.12);
+  padding-top: 12px;
+}
+
+.csnScanMiniTitle {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.csnScanMiniGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .csnScanInfoGrid,
+  .csnScanMiniGrid {
+    grid-template-columns: 1fr;
+  }
+}
