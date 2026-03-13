@@ -421,7 +421,7 @@ export default function Dashboard() {
     <div className="page">
       <div className="pageHeader">
         <div>
-          <h1>Bảng điều khiển</h1>
+          <h1>Parent Dashboard</h1>
           <p className="muted">
             • Theo dõi hoạt động truy cập và kiểm soát website theo thời gian thực
           </p>

@@ -676,3 +676,206 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monosp
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Parent-friendly Settings ===== */
+
+.csnParentSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 900px) {
+  .csnParentSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+.csnParentSectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.csnParentAgeRow {
+  margin-top: 14px;
+  max-width: 140px;
+}
+
+.csnParentHint {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.csnModeCards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+@media (max-width: 900px) {
+  .csnModeCards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.csnModeCard {
+  text-align: left;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.csnModeCard:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.csnModeCard.active {
+  border-color: rgba(109, 40, 217, 0.55);
+  box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.18) inset;
+  background: rgba(109, 40, 217, 0.12);
+}
+
+.csnModeCardTitle {
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+
+.csnModeCardSub {
+  color: #a5b4fc;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.csnModeCardDesc {
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.csnParentRulesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+@media (max-width: 900px) {
+  .csnParentRulesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.csnParentRuleCard {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  align-items: flex-start;
+}
+
+.csnParentRuleCard input {
+  margin-top: 4px;
+  transform: scale(1.15);
+}
+
+.csnParentRuleTitle {
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.csnParentTextarea {
+  width: 100%;
+  border-radius: 14px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.22);
+  color: #fff;
+  outline: none;
+  resize: vertical;
+  margin-top: 12px;
+}
+
+.csnParentTextarea:focus {
+  border-color: rgba(109, 40, 217, 0.55);
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.16);
+}
+
+.csnParentSmallNote {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.csnParentSummaryTitle {
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.csnParentSummaryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .csnParentSummaryGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .csnParentSummaryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.csnParentSummaryItem {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.csnParentSummaryLabel {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.csnParentSummaryValue {
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.csnParentBottomActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.csnParentNotice {
+  color: #e6edf7;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  border-radius: 14px;
+  line-height: 1.5;
+}

@@ -258,7 +258,7 @@ export default function Scan() {
     <div className="stack">
       <div className="rowBetween">
         <div>
-          <h2 className="h2">Kiểm tra độ an toàn của website</h2>
+          <h2 className="h2">Scan the website for security risks</h2>
           <div className="muted">
             Phụ huynh có thể nhập một website để xem mức độ an toàn, nội dung trang
             web, lý do cho phép hoặc chặn, và quản lý chặn thủ công.
