@@ -10,7 +10,7 @@
   // ✅ Có thể siết origin nếu bạn muốn
   const ALLOWED_ORIGINS = new Set([
     "http://localhost:5173",
-    "http://127.0.0.1:5173",
+    "http://127.0.0.1:5173", // Thêm địa chỉ IP của bạn
     // add domain production nếu có:
     // "https://your-domain.com",
   ]);
@@ -189,6 +189,49 @@
     } else {
       // Không spam lỗi, web sẽ tự ping lại
       // postToWeb({ type: "CSN_EXT_HELLO", ok: false, message: resp?.error || "PING failed" });
+    }
+  })();
+
+  // ============ Auto Scan & Block Current Page ============
+  // Extension cần tự động scan mỗi khi tải trang để chặn nếu có nguy hiểm
+  (async () => {
+    // Bỏ qua nếu origin là trang Web Dashboard (không tự block chính web quản lý)
+    if (isAllowedOrigin(window.location.origin)) return;
+
+    // Bỏ qua nếu là extension origin
+    if (window.location.protocol === "chrome-extension:") return;
+
+    const href = window.location.href;
+    console.log("[ChildSafeNet] Đang quét giao diện: ", href); // DEBUG log
+
+    const resp = await safeSendMessage({ type: "CSN_SCAN", url: href }, { timeoutMs: 5000, retries: 1 });
+
+    console.log("[ChildSafeNet] Kết quả quét API từ Background: ", resp); // DEBUG log
+
+    if (resp?.ok && resp.result) {
+      const result = resp.result;
+
+      // Mặc định lấy action === "BLOCK" hoặc action === "WARN" (tuỳ bạn) hoặc riskLevel === "HIGH"
+      // Note: Nếu API trả về riskLevel: "api_error" (không có token), mình cũng in log ra
+      if (result.label === "api_error" || result.meta?.reason === "no_token") {
+        console.warn("[ChildSafeNet] Không thể quét vì API lỗi hoặc Extension chưa được Pair Token trên Dashboard. Chi tiết:", result);
+      }
+
+      // API C# backend trả về JSON property là `risk_level` thay vì `riskLevel`. Mình sẽ check cả 2.
+      const isHighRisk = (result.riskLevel === "HIGH" || result.risk_level === "HIGH");
+
+      if (result.action === "BLOCK" || isHighRisk) {
+        console.warn("[ChildSafeNet] Phát hiện trang độc hại - TIẾN HÀNH BLOCK NGAY!");
+        const riskVal = result.riskLevel || result.risk_level || "HIGH";
+        const extUrl = chrome.runtime.getURL(
+          `block.html?url=${encodeURIComponent(href)}&label=${encodeURIComponent(result.label || "unsafe")}&risk=${encodeURIComponent(riskVal)}&score=${result.score || 0}`
+        );
+        window.location.replace(extUrl); // Đổi href thành replace để chặn nút Back
+      } else {
+        console.log("[ChildSafeNet] Trang an toàn, cho phép truy cập.");
+      }
+    } else {
+      console.error("[ChildSafeNet] Lỗi khi gửi lệnh quét hoặc API timeout:", resp);
     }
   })();
 })();
