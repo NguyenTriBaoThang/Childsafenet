@@ -40,7 +40,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     Dashboard
                   </NavLink>
                   <NavLink to="/scan" className={linkClass}>
-                    Scan
+                    Manual Scan
+                  </NavLink>
+                  <NavLink to="/assistant" className={linkClass}>
+                    Assistant
                   </NavLink>
                   <NavLink to="/settings" className={linkClass}>
                     Settings

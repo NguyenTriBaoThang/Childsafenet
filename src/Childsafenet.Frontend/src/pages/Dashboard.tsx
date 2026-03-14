@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import {
   getLogsApi,
@@ -128,6 +129,7 @@ function riskText(riskLevel: string) {
 
 export default function Dashboard() {
   const { role } = useAuth();
+  const navigate = useNavigate();
 
   const [extReady, setExtReady] = useState(false);
   const [extEnabled, setExtEnabled] = useState<boolean | null>(null);
@@ -311,6 +313,20 @@ export default function Dashboard() {
     window.open(EXTENSION_DOWNLOAD_URL, "_blank");
   };
 
+  const askAiAboutSite = (row: LogItem) => {
+    const params = new URLSearchParams({
+      url: row.url,
+      q:
+        row.action === "BLOCK"
+          ? "Tại sao website này bị chặn?"
+          : row.action === "WARN"
+            ? "Website này có phù hợp với trẻ em không?"
+            : "Website này có an toàn cho trẻ em không?",
+    });
+
+    navigate(`/assistant?${params.toString()}`);
+  };
+
   const filteredLogs = useMemo(() => {
     return logs.filter((x) => {
       const domain = getDomain(x.url);
@@ -421,9 +437,9 @@ export default function Dashboard() {
     <div className="page">
       <div className="pageHeader">
         <div>
-          <h1>Parent Dashboard</h1>
+          <h1>Dashboard</h1>
           <p className="muted">
-            • Theo dõi hoạt động truy cập và kiểm soát website theo thời gian thực
+            Role: <b>{role || "parent"}</b> • Theo dõi hoạt động truy cập và kiểm soát website theo thời gian thực
           </p>
         </div>
       </div>
@@ -433,7 +449,7 @@ export default function Dashboard() {
           <div>
             <h3 style={{ marginBottom: 6 }}>Chrome Extension</h3>
             <div className="muted">
-              Hệ thống sẽ tự động kiểm tra và kết nối Extension khi bạn mở Bảng điều khiển.
+              Hệ thống sẽ tự động kiểm tra và kết nối Extension khi bạn mở Dashboard.
             </div>
           </div>
 
@@ -468,9 +484,6 @@ export default function Dashboard() {
         </div>
 
         <div className="csnOpenUrlRow">
-          <div className="muted">
-              Nhập URL để mở kiểm tra bằng Extension:
-          </div>
           <Input
             value={testUrl}
             onChange={(e: any) => setTestUrl(e.target.value)}
@@ -597,6 +610,7 @@ export default function Dashboard() {
                 <th>Source</th>
                 <th>Time</th>
                 <th>View</th>
+                <th>Ask AI</th>
                 <th>Block</th>
               </tr>
             </thead>
@@ -657,6 +671,12 @@ export default function Dashboard() {
                     </td>
 
                     <td>
+                      <Button variant="ghost" onClick={() => askAiAboutSite(x)}>
+                        Ask AI
+                      </Button>
+                    </td>
+
+                    <td>
                       <label className={`csnBlockToggle ${rowSaving ? "disabled" : ""}`}>
                         <input
                           type="checkbox"
@@ -676,7 +696,7 @@ export default function Dashboard() {
 
               {!loading && filteredLogs.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="muted" style={{ padding: 16 }}>
+                  <td colSpan={8} className="muted" style={{ padding: 16 }}>
                     Không có log phù hợp với bộ lọc hiện tại.
                   </td>
                 </tr>

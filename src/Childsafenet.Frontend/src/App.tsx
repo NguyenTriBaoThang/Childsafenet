@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import Assistant from "./pages/Assistant";
 import Scan from "./pages/Scan";
 import Settings from "./pages/Settings";
 
@@ -54,6 +55,8 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route path="/assistant" element={<Assistant />} />
 
         {/* Admin only */}
         <Route

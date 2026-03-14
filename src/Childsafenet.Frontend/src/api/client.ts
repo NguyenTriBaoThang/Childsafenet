@@ -73,6 +73,25 @@ export type SettingsResponse = {
 
 export type UpdateSettingsRequest = SettingsResponse;
 
+
+export type AssistantChatRequest = {
+  message: string;
+  url?: string;
+  childAge?: number;
+};
+
+export type AssistantAnswerBlock = {
+  conclusion?: string;
+  reasons?: string[];
+  recommendation?: string;
+};
+
+export type AssistantChatResponse = {
+  summary: string;
+  blocks: AssistantAnswerBlock;
+  context?: Record<string, any>;
+};
+
 export async function loginApi(payload: LoginRequest) {
   const res = await http.post<AuthResponse>("/api/auth/login", payload);
   return res.data;
@@ -134,4 +153,9 @@ export async function getSettingsApi() {
 export async function updateSettingsApi(payload: UpdateSettingsRequest) {
   const res = await http.put<SettingsResponse>("/api/settings", payload);
   return res.data;
+}
+
+export async function assistantChatApi(payload: AssistantChatRequest) {
+  const { data } = await http.post<AssistantChatResponse>("/api/assistant/chat", payload);
+  return data;
 }

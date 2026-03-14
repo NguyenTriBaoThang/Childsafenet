@@ -2086,3 +2086,185 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monosp
 .csnPipelineStep.error .csnPipelineContent {
   border-color: rgba(239, 68, 68, 0.25);
 }
+
+/* ===== Parent Safety Assistant ===== */
+
+.csnAssistantLayout {
+  display: grid;
+  grid-template-columns: 380px minmax(0, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 1100px) {
+  .csnAssistantLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.csnAssistantFormGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.csnAssistantSuggestBox {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.csnAssistantSuggestTitle {
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.csnAssistantChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.csnAssistantChip {
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.18s ease;
+}
+
+.csnAssistantChip:hover {
+  background: rgba(109, 40, 217, 0.12);
+  border-color: rgba(109, 40, 217, 0.30);
+}
+
+.csnAssistantChatCard {
+  min-height: 700px;
+  display: flex;
+  flex-direction: column;
+}
+
+.csnAssistantChatHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.csnAssistantMessages {
+  flex: 1;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 4px 2px 12px;
+}
+
+.csnAssistantMsg {
+  border-radius: 18px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+}
+
+.csnAssistantMsg.user {
+  background: rgba(109, 40, 217, 0.10);
+  border-color: rgba(109, 40, 217, 0.20);
+}
+
+.csnAssistantMsg.assistant {
+  background: rgba(255,255,255,0.04);
+}
+
+.csnAssistantMsgTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.csnAssistantMsgRole {
+  font-weight: 800;
+}
+
+.csnAssistantMsgTime {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.csnAssistantMsgText {
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.csnAssistantAnswerBlocks {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.csnAssistantAnswerCard {
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.csnAssistantAnswerLabel {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.csnAssistantAnswerValue {
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.csnAssistantList {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.65;
+}
+
+.csnAssistantTyping {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.csnAssistantComposer {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.csnAssistantComposerActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.csnLogsTable th:nth-child(6),
+.csnLogsTable td:nth-child(6) {
+  width: 96px;
+}
+
+.csnLogsTable th:nth-child(7),
+.csnLogsTable td:nth-child(7) {
+  width: 110px;
+}
+
+.csnLogsTable th:nth-child(8),
+.csnLogsTable td:nth-child(8) {
+  width: 150px;
+}
