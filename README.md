@@ -449,6 +449,9 @@ MIT License — see the **[LICENSE](./LICENSE)** file for details.
 
 **Team:** TKT Team
 
+**Instructor**:
+- ThS. Nguyễn Trần Minh Hồng Phước
+  
 **Contributors:**
 
 - Nguyen Tri Bao Thang
