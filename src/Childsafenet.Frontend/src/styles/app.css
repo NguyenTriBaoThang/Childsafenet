@@ -1767,3 +1767,322 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monosp
     font-size: 22px;
   }
 }
+
+/* ===== Admin Dataset Review ===== */
+
+.csnDatasetAdminLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.85fr);
+  gap: 14px;
+}
+
+@media (max-width: 1100px) {
+  .csnDatasetAdminLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.csnDatasetToolbar {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.3fr) minmax(180px, 0.7fr) minmax(160px, 0.6fr);
+  gap: 10px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .csnDatasetToolbar {
+    grid-template-columns: 1fr;
+  }
+}
+
+.csnDatasetStats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.csnDatasetStatBox {
+  min-width: 160px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+}
+
+.csnDatasetStatValue {
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.csnDatasetTable {
+  min-width: 920px;
+}
+
+.csnDatasetRowActive {
+  background: rgba(109, 40, 217, 0.10);
+}
+
+.csnDatasetSiteTitle {
+  font-weight: 800;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.csnDatasetSiteUrl {
+  color: #a5b4fc;
+  font-size: 12px;
+  margin-top: 4px;
+  word-break: break-all;
+}
+
+.csnDatasetSiteSummary {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 6px;
+}
+
+.csnDatasetDetailCard {
+  min-height: 100%;
+}
+
+.csnDatasetDetailHeader {
+  margin-bottom: 12px;
+}
+
+.csnDatasetDetailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 720px) {
+  .csnDatasetDetailGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.csnDatasetDetailBlock {
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.csnDatasetDetailLabel {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.csnDatasetDetailValue {
+  color: var(--text);
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.csnDatasetDecisionHelp {
+  border-radius: 14px;
+  border: 1px solid rgba(245, 158, 11, 0.22);
+  background: rgba(245, 158, 11, 0.08);
+  padding: 14px;
+}
+
+.csnDatasetDecisionTitle {
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.csnDatasetPageMeta {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.csnDatasetTable th:nth-child(3),
+.csnDatasetTable td:nth-child(3) {
+  width: 110px;
+}
+
+/* ===== Train Timeline Pipeline ===== */
+
+.csnTrainTimelineLayout {
+  display: grid;
+  grid-template-columns: minmax(340px, 0.9fr) minmax(0, 1.1fr);
+  gap: 14px;
+}
+
+@media (max-width: 1100px) {
+  .csnTrainTimelineLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.csnTrainListHeader {
+  margin-bottom: 12px;
+}
+
+.csnTrainJobList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.csnTrainJobItem {
+  width: 100%;
+  text-align: left;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.csnTrainJobItem:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.csnTrainJobItem.active {
+  border-color: rgba(109, 40, 217, 0.45);
+  background: rgba(109, 40, 217, 0.10);
+  box-shadow: 0 0 0 1px rgba(109, 40, 217, 0.18) inset;
+}
+
+.csnTrainJobItemTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.csnTrainJobVersion {
+  font-weight: 800;
+  color: #c4b5fd;
+}
+
+.csnTrainJobMeta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.csnTrainJobNote {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 13px;
+}
+
+.csnTrainPipelineCard {
+  min-height: 100%;
+}
+
+.csnPipelineHeader {
+  margin-bottom: 6px;
+}
+
+.csnPipelineTitle {
+  font-size: 18px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.csnPipelineTimeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 8px;
+}
+
+.csnPipelineStep {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.csnPipelineDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  margin-top: 2px;
+  border: 2px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 0 6px rgba(255,255,255,0.02);
+}
+
+.csnPipelineContent {
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.csnPipelineStepTitle {
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.csnPipelineStepText {
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.csnPipelineStepMeta {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.csnPipelineLine {
+  width: 2px;
+  height: 26px;
+  background: rgba(255,255,255,0.10);
+  margin-left: 7px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.csnPipelineStep.done .csnPipelineDot {
+  background: rgba(34, 197, 94, 0.9);
+  border-color: rgba(34, 197, 94, 0.8);
+  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.12);
+}
+
+.csnPipelineStep.current .csnPipelineDot {
+  background: rgba(245, 158, 11, 0.95);
+  border-color: rgba(245, 158, 11, 0.85);
+  box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.12);
+}
+
+.csnPipelineStep.error .csnPipelineDot {
+  background: rgba(239, 68, 68, 0.95);
+  border-color: rgba(239, 68, 68, 0.85);
+  box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.12);
+}
+
+.csnPipelineStep.done .csnPipelineContent {
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.csnPipelineStep.current .csnPipelineContent {
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.csnPipelineStep.error .csnPipelineContent {
+  border-color: rgba(239, 68, 68, 0.25);
+}

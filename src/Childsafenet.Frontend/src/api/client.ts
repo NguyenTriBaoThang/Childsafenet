@@ -38,11 +38,12 @@ export type DatasetItem = {
   host?: string;
   predictedLabel?: string;
   predictedScore?: number;
+  predictedAction?: string;
   status?: string;
-  source?: string;
-  firstSeenAt?: string;
-  lastSeenAt?: string;
+  finalLabel?: string | null;
   seenCount?: number;
+  lastSeenAt?: string;
+  source?: string;
 };
 
 export type PendingDatasetResponse = {

@@ -2,7 +2,6 @@
 using System.Text;
 using Childsafenet.Api.Data;
 using Childsafenet.Api.Dtos;
-using Childsafenet.Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,18 +18,63 @@ public class DatasetController : ControllerBase
 
     private Guid UserId() => Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-    [HttpGet("pending")]
-    public async Task<ActionResult<List<DatasetItemDto>>> Pending([FromQuery] int take = 50, CancellationToken ct = default)
+    private static string InferActionFromLabel(string? label)
     {
-        var items = await _db.UrlDatasets
+        var s = (label ?? "").Trim().ToLowerInvariant();
+
+        if (string.IsNullOrWhiteSpace(s)) return "WARN";
+
+        if (s.Contains("adult") ||
+            s.Contains("porn") ||
+            s.Contains("gambling") ||
+            s.Contains("phishing") ||
+            s.Contains("malware") ||
+            s.Contains("blacklist"))
+        {
+            return "BLOCK";
+        }
+
+        if (s.Contains("suspicious") ||
+            s.Contains("unknown") ||
+            s.Contains("ai_error"))
+        {
+            return "WARN";
+        }
+
+        if (s.Contains("benign") || s.Contains("whitelist"))
+        {
+            return "ALLOW";
+        }
+
+        return "WARN";
+    }
+
+    [HttpGet("pending")]
+    public async Task<ActionResult<List<DatasetItemDto>>> Pending(
+        [FromQuery] int take = 50,
+        CancellationToken ct = default)
+    {
+        var rows = await _db.UrlDatasets
             .Where(x => x.Status == "Pending")
             .OrderByDescending(x => x.LastSeenAt)
             .Take(Math.Clamp(take, 1, 200))
-            .Select(x => new DatasetItemDto(
-                x.Id, x.Url, x.Host, x.PredictedLabel, x.PredictedScore,
-                x.Status, x.FinalLabel, x.SeenCount, x.LastSeenAt, x.Source
-            ))
             .ToListAsync(ct);
+
+        var items = rows
+            .Select(x => new DatasetItemDto(
+                x.Id,
+                x.Url,
+                x.Host,
+                x.PredictedLabel,
+                x.PredictedScore,
+                InferActionFromLabel(x.PredictedLabel),
+                x.Status,
+                x.FinalLabel,
+                x.SeenCount,
+                x.LastSeenAt,
+                x.Source
+            ))
+            .ToList();
 
         return Ok(items);
     }
@@ -91,6 +135,10 @@ public class DatasetController : ControllerBase
         }
 
         var bytes = Encoding.UTF8.GetBytes(sb.ToString());
-        return File(bytes, "text/csv; charset=utf-8", $"childsafenet_verified_{DateTime.UtcNow:yyyyMMdd_HHmm}.csv");
+        return File(
+            bytes,
+            "text/csv; charset=utf-8",
+            $"childsafenet_verified_{DateTime.UtcNow:yyyyMMdd_HHmm}.csv"
+        );
     }
 }
